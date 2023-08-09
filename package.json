@@ -1,0 +1,17 @@
+{
+  "name": "firefly",
+  "version": "1.0.0",
+  "description": "1. start neopixels: \"sudo python neopixels.py\" 2. run the server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "yogspace",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "http": "^0.0.1-security",
+    "path": "^0.12.7",
+    "socket.io": "^4.7.1"
+  }
+}
