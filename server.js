@@ -132,6 +132,7 @@ const pixelMatrix = [
 const width = 32;
 const height = 16;
 
+//Pixelmatrix
 ioPixels.on('connection', (client) => {
   console.log('new connection\n');
   let d = {
@@ -139,15 +140,22 @@ ioPixels.on('connection', (client) => {
     g: 15,
     b: 1,
   };
+
   ioPixels.emit('setColorCanvas', JSON.stringify(d));
-  ioPixels.emit('chat message', 'test');
 
   client.on('event', (data) => {
+    //wenn Daten reinkommen
     /* … */
   });
   client.on('disconnect', () => {
     /* … */
   });
+});
+
+//Express
+ioExpress.on('connection', (socket) => {
+  //ioExpress.emit('chat message', 'test');
+  console.log('a user connected');
 });
 
 function sayHi(io) {
