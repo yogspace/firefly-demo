@@ -10,15 +10,32 @@ const ioExpress = new Server(expressServer);
 const socketServerPixels = http.createServer();
 const ioPixels = new Server(socketServerPixels);
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-
-//app.use(express.static(path.join(__dirname, "public")));
-
 //const expressServer = http.createServer(app);
+
+socketServerPixels.listen(3000);
+
+app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/public/phone/index.html');
+});
+app.get('/matrix', (req, res) => {
+  console.log(__dirname);
+  res.sendFile(__dirname + '/public/matrix/index.html');
+});
+app.get('/interface', (req, res) => {
+  res.sendFile(__dirname + '/public/interface/index.html');
+});
+
 expressServer.listen(3001, () => {
   console.log('express running on http://localhost:3001');
 });
+/**
+//app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+//app.use(express.static(path.join(__dirname, "public")));
+
 
 //phone
 app.get('/', (req, res) => {
@@ -50,7 +67,6 @@ app.get('/interface', (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.sendFile(p);
 });
-/**
 
 */
 
@@ -154,7 +170,7 @@ ioPixels.on('connection', (client) => {
 
 //Express
 ioExpress.on('connection', (socket) => {
-  //ioExpress.emit('chat message', 'test');
+  ioExpress.emit('chat message', 'test');
   console.log('a user connected');
 });
 
@@ -265,4 +281,3 @@ function sayHi(io) {
     x++;
   }, 100);
 }
-socketServerPixels.listen(3000);
