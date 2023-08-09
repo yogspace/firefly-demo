@@ -4,17 +4,18 @@ const path = require('path');
 const { Server } = require('socket.io');
 
 const app = express();
-const express = http.createServer(app);
+const expressServer = http.createServer(app);
+const ioExpress = new Server(expressServer);
 
 const socketServerPixels = http.createServer();
-const io = new Server(socketServerPixels);
+const ioPixels = new Server(socketServerPixels);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 //app.use(express.static(path.join(__dirname, "public")));
 
-const expressServer = http.createServer(app);
+//const expressServer = http.createServer(app);
 expressServer.listen(3001, () => {
   console.log('express running on http://localhost:3001');
 });
@@ -131,15 +132,15 @@ const pixelMatrix = [
 const width = 32;
 const height = 16;
 
-io.on('connection', (client) => {
+ioPixels.on('connection', (client) => {
   console.log('new connection\n');
   let d = {
     r: 125,
     g: 15,
     b: 1,
   };
-  io.emit('setColorCanvas', JSON.stringify(d));
-  io.emit('chat message', 'test');
+  ioPixels.emit('setColorCanvas', JSON.stringify(d));
+  ioPixels.emit('chat message', 'test');
 
   client.on('event', (data) => {
     /* … */
@@ -150,7 +151,7 @@ io.on('connection', (client) => {
 });
 
 function sayHi(io) {
-  io.emit('clear', 'clear');
+  ioPixels.emit('clear', 'clear');
 
   let x = 0;
   let arr = [];
@@ -249,8 +250,8 @@ function sayHi(io) {
       },
     };
     arr.push(d);
-    io.emit('clear', 'clear');
-    io.emit('setColorCanvasArray', JSON.stringify(arr));
+    ioPixels.emit('clear', 'clear');
+    ioPixels.emit('setColorCanvasArray', JSON.stringify(arr));
 
     arr = [];
     x++;
