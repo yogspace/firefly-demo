@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 
 const app = express();
-const socketServer = http.createServer();
+const socketServer = http.createServer(app);
 const io = require('socket.io')(socketServer);
 
 app.use(express.json());
