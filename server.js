@@ -1,10 +1,13 @@
 const http = require('http');
 const express = require('express');
 const path = require('path');
+const { Server } = require('socket.io');
 
 const app = express();
-const socketServer = http.createServer(app);
-const io = require('socket.io')(socketServer);
+const express = http.createServer(app);
+
+const socketServerPixels = http.createServer();
+const io = new Server(socketServerPixels);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -253,4 +256,4 @@ function sayHi(io) {
     x++;
   }, 100);
 }
-socketServer.listen(3000);
+socketServerPixels.listen(3000);
