@@ -143,15 +143,22 @@ function getPixels() {
     // let row = [];
     for (let posX = 0; posX < 32; posX++) {
       //let pixel = getAveragePixelColor(posX, posY);
+      let r = get(posX, posY)[0];
+      let g = get(posX, posY)[1];
+      let b = get(posX, posY)[2];
+
       let pixel = {
         id: pixelMatrix[posY][posX],
         color: {
-          r: get(posX, posY)[0],
-          g: get(posX, posY)[1],
-          b: get(posX, posY)[2],
+          r: r,
+          g: g,
+          b: b,
         },
       };
-      pixels.push(pixel);
+
+      if (r + g + b !== 0) {
+        pixels.push(pixel);
+      }
       // row.push(pixel);
       console.log(pixel);
     }
