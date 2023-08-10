@@ -40,6 +40,7 @@ def setColorCanvasArray(data):
     print(data)
     data = json.loads(data)
     print('message received with ', data)
+    pixels.fill((0, 0, 0))
     for pixel in data:
         #print(pixel["id"]);
         #pixels.fill((0, 0, 0))
