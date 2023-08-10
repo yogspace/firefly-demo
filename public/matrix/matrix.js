@@ -99,7 +99,7 @@ const num_pixels_y = 16;
 const scale = sketchWidth / num_pixels_x;
 let x = sketchWidth / 2;
 let y = sketchHeight / 2;
-let speed = 0.1;
+let speed = 0.2;
 // console.log(scale);
 
 // function getAveragePixelColor(x, y) {
