@@ -171,8 +171,11 @@ function getPixels() {
 function draw() {
   clear();
   background(1, 1, 1);
-  fill(250, 30, 2);
-  circle(posX, height / 2, height / 2);
+  fill(120, 25, 2);
+  drawingContext.shadowBlur = 15;
+  drawingContext.shadowColor = color(255, 255, 255);
+  noStroke();
+  circle(posX, height / 2, 2);
   //textSize(12);
   //text('PENIS', width - posX, height / 2 + 5);
 }
