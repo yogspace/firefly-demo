@@ -9,6 +9,7 @@ function setup() {
   sketchHeight = document.getElementById('sketch').offsetHeight;
   let renderer = createCanvas(sketchWidth, sketchHeight);
   renderer.parent('sketch');
+  // frameRate(15);
   //rectMode(CENTER);
 }
 
@@ -99,38 +100,38 @@ const scale = sketchWidth / num_pixels_x;
 let posX = 0;
 // console.log(scale);
 
-function getAveragePixelColor(x, y) {
-  let rArr = [];
-  let gArr = [];
-  let bArr = [];
+// function getAveragePixelColor(x, y) {
+//   let rArr = [];
+//   let gArr = [];
+//   let bArr = [];
 
-  for (let posX = 0; posX < 32; posX++) {
-    for (let posY = 0; posY < 16; posY++) {
-      rArr.push(get(posX + x, posY + y)[0]);
-      gArr.push(get(posX + x, posY + y)[1]);
-      bArr.push(get(posX + x, posY + y)[2]);
-      console.log(posY);
-    }
-  }
+//   for (let posX = 0; posX < 32; posX++) {
+//     for (let posY = 0; posY < 16; posY++) {
+//       rArr.push(get(posX + x, posY + y)[0]);
+//       gArr.push(get(posX + x, posY + y)[1]);
+//       bArr.push(get(posX + x, posY + y)[2]);
+//       console.log(posY);
+//     }
+//   }
 
-  let rSum = rArr.reduce((a, b) => a + b, 0);
-  let rAverage = rSum / rArr.length || 0;
+//   let rSum = rArr.reduce((a, b) => a + b, 0);
+//   let rAverage = rSum / rArr.length || 0;
 
-  let gSum = gArr.reduce((a, b) => a + b, 0);
-  let gAverage = gSum / gArr.length || 0;
+//   let gSum = gArr.reduce((a, b) => a + b, 0);
+//   let gAverage = gSum / gArr.length || 0;
 
-  let bSum = bArr.reduce((a, b) => a + b, 0);
-  let bAverage = bSum / bArr.length || 0;
+//   let bSum = bArr.reduce((a, b) => a + b, 0);
+//   let bAverage = bSum / bArr.length || 0;
 
-  averageColor = {
-    r: Math.round(rAverage),
-    g: Math.round(gAverage),
-    b: Math.round(bAverage),
-  };
+//   averageColor = {
+//     r: Math.round(rAverage),
+//     g: Math.round(gAverage),
+//     b: Math.round(bAverage),
+//   };
 
-  console.log(scale, averageColor, rArr.length);
-  return averageColor;
-}
+//   console.log(scale, averageColor, rArr.length);
+//   return averageColor;
+// }
 
 function getPixels() {
   let pixels = [];
@@ -150,15 +151,13 @@ function getPixels() {
       };
       pixels.push(pixel);
       // row.push(pixel);
-      //console.log(pixel);
+      console.log(pixel);
     }
     // pixels.push(row);
   }
-  console.log(pixels);
+  //console.log(pixels);
   socket.emit('pixelMatrix', pixels);
 }
-
-//socket.emit('chat message', 'hi');
 
 function draw() {
   clear();
@@ -168,10 +167,12 @@ function draw() {
   drawingContext.shadowColor = color(120, 2, 2);
   noStroke();
   circle(posX, height / 2, 2);
-  posX++;
+  posX = posX + 0.1;
+  // console.log(posX);
   if (posX > width + height / 2) {
     posX = 0;
   }
+  // frameRate(fr);
   //textSize(12);
   //text('PENIS', width - posX, height / 2 + 5);
 }
