@@ -140,7 +140,7 @@ function getPixels() {
   for (let posY = 0; posY < 16; posY++) {
     //console.log(posY);
     // let row = [];
-    for (let posX = 0; posX < 16; posX++) {
+    for (let posX = 0; posX < 32; posX++) {
       //let pixel = getAveragePixelColor(posX, posY);
       let pixel = {
         id: pixelMatrix[posY][posX],
