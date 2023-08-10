@@ -101,6 +101,9 @@ class Firefly {
     this.x = x;
     this.y = y;
     this.speed = speed;
+    this.moving = false;
+    this.targetX = x; // Start with the current position as target
+    this.targetY = y;
   }
 
   display() {
@@ -112,10 +115,24 @@ class Firefly {
   }
 
   move() {
-    this.x = this.x + random(-this.speed, this.speed);
-    this.y = this.y + random(-this.speed, this.speed);
-    if (this.x > sketchWidth) {
-      this.x = 0;
+    if (!this.moving) {
+      this.targetX = Math.round(random(0, width));
+      this.targetY = Math.round(random(0, height));
+      this.moving = true;
+    }
+
+    const dx = this.targetX - this.x;
+    const dy = this.targetY - this.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+
+    if (distance > this.speed) {
+      const angle = Math.atan2(dy, dx);
+      this.x += this.speed * Math.cos(angle);
+      this.y += this.speed * Math.sin(angle);
+    } else {
+      this.x = this.targetX;
+      this.y = this.targetY;
+      this.moving = false; // Reached the target, reset moving flag
     }
   }
 }
