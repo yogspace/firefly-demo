@@ -161,6 +161,9 @@ function getPixels() {
   socket.emit('pixelMatrix', pixels);
 
   posX++;
+  if (posX > width) {
+    posX = 0;
+  }
 }
 
 //socket.emit('chat message', 'hi');
