@@ -97,10 +97,7 @@ const pixelMatrix = [
 const num_pixels_x = 32;
 const num_pixels_y = 16;
 const scale = sketchWidth / num_pixels_x;
-const speed = 0.1;
-let x = 0;
-let y = height / 2;
-
+let posX = 0;
 // console.log(scale);
 
 // function getAveragePixelColor(x, y) {
@@ -169,18 +166,18 @@ function draw() {
   drawingContext.shadowBlur = 15;
   drawingContext.shadowColor = color(120, 2, 2);
   noStroke();
-  circle(x, height / 2, 2);
-  x = x + speed;
+  circle(posX, height / 2, 2);
+  posX = posX + 0.1;
   // console.log(posX);
-  if (x > width + height / 2) {
-    x = 0;
+  if (posX > width + height / 2) {
+    posX = 0;
   }
   // frameRate(fr);
   //textSize(12);
   //text('PENIS', width - posX, height / 2 + 5);
 }
 
-setInterval(getPixels, 200);
+setInterval(getPixels, 100);
 
 function mouseClicked() {
   // console.log(x);
