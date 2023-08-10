@@ -27,7 +27,9 @@ app.get('/interface', (req, res) => {
 });
 
 expressServer.listen(3001, () => {
-  console.log('express running on http://localhost:3001');
+  console.log('headless browser is on route http://localhost:3001/matrix');
+  console.log('display interface is on route http://localhost:3001/interface');
+  console.log('phone interface is on route http://localhost:3001/');
 });
 
 const pixelMatrix = [
@@ -111,13 +113,13 @@ const height = 16;
 //Pixelmatrix
 ioPixels.on('connection', (client) => {
   console.log('new connection\n');
-  let d = {
-    r: 125,
-    g: 15,
-    b: 1,
-  };
+  // let d = {
+  //   r: 125,
+  //   g: 15,
+  //   b: 1,
+  // };
 
-  ioPixels.emit('setColorCanvas', JSON.stringify(d));
+  //ioPixels.emit('setColorCanvas', JSON.stringify(d));
 
   client.on('event', (data) => {
     //wenn Daten reinkommen
@@ -130,10 +132,12 @@ ioPixels.on('connection', (client) => {
 
 //Express
 ioExpress.on('connection', (socket) => {
-  ioExpress.emit('chat message', 'test');
-  console.log('a user connected');
-  socket.on('msg', (d) => {
-    console.log(d);
+  //ioExpress.emit('chat message', 'test');
+  //console.log('a user connected');
+
+  socket.on('pixelMatrix', (pixels) => {
+    console.log(pixels);
+    ioPixels.emit('setColorCanvasArray', JSON.stringify(pixels));
   });
 });
 

@@ -1,6 +1,6 @@
 html {
   height: 100%;
-  background-color: #000;
+  background-color: #fff;
 }
 body {
   margin: 0px;
@@ -13,6 +13,8 @@ main {
 }
 
 #sketch {
-  width: 640px;
-  height: 320px;
+  /* width: 96px;
+  height: 48px; */
+  width: 32px;
+  height: 16px;
 }
