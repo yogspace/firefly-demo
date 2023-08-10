@@ -101,8 +101,9 @@ class Firefly {
     this.x = x;
     this.y = y;
     this.speed = speed;
+    this.radius = 1; // Radius des Firefly-Punkts
     this.moving = false;
-    this.targetX = x; // Start with the current position as target
+    this.targetX = x;
     this.targetY = y;
   }
 
@@ -111,7 +112,14 @@ class Firefly {
     drawingContext.shadowBlur = 15;
     drawingContext.shadowColor = color(255, 255, 255, 190);
     noStroke();
-    circle(this.x, this.y, 2);
+    circle(this.x, this.y, this.radius * 2);
+
+    // Wenn der Punkt auf der Grenze ist, zeichne ihn auf der gegenüberliegenden Seite
+    if (this.x - this.radius < 0) {
+      circle(this.x + width, this.y, this.radius * 2);
+    } else if (this.x + this.radius > width) {
+      circle(this.x - width, this.y, this.radius * 2);
+    }
   }
 
   move() {
@@ -127,12 +135,32 @@ class Firefly {
 
     if (distance > this.speed) {
       const angle = Math.atan2(dy, dx);
-      this.x += this.speed * Math.cos(angle);
+      const newX = this.x + this.speed * Math.cos(angle);
+
+      // Check if crossing the boundary is faster
+      if (this.shouldCrossBoundary(newX)) {
+        this.crossBoundary();
+      } else {
+        this.x = newX;
+      }
+
       this.y += this.speed * Math.sin(angle);
     } else {
       this.x = this.targetX;
       this.y = this.targetY;
-      this.moving = false; // Reached the target, reset moving flag
+      this.moving = false;
+    }
+  }
+
+  shouldCrossBoundary(newX) {
+    return newX - this.radius > width || newX + this.radius < 0;
+  }
+
+  crossBoundary() {
+    if (this.x - this.radius > width) {
+      this.x = -this.radius;
+    } else if (this.x + this.radius < 0) {
+      this.x = width + this.radius;
     }
   }
 }
