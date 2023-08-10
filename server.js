@@ -155,6 +155,7 @@ const height = 16;
 //Pixelmatrix
 ioPixels.on('connection', (client) => {
   console.log('new connection\n');
+  ioPixels.emit('clear', 'clear');
 
   client.on('event', (data) => {
     //wenn Daten reinkommen
@@ -167,10 +168,8 @@ ioPixels.on('connection', (client) => {
 
 //Express
 ioExpress.on('connection', (socket) => {
-  ioPixels.emit('clear', 'clear');
-
   socket.on('pixelMatrix', (pixels) => {
-    console.log(pixels);
+    //console.log(pixels);
     ioPixels.emit('setColorCanvasArray', JSON.stringify(pixels));
   });
 });

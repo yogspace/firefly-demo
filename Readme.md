@@ -1,7 +1,8 @@
 # firefly-demo
 
-1. start neopixels: "sudo python neopixels.py"
-2. run the server
+1. get ip adress of the pi "hostname -I"
+2. start the server: "node server.js"
+3. start neopixels: "sudo python neopixels.py"
 
 to-do:
 pixelmatrix
