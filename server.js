@@ -64,7 +64,7 @@ async function createHeadlessBrowser() {
   await page.setDefaultNavigationTimeout(0);
 
   //   await page.setViewport({ width: 1200, height: 720 });
-  await page.goto('https://localhost:3001/matrix', {
+  await page.goto('http://localhost:3001/matrix', {
     // waitUntil: 'networkidle0',
     waitUntil: 'load',
     // Remove the timeout
