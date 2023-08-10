@@ -64,6 +64,8 @@ async function createHeadlessBrowser() {
   await page.goto('http://localhost:3001/matrix', {
     waitUntil: 'networkidle0',
   }); // wait until page load
+
+  await page.setDefaultNavigationTimeout(0);
   console.log('opened: http://localhost:3001/matrix headless');
 }
 
