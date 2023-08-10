@@ -96,7 +96,8 @@ const pixelMatrix = [
 const num_pixels_x = 32;
 const num_pixels_y = 16;
 const scale = sketchWidth / num_pixels_x;
-console.log(scale);
+let posX = 0;
+// console.log(scale);
 
 function getAveragePixelColor(x, y) {
   let rArr = [];
@@ -158,6 +159,8 @@ function getPixels() {
   }
   console.log(pixels);
   socket.emit('pixelMatrix', pixels);
+
+  posX++;
 }
 
 //socket.emit('chat message', 'hi');
@@ -166,7 +169,7 @@ function draw() {
   clear();
   background(255, 0, 0);
   fill(255, 255, 255);
-  circle(height - height / 4, height / 2, height / 2);
+  circle(posX, height / 2, height / 2);
   //console.log(getAveragePixelColor(mouseX, mouseY));
 }
 
