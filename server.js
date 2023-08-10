@@ -31,36 +31,39 @@ expressServer.listen(3001, () => {
   console.log('headless browser is on route http://localhost:3001/matrix');
   console.log('display interface is on route http://localhost:3001/interface');
   console.log('phone interface is on route http://localhost:3001/');
+  createHeadlessBrowser();
 });
 
-const browser = await puppeteer.launch({
-  headless: true,
-  executablePath: '/usr/bin/chromium-browser',
-  args: [
-    '--no-sandbox',
-    '--disable-setuid-sandbox',
-    '--no-sandbox',
-    '--headless',
-    '--autoplay-policy=no-user-gesture-required',
-    '--no-first-run',
-    '--disable-gpu',
-    '--use-fake-ui-for-media-stream',
-    '--use-fake-device-for-media-stream',
-    '--disable-sync',
-    '--remote-debugging-port=9222',
-  ],
-});
-const page = await browser.newPage();
+async function createHeadlessBrowser() {
+  const browser = await puppeteer.launch({
+    headless: true,
+    executablePath: '/usr/bin/chromium-browser',
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--no-sandbox',
+      '--headless',
+      '--autoplay-policy=no-user-gesture-required',
+      '--no-first-run',
+      '--disable-gpu',
+      '--use-fake-ui-for-media-stream',
+      '--use-fake-device-for-media-stream',
+      '--disable-sync',
+      '--remote-debugging-port=9222',
+    ],
+  });
+  const page = await browser.newPage();
 
-console.log('browser has been openend.');
-await page.setViewport({
-  width: 700,
-  height: 700,
-  deviceScaleFactor: 1,
-});
-//   await page.setViewport({ width: 1200, height: 720 });
-await page.goto('http://localhost:3001/', { waitUntil: 'networkidle0' }); // wait until page load
-console.log('opened: http://localhost:3001/ headless');
+  console.log('browser has been openend.');
+  await page.setViewport({
+    width: 700,
+    height: 700,
+    deviceScaleFactor: 1,
+  });
+  //   await page.setViewport({ width: 1200, height: 720 });
+  await page.goto('http://localhost:3001/', { waitUntil: 'networkidle0' }); // wait until page load
+  console.log('opened: http://localhost:3001/ headless');
+}
 
 const pixelMatrix = [
   [
