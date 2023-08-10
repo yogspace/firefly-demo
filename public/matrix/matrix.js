@@ -161,7 +161,7 @@ function getPixels() {
   socket.emit('pixelMatrix', pixels);
 
   posX++;
-  if (posX > width) {
+  if (posX > 2 * width) {
     posX = 0;
   }
 }
