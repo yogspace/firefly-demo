@@ -45,8 +45,8 @@ def setColorCanvasArray(data):
         #pixels.fill((100, 30, 0))
         pixels[pixel['id']] = (pixel['color']['r'], pixel['color']['g'], pixel['color']['b'])
     pixels.show()
-    pixels.fill((0, 0, 0))
-    pixels.show()
+    # pixels.fill((0, 0, 0))
+    # pixels.show()
 
         #sio.emit('my response', {'response': 'my response'})
 

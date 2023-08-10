@@ -98,14 +98,16 @@ const num_pixels_y = 16;
 const scale = sketchWidth / num_pixels_x;
 let posX = 0;
 
+let posXLast = 0;
+
 function drawPoint() {
+  let r = 1;
   let posY = height / 2;
-  let r = height / 2;
+  let posYLast = height / 2;
 
   fill(255, 255, 255);
   noStroke();
-  circle(posX, posY, 20);
-  console.log(posY);
+  circle(posX, posY, r);
 
   let pixel = {
     id: pixelMatrix[posY / scale][posX / scale],
@@ -115,9 +117,23 @@ function drawPoint() {
       b: get(posX, posY)[2],
     },
   };
-  socket.emit('pixelMatrix', [pixel]);
 
-  posX++;
+  socket.emit('pixelMatrix', pixel);
+
+  pixel = {
+    id: pixelMatrix[posYLast / scale][posXLast / scale],
+    color: {
+      r: get(posXLast, posYLast)[0],
+      g: get(posXLast, posYLast)[1],
+      b: get(posXLast, posYLast)[2],
+    },
+  };
+
+  socket.emit('pixelMatrix', pixel);
+  posXLast = posX;
+  posYLast = posY;
+
+  posX = posX + 1;
   if (posX >= sketchWidth) {
     posX = 0;
   }
