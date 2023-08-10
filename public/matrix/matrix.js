@@ -170,7 +170,7 @@ function getPixels() {
 
 function draw() {
   clear();
-  background(10, 10, 10);
+  background(1, 1, 1);
   fill(255, 255, 255);
   //circle(posX, height / 2, height / 2);
   textSize(10);
