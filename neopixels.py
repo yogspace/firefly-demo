@@ -37,6 +37,7 @@ def setColorCanvas(data):
 
 @sio.event
 def setColorCanvasArray(data):
+    print(data)
     data = json.loads(data)
     print('message received with ', data)
     for pixel in data:
