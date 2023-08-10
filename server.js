@@ -60,12 +60,17 @@ async function createHeadlessBrowser() {
     height: 700,
     deviceScaleFactor: 1,
   });
-  //   await page.setViewport({ width: 1200, height: 720 });
-  await page.goto('http://localhost:3001/matrix', {
-    waitUntil: 'networkidle0',
-  }); // wait until page load
 
   await page.setDefaultNavigationTimeout(0);
+
+  //   await page.setViewport({ width: 1200, height: 720 });
+  await page.goto('http://localhost:3001/matrix', {
+    // waitUntil: 'networkidle0',
+    waitUntil: 'load',
+    // Remove the timeout
+    timeout: 0,
+  }); // wait until page load
+
   console.log('opened: http://localhost:3001/matrix headless');
 }
 
