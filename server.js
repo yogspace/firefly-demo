@@ -143,7 +143,7 @@ ioExpress.on('connection', (socket) => {
 
     // JSON.parse(pixels);
     console.log(pixels);
-    ioPixels.emit('setColorCanvasArray', pixels);
+    ioPixels.emit('setColorCanvasArray', JSON.stringify(pixels));
   });
 });
 
