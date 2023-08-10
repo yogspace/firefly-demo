@@ -202,9 +202,10 @@ fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.1));
 //   return averageColor;
 // }
 // let lastPixels = [];
+let lastPixelMatrix = null;
+
 function getPixels() {
   let pixels = [];
-  let changedPixels = []; // Array, um geänderte Pixel zu verfolgen
 
   for (let posY = 0; posY < 16; posY++) {
     for (let posX = 0; posX < 32; posX++) {
@@ -214,10 +215,7 @@ function getPixels() {
 
       let id = pixelMatrix[posY][posX];
 
-      // Überprüfen, ob die Farbe sich geändert hat
-      let changed = hasColorChanged(id, r, g, b);
-
-      if (changed) {
+      if (lastPixelMatrix && hasColorChanged(posX, posY, r, g, b)) {
         let pixel = {
           id: id,
           color: {
@@ -226,50 +224,55 @@ function getPixels() {
             b: b,
           },
         };
-
         pixels.push(pixel);
-        markPixelChanged(id, r, g, b); // Markiere den Pixel als geändert
       }
     }
   }
 
-  socket.emit('updatePixels', pixels);
+  socket.emit('pixelMatrix', pixels);
+
+  lastPixelMatrix = createPixelMatrix(); // Aktualisiere das letzte Pixel-Array
 }
 
-// Überprüfen, ob ein Pixel seine Farbe geändert hat
-function hasColorChanged(id, r, g, b) {
-  for (let i = 0; i < changedPixels.length; i++) {
-    if (changedPixels[i].id === id) {
-      return (
-        changedPixels[i].color.r !== r ||
-        changedPixels[i].color.g !== g ||
-        changedPixels[i].color.b !== b
-      );
-    }
+function hasColorChanged(x, y, r, g, b) {
+  if (!lastPixelMatrix) {
+    return true;
   }
-  return true;
+
+  const lastPixel = lastPixelMatrix[y][x];
+  return (
+    lastPixel.color.r !== r ||
+    lastPixel.color.g !== g ||
+    lastPixel.color.b !== b
+  );
 }
 
-// Einen Pixel als geändert markieren
-function markPixelChanged(id, r, g, b) {
-  for (let i = 0; i < changedPixels.length; i++) {
-    if (changedPixels[i].id === id) {
-      changedPixels[i].color.r = r;
-      changedPixels[i].color.g = g;
-      changedPixels[i].color.b = b;
-      return;
+function createPixelMatrix() {
+  let matrix = [];
+  for (let posY = 0; posY < 16; posY++) {
+    let row = [];
+    for (let posX = 0; posX < 32; posX++) {
+      let r = get(posX, posY)[0];
+      let g = get(posX, posY)[1];
+      let b = get(posX, posY)[2];
+
+      let id = pixelMatrix[posY][posX];
+
+      let pixel = {
+        id: id,
+        color: {
+          r: r,
+          g: g,
+          b: b,
+        },
+      };
+
+      row.push(pixel);
     }
+    matrix.push(row);
   }
-  changedPixels.push({
-    id: id,
-    color: {
-      r: r,
-      g: g,
-      b: b,
-    },
-  });
+  return matrix;
 }
-// lastPixels = pixels;
 
 function drawFireflies() {
   for (let i = 0; i < fireflies.length; i++) {
