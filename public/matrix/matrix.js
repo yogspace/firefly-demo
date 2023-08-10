@@ -133,9 +133,6 @@ function getAveragePixelColor(x, y) {
 }
 
 function getPixels() {
-  /* 
-    socket.emit('matrixPixels', pixels);
-   */
   let pixels = [];
 
   for (let posY = 0; posY < 16; posY++) {
@@ -159,11 +156,6 @@ function getPixels() {
   }
   console.log(pixels);
   socket.emit('pixelMatrix', pixels);
-
-  posX++;
-  if (posX > width + height / 2) {
-    posX = 0;
-  }
 }
 
 //socket.emit('chat message', 'hi');
@@ -176,6 +168,10 @@ function draw() {
   drawingContext.shadowColor = color(120, 2, 2);
   noStroke();
   circle(posX, height / 2, 2);
+  posX++;
+  if (posX > width + height / 2) {
+    posX = 0;
+  }
   //textSize(12);
   //text('PENIS', width - posX, height / 2 + 5);
 }
