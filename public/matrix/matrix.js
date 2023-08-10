@@ -134,7 +134,7 @@ let speed = 0.4;
 //   console.log(scale, averageColor, rArr.length);
 //   return averageColor;
 // }
-
+let lastPixels = [];
 function getPixels() {
   let pixels = [];
 
@@ -146,6 +146,13 @@ function getPixels() {
       let r = get(posX, posY)[0];
       let g = get(posX, posY)[1];
       let b = get(posX, posY)[2];
+
+      lastPixels.forEach((pixel) => {
+        pixel.color.r = 0;
+        pixel.color.g = 0;
+        pixel.color.b = 0;
+        pixels.push(pixel);
+      });
 
       let pixel = {
         id: pixelMatrix[posY][posX],
@@ -166,6 +173,7 @@ function getPixels() {
   }
   //console.log(pixels);
   socket.emit('pixelMatrix', pixels);
+  lastPixels = pixels;
 }
 
 function draw() {
