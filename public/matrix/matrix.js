@@ -105,7 +105,7 @@ function drawPoint() {
   let posY = height / 2;
   let posYLast = height / 2;
 
-  fill(255, 255, 255);
+  fill(125, 15, 1);
   noStroke();
   circle(posX, posY, r);
 
