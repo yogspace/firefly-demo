@@ -1,3 +1,4 @@
+const puppeteer = require('puppeteer-core');
 const http = require('http');
 const express = require('express');
 const path = require('path');
@@ -31,6 +32,35 @@ expressServer.listen(3001, () => {
   console.log('display interface is on route http://localhost:3001/interface');
   console.log('phone interface is on route http://localhost:3001/');
 });
+
+const browser = await puppeteer.launch({
+  headless: true,
+  executablePath: '/usr/bin/chromium-browser',
+  args: [
+    '--no-sandbox',
+    '--disable-setuid-sandbox',
+    '--no-sandbox',
+    '--headless',
+    '--autoplay-policy=no-user-gesture-required',
+    '--no-first-run',
+    '--disable-gpu',
+    '--use-fake-ui-for-media-stream',
+    '--use-fake-device-for-media-stream',
+    '--disable-sync',
+    '--remote-debugging-port=9222',
+  ],
+});
+const page = await browser.newPage();
+
+console.log('browser has been openend.');
+await page.setViewport({
+  width: 700,
+  height: 700,
+  deviceScaleFactor: 1,
+});
+//   await page.setViewport({ width: 1200, height: 720 });
+await page.goto('http://localhost:3001/', { waitUntil: 'networkidle0' }); // wait until page load
+console.log('opened: http://localhost:3001/ headless');
 
 const pixelMatrix = [
   [
@@ -113,13 +143,6 @@ const height = 16;
 //Pixelmatrix
 ioPixels.on('connection', (client) => {
   console.log('new connection\n');
-  // let d = {
-  //   r: 125,
-  //   g: 15,
-  //   b: 1,
-  // };
-
-  //ioPixels.emit('setColorCanvas', JSON.stringify(d));
 
   client.on('event', (data) => {
     //wenn Daten reinkommen
@@ -133,13 +156,14 @@ ioPixels.on('connection', (client) => {
 //Express
 ioExpress.on('connection', (socket) => {
   ioPixels.emit('clear', 'clear');
-  // console.log('new connection\n');
-
-  //ioExpress.emit('chat message', 'test');
-  //console.log('a user connected');
 
   socket.on('pixelMatrix', (pixels) => {
     console.log(pixels);
     ioPixels.emit('setColorCanvasArray', JSON.stringify(pixels));
   });
+});
+
+process.on('SIGINT', async () => {
+  await browser.close();
+  process.exit();
 });
