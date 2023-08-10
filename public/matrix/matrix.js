@@ -166,9 +166,9 @@ class Firefly {
 }
 
 let fireflies = [];
-fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.2));
-fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.2));
-fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.2));
+fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.1));
+fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.1));
+fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.1));
 
 // console.log(scale);
 
