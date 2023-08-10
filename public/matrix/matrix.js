@@ -92,9 +92,6 @@ const pixelMatrix = [
 const num_pixels_x = 32;
 const num_pixels_y = 16;
 const scale = sketchWidth / num_pixels_x;
-// let x = sketchWidth / 2;
-// let y = sketchHeight / 2;
-// let speed = 0.2;
 
 class Firefly {
   constructor(x, y, speed) {
@@ -207,43 +204,72 @@ fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.1));
 // let lastPixels = [];
 function getPixels() {
   let pixels = [];
+  let changedPixels = []; // Array, um geänderte Pixel zu verfolgen
 
   for (let posY = 0; posY < 16; posY++) {
     for (let posX = 0; posX < 32; posX++) {
-      //let pixel = getAveragePixelColor(posX, posY);
       let r = get(posX, posY)[0];
       let g = get(posX, posY)[1];
       let b = get(posX, posY)[2];
 
       let id = pixelMatrix[posY][posX];
 
-      // lastPixels.forEach((pixel) => {
-      //   pixel.color.r = 0;
-      //   pixel.color.g = 0;
-      //   pixel.color.b = 0;
-      //   pixels.push(pixel);
-      // });
+      // Überprüfen, ob die Farbe sich geändert hat
+      let changed = hasColorChanged(id, r, g, b);
 
-      let pixel = {
-        id: id,
-        color: {
-          r: r,
-          g: g,
-          b: b,
-        },
-      };
+      if (changed) {
+        let pixel = {
+          id: id,
+          color: {
+            r: r,
+            g: g,
+            b: b,
+          },
+        };
 
-      // if (r + g + b !== 0) {
-      pixels.push(pixel);
-      // }
-      // row.push(pixel);
-      // console.log(pixel);
+        pixels.push(pixel);
+        markPixelChanged(id, r, g, b); // Markiere den Pixel als geändert
+      }
     }
-    // pixels.push(row);
   }
-  socket.emit('pixelMatrix', pixels);
-  // lastPixels = pixels;
+
+  socket.emit('updatePixels', pixels);
 }
+
+// Überprüfen, ob ein Pixel seine Farbe geändert hat
+function hasColorChanged(id, r, g, b) {
+  for (let i = 0; i < changedPixels.length; i++) {
+    if (changedPixels[i].id === id) {
+      return (
+        changedPixels[i].color.r !== r ||
+        changedPixels[i].color.g !== g ||
+        changedPixels[i].color.b !== b
+      );
+    }
+  }
+  return true;
+}
+
+// Einen Pixel als geändert markieren
+function markPixelChanged(id, r, g, b) {
+  for (let i = 0; i < changedPixels.length; i++) {
+    if (changedPixels[i].id === id) {
+      changedPixels[i].color.r = r;
+      changedPixels[i].color.g = g;
+      changedPixels[i].color.b = b;
+      return;
+    }
+  }
+  changedPixels.push({
+    id: id,
+    color: {
+      r: r,
+      g: g,
+      b: b,
+    },
+  });
+}
+// lastPixels = pixels;
 
 function drawFireflies() {
   for (let i = 0; i < fireflies.length; i++) {

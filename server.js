@@ -138,7 +138,7 @@ ioExpress.on('connection', (socket) => {
   //ioExpress.emit('chat message', 'test');
   //console.log('a user connected');
 
-  socket.on('pixelMatrix', (pixels) => {
+  socket.on('updatePixels', (pixels) => {
     console.log(pixels);
     ioPixels.emit('setColorCanvasArray', JSON.stringify(pixels));
   });
