@@ -136,6 +136,7 @@ function getPixels() {
     socket.emit('matrixPixels', pixels);
    */
   let pixels = [];
+
   for (let posY = 0; posY < 16; posY++) {
     //console.log(posY);
     // let row = [];
@@ -156,7 +157,7 @@ function getPixels() {
     // pixels.push(row);
   }
   console.log(pixels);
-  socket.emit('pixelMatrix', JSON.stringify(pixels));
+  socket.emit('pixelMatrix', pixels);
 }
 
 //socket.emit('chat message', 'hi');
