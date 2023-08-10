@@ -171,11 +171,10 @@ function getPixels() {
 function draw() {
   clear();
   background(1, 1, 1);
-  fill(255, 255, 255);
-  //circle(posX, height / 2, height / 2);
-  textSize(12);
-  text('PENIS', width - posX, height / 2 + 5);
-  //console.log(getAveragePixelColor(mouseX, mouseY));
+  fill(250, 30, 2);
+  circle(posX, height / 2, height / 2);
+  //textSize(12);
+  //text('PENIS', width - posX, height / 2 + 5);
 }
 
 setInterval(getPixels, 200);
