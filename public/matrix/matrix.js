@@ -173,7 +173,7 @@ function draw() {
   background(1, 1, 1);
   fill(120, 2, 2);
   drawingContext.shadowBlur = 15;
-  drawingContext.shadowColor = color(255, 255, 255);
+  drawingContext.shadowColor = color(120, 2, 2);
   noStroke();
   circle(posX, height / 2, 2);
   //textSize(12);
