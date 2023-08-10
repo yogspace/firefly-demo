@@ -181,8 +181,8 @@ function draw() {
   // background(10, 6, 1);
   background(15, 3, 0);
   fill(210, 180, 200);
-  //drawingContext.shadowBlur = 15;
-  //drawingContext.shadowColor = color(120, 2, 2);
+  drawingContext.shadowBlur = 15;
+  drawingContext.shadowColor = color(255, 255, 255);
   noStroke();
   circle(x, y, 1);
   // x = x + speed;
