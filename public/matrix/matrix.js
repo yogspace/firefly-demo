@@ -166,7 +166,7 @@ function draw() {
   clear();
   background(255, 0, 0);
   fill(255, 255, 255);
-  circle(height / 4, height / 2, height / 2);
+  circle(height - height / 4, height / 2, height / 2);
   //console.log(getAveragePixelColor(mouseX, mouseY));
 }
 
