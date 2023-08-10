@@ -97,7 +97,10 @@ const pixelMatrix = [
 const num_pixels_x = 32;
 const num_pixels_y = 16;
 const scale = sketchWidth / num_pixels_x;
-let posX = 0;
+const speed = 0.1;
+let x = 0;
+let y = height / 2;
+
 // console.log(scale);
 
 // function getAveragePixelColor(x, y) {
@@ -166,11 +169,11 @@ function draw() {
   drawingContext.shadowBlur = 15;
   drawingContext.shadowColor = color(120, 2, 2);
   noStroke();
-  circle(posX, height / 2, 2);
-  posX = posX + 0.1;
+  circle(x, height / 2, 2);
+  x = x + speed;
   // console.log(posX);
-  if (posX > width + height / 2) {
-    posX = 0;
+  if (x > width + height / 2) {
+    x = 0;
   }
   // frameRate(fr);
   //textSize(12);
