@@ -132,6 +132,8 @@ ioPixels.on('connection', (client) => {
 
 //Express
 ioExpress.on('connection', (socket) => {
+  // console.log('new connection\n');
+
   //ioExpress.emit('chat message', 'test');
   //console.log('a user connected');
 

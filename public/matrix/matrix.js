@@ -155,7 +155,7 @@ function getPixels() {
     pixels.push(row);
   }
   console.log(pixels);
-  socket.emit('matrixPixels', pixels);
+  socket.emit('pixelMatrix', pixels);
 }
 
 //socket.emit('chat message', 'hi');
