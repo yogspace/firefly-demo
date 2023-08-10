@@ -174,7 +174,7 @@ function draw() {
   fill(255, 255, 255);
   //circle(posX, height / 2, height / 2);
   textSize(10);
-  text('fuck you', posX - 32, height / 2 + 5);
+  text('PENIS', posX, height / 2 + 5);
   //console.log(getAveragePixelColor(mouseX, mouseY));
 }
 
