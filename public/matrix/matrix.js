@@ -171,7 +171,6 @@ function getPixels() {
     }
     // pixels.push(row);
   }
-  //console.log(pixels);
   socket.emit('pixelMatrix', pixels);
   // lastPixels = pixels;
 }
@@ -195,7 +194,7 @@ function draw() {
   //text('PENIS', width - posX, height / 2 + 5);
 }
 
-setInterval(getPixels, 50);
+setInterval(getPixels, 100);
 
 function mouseClicked() {
   // console.log(x);
