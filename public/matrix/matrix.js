@@ -170,9 +170,11 @@ function getPixels() {
 
 function draw() {
   clear();
-  background(255, 0, 0);
+  background(10, 10, 10);
   fill(255, 255, 255);
-  circle(posX, height / 2, height / 2);
+  //circle(posX, height / 2, height / 2);
+  textSize(10);
+  text('fuck you', posX - 32, height / 2 + 5);
   //console.log(getAveragePixelColor(mouseX, mouseY));
 }
 
