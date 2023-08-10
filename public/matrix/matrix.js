@@ -171,7 +171,7 @@ function getPixels() {
 function draw() {
   clear();
   background(1, 1, 1);
-  fill(120, 2, 2);
+  fill(120, 30, 2);
   drawingContext.shadowBlur = 15;
   drawingContext.shadowColor = color(120, 2, 2);
   noStroke();
