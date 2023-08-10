@@ -31,7 +31,7 @@ expressServer.listen(3001, () => {
   console.log('headless browser is on route https://localhost:3001/matrix');
   console.log('display interface is on route https://localhost:3001/interface');
   console.log('phone interface is on route https://localhost:3001/');
-  createHeadlessBrowser();
+  // createHeadlessBrowser();
 });
 
 async function createHeadlessBrowser() {
