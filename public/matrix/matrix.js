@@ -180,7 +180,7 @@ function draw() {
   //text('PENIS', width - posX, height / 2 + 5);
 }
 
-setInterval(getPixels, 100);
+setInterval(getPixels, 200);
 
 function mouseClicked() {
   // console.log(x);
