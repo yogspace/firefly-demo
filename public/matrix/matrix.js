@@ -1,6 +1,7 @@
 let sketchWidth = document.getElementById('sketch').offsetWidth;
 let sketchHeight = document.getElementById('sketch').offsetHeight;
 let sketch = document.getElementById('sketch');
+let socket = io();
 
 function preload() {}
 
@@ -12,12 +13,6 @@ function setup() {
   // frameRate(15);
   //rectMode(CENTER);
 }
-
-let socket = io();
-
-// socket.on('chat message', function (msg) {
-//   console.log(msg);
-// });
 
 const pixelMatrix = [
   [
@@ -97,9 +92,39 @@ const pixelMatrix = [
 const num_pixels_x = 32;
 const num_pixels_y = 16;
 const scale = sketchWidth / num_pixels_x;
-let x = sketchWidth / 2;
-let y = sketchHeight / 2;
-let speed = 0.2;
+// let x = sketchWidth / 2;
+// let y = sketchHeight / 2;
+// let speed = 0.2;
+
+class Firefly {
+  constructor(x, y, speed) {
+    this.x = x;
+    this.y = y;
+    this.speed = speed;
+  }
+
+  display() {
+    fill(210, 180, 200);
+    drawingContext.shadowBlur = 15;
+    drawingContext.shadowColor = color(255, 255, 255, 190);
+    noStroke();
+    circle(this.x, this.y, 2);
+  }
+
+  move() {
+    this.x = this.x + random(-this.speed, this.speed);
+    this.y = this.y + random(-this.speed, this.speed);
+    if (this.x > sketchWidth) {
+      this.x = 0;
+    }
+  }
+}
+
+let fireflies = [];
+fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.2));
+fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.2));
+fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.2));
+
 // console.log(scale);
 
 // function getAveragePixelColor(x, y) {
@@ -175,31 +200,18 @@ function getPixels() {
   // lastPixels = pixels;
 }
 
+function drawFireflies() {
+  for (let i = 0; i < fireflies.length; i++) {
+    fireflies[i].display();
+    fireflies[i].move();
+  }
+}
+
 function draw() {
   clear();
   // background(10, 6, 1);
   background(15, 3, 0);
-  fill(210, 180, 200);
-  drawingContext.shadowBlur = 15;
-  drawingContext.shadowColor = color(255, 255, 255, 190);
-  noStroke();
-  circle(x, y, 2);
-  // x = x + speed;
-  x = x + random(-speed, speed);
-  y = y + random(-speed, speed);
-  if (x > width) {
-    x = 0;
-  }
-  //textSize(12);
-  //text('PENIS', width - posX, height / 2 + 5);
+  drawFireflies();
 }
 
 setInterval(getPixels, 100);
-
-function mouseClicked() {
-  // console.log(x);
-  // let c = get(x.layerX, x.layerY);
-  // console.log(c);
-  // getAveragePixelColor(mouseX, mouseY);
-  //getPixels();
-}
