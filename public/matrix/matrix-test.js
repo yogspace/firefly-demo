@@ -2,6 +2,8 @@ let sketchWidth = document.getElementById('sketch').offsetWidth;
 let sketchHeight = document.getElementById('sketch').offsetHeight;
 let sketch = document.getElementById('sketch');
 
+let posXLast = 0;
+
 function preload() {}
 
 function setup() {
@@ -9,7 +11,7 @@ function setup() {
   sketchHeight = document.getElementById('sketch').offsetHeight;
   let renderer = createCanvas(sketchWidth, sketchHeight);
   renderer.parent('sketch');
-  //rectMode(CENTER);
+  rectMode(CENTER);
 }
 
 let socket = io();
@@ -93,82 +95,48 @@ const pixelMatrix = [
   ],
 ];
 
-const num_pixels_x = 32;
-const num_pixels_y = 16;
-const scale = sketchWidth / num_pixels_x;
+function drawPoint() {
+  let r = 1;
 
-function getAveragePixelColor(x, y) {
-  let rArr = [];
-  let gArr = [];
-  let bArr = [];
+  let posYLast = height / 2;
 
-  for (let posX = 0; posX < scale; posX++) {
-    for (let posY = 0; posY < scale; posY++) {
-      rArr.push(get(posX + x, posY + y)[0]);
-      gArr.push(get(posX + x, posY + y)[1]);
-      bArr.push(get(posX + x, posY + y)[2]);
-    }
-  }
+  fill(125, 15, 1);
+  noStroke();
+  circle(posX, posY, r);
 
-  let rSum = rArr.reduce((a, b) => a + b, 0);
-  let rAverage = rSum / rArr.length || 0;
-
-  let gSum = gArr.reduce((a, b) => a + b, 0);
-  let gAverage = gSum / gArr.length || 0;
-
-  let bSum = bArr.reduce((a, b) => a + b, 0);
-  let bAverage = bSum / bArr.length || 0;
-
-  averageColor = {
-    r: Math.round(rAverage),
-    g: Math.round(gAverage),
-    b: Math.round(bAverage),
+  let pixel = {
+    id: pixelMatrix[posY / scale][posX / scale],
+    color: {
+      r: get(posX, posY)[0],
+      g: get(posX, posY)[1],
+      b: get(posX, posY)[2],
+    },
   };
-  return averageColor;
-}
 
-function getPixels() {
-  /* 
-    socket.emit('matrixPixels', pixels);
-   */
-  let pixels = [];
-  for (let posY = 0; posY < sketchHeight; posY = posY + scale) {
-    //console.log(posY);
-    let row = [];
-    for (let posX = 0; posX < sketchWidth; posX = posX + scale) {
-      // pixel = getAveragePixelColor(posX, posY);
-      let pixel = {
-        id: pixelMatrix[posY][posX],
-        color: {
-          r: get(posX, posY)[0],
-          g: get(posX, posY)[1],
-          b: get(posX, posY)[2],
-        },
-      };
-      row.push(pixel);
-      console.log(pixel);
-    }
-    pixels.push(row);
+  socket.emit('pixelMatrix', pixel);
+
+  pixel = {
+    id: pixelMatrix[posYLast / scale][posXLast / scale],
+    color: {
+      r: get(posXLast, posYLast)[0],
+      g: get(posXLast, posYLast)[1],
+      b: get(posXLast, posYLast)[2],
+    },
+  };
+
+  socket.emit('pixelMatrix', pixel);
+  posXLast = posX;
+  posYLast = posY;
+
+  posX = posX + random(-1, 1);
+  posY = posY + random(-1, 1);
+  if (posX >= sketchWidth) {
+    posX = 0;
   }
-  socket.emit('matrixPixels', pixels);
 }
-
-//socket.emit('chat message', 'hi');
 
 function draw() {
   clear();
-  background(255, 0, 0);
-  fill(255, 255, 255);
-  circle(width / 2, height / 2, height / 2);
-  //console.log(getAveragePixelColor(mouseX, mouseY));
-}
-
-function mouseClicked() {
-  getPixels();
-
-  // console.log(x);
-  // let c = get(x.layerX, x.layerY);
-  // console.log(c);
-  //console.log(getAveragePixelColor(mouseX, mouseY));
-  //getPixels();
+  background(0, 0, 0);
+  drawPoint();
 }
