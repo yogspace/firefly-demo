@@ -99,7 +99,7 @@ const num_pixels_y = 16;
 const scale = sketchWidth / num_pixels_x;
 let x = sketchWidth / 2;
 let y = sketchHeight / 2;
-let speed = 0.2;
+let speed = 0.4;
 // console.log(scale);
 
 // function getAveragePixelColor(x, y) {
@@ -163,7 +163,8 @@ function getPixels() {
 
 function draw() {
   clear();
-  background(10, 6, 1);
+  // background(10, 6, 1);
+  background(0, 0, 0);
   fill(255, 215, 0);
   //drawingContext.shadowBlur = 15;
   //drawingContext.shadowColor = color(120, 2, 2);
