@@ -173,7 +173,7 @@ function draw() {
   background(1, 1, 1);
   fill(255, 255, 255);
   //circle(posX, height / 2, height / 2);
-  textSize(10);
+  textSize(12);
   text('PENIS', posX, height / 2 + 5);
   //console.log(getAveragePixelColor(mouseX, mouseY));
 }
