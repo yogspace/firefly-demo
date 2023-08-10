@@ -10,8 +10,6 @@ const ioExpress = new Server(expressServer);
 const socketServerPixels = http.createServer();
 const ioPixels = new Server(socketServerPixels);
 
-//const expressServer = http.createServer(app);
-
 socketServerPixels.listen(3000);
 
 app.use(express.json());
@@ -31,44 +29,6 @@ app.get('/interface', (req, res) => {
 expressServer.listen(3001, () => {
   console.log('express running on http://localhost:3001');
 });
-/**
-//app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-//app.use(express.static(path.join(__dirname, "public")));
-
-
-//phone
-app.get('/', (req, res) => {
-  console.log('sended /phone');
-  //res.send("phone");
-  //res.redirect("/phone");
-  p = path.join(__dirname, 'public/phone/index.html');
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.sendFile(p);
-});
-
-//led-matrix
-app.get('/matrix', (req, res) => {
-  console.log('sended /matrix');
-  //res.send("matrix");
-  //res.sendFile(__dirname + "/matrix/index.html");
-  p = path.join(__dirname, 'public/matrix/index.html');
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.sendFile(p);
-});
-
-//interface
-app.get('/interface', (req, res) => {
-  console.log('sended /interface');
-  //res.send("interface");
-
-  //res.sendFile(__dirname + "/matrix/index.html");
-  p = path.join(__dirname, 'public/interface/index.html');
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.sendFile(p);
-});
-
-*/
 
 const pixelMatrix = [
   [
@@ -172,6 +132,9 @@ ioPixels.on('connection', (client) => {
 ioExpress.on('connection', (socket) => {
   ioExpress.emit('chat message', 'test');
   console.log('a user connected');
+  socket.on('msg', (d) => {
+    console.log(d);
+  });
 });
 
 function sayHi(io) {
