@@ -138,7 +138,7 @@ function getPixels() {
   let pixels = [];
   for (let posY = 0; posY < 16; posY++) {
     //console.log(posY);
-    let row = [];
+    // let row = [];
     for (let posX = 0; posX < 16; posX++) {
       //let pixel = getAveragePixelColor(posX, posY);
       let pixel = {
@@ -149,13 +149,14 @@ function getPixels() {
           b: get(posX, posY)[2],
         },
       };
-      row.push(pixel);
+      pixels.push(pixel);
+      // row.push(pixel);
       //console.log(pixel);
     }
-    pixels.push(row);
+    // pixels.push(row);
   }
   console.log(pixels);
-  socket.emit('pixelMatrix', pixels);
+  socket.emit('pixelMatrix', JSON.stringify(pixels));
 }
 
 //socket.emit('chat message', 'hi');

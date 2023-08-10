@@ -138,8 +138,12 @@ ioExpress.on('connection', (socket) => {
   //console.log('a user connected');
 
   socket.on('pixelMatrix', (pixels) => {
-    console.log(pixels);
-    ioPixels.emit('setColorCanvasArray', JSON.stringify(pixels));
+    // console.log(JSON.parse(pixels))
+    console.log(JSON.parse(pixels));
+
+    // JSON.parse(pixels);
+    // console.log(pixels);
+    ioPixels.emit('setColorCanvasArray', pixels);
   });
 });
 
