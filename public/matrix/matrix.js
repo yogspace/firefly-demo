@@ -105,9 +105,9 @@ class Firefly {
   }
 
   display() {
-    fill(210, 180, 200, 90);
+    fill(210, 180, 200, 20);
     drawingContext.shadowBlur = 15;
-    drawingContext.shadowColor = color(255, 255, 255, 90);
+    drawingContext.shadowColor = color(255, 255, 255, 20);
     noStroke();
     circle(this.x, this.y, this.radius * 2);
 
