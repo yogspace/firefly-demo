@@ -178,7 +178,7 @@ function draw() {
   //console.log(getAveragePixelColor(mouseX, mouseY));
 }
 
-setInterval(getPixels, 10);
+setInterval(getPixels, 20);
 
 function mouseClicked() {
   // console.log(x);
