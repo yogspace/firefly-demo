@@ -174,17 +174,16 @@ function draw() {
   fill(255, 255, 255);
   //circle(posX, height / 2, height / 2);
   textSize(12);
-  text('PENIS', posX, height / 2 + 5);
+  text('PENIS', width - posX, height / 2 + 5);
   //console.log(getAveragePixelColor(mouseX, mouseY));
 }
 
+setInterval(getPixels, 10);
+
 function mouseClicked() {
-  // getPixels();
-  //getPixels();
   // console.log(x);
   // let c = get(x.layerX, x.layerY);
   // console.log(c);
   // getAveragePixelColor(mouseX, mouseY);
-  getPixels();
   //getPixels();
 }
