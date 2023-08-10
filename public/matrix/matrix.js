@@ -163,47 +163,11 @@ class Firefly {
 }
 
 let fireflies = [];
-fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.1));
-fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.1));
-fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.1));
+fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.2));
+fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.2));
+fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.2));
 
-// console.log(scale);
-
-// function getAveragePixelColor(x, y) {
-//   let rArr = [];
-//   let gArr = [];
-//   let bArr = [];
-
-//   for (let posX = 0; posX < 32; posX++) {
-//     for (let posY = 0; posY < 16; posY++) {
-//       rArr.push(get(posX + x, posY + y)[0]);
-//       gArr.push(get(posX + x, posY + y)[1]);
-//       bArr.push(get(posX + x, posY + y)[2]);
-//       console.log(posY);
-//     }
-//   }
-
-//   let rSum = rArr.reduce((a, b) => a + b, 0);
-//   let rAverage = rSum / rArr.length || 0;
-
-//   let gSum = gArr.reduce((a, b) => a + b, 0);
-//   let gAverage = gSum / gArr.length || 0;
-
-//   let bSum = bArr.reduce((a, b) => a + b, 0);
-//   let bAverage = bSum / bArr.length || 0;
-
-//   averageColor = {
-//     r: Math.round(rAverage),
-//     g: Math.round(gAverage),
-//     b: Math.round(bAverage),
-//   };
-
-//   console.log(scale, averageColor, rArr.length);
-//   return averageColor;
-// }
-// let lastPixels = [];
 let lastPixelMatrix = null;
-
 function getPixels() {
   let pixels = [];
 
