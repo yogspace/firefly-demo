@@ -134,28 +134,28 @@ let speed = 0.4;
 //   console.log(scale, averageColor, rArr.length);
 //   return averageColor;
 // }
-let lastPixels = [];
+// let lastPixels = [];
 function getPixels() {
   let pixels = [];
 
   for (let posY = 0; posY < 16; posY++) {
-    //console.log(posY);
-    // let row = [];
     for (let posX = 0; posX < 32; posX++) {
       //let pixel = getAveragePixelColor(posX, posY);
       let r = get(posX, posY)[0];
       let g = get(posX, posY)[1];
       let b = get(posX, posY)[2];
 
-      lastPixels.forEach((pixel) => {
-        pixel.color.r = 0;
-        pixel.color.g = 0;
-        pixel.color.b = 0;
-        pixels.push(pixel);
-      });
+      let id = pixelMatrix[posY][posX];
+
+      // lastPixels.forEach((pixel) => {
+      //   pixel.color.r = 0;
+      //   pixel.color.g = 0;
+      //   pixel.color.b = 0;
+      //   pixels.push(pixel);
+      // });
 
       let pixel = {
-        id: pixelMatrix[posY][posX],
+        id: id,
         color: {
           r: r,
           g: g,
@@ -163,23 +163,23 @@ function getPixels() {
         },
       };
 
-      if (r + g + b !== 0) {
-        pixels.push(pixel);
-      }
+      // if (r + g + b !== 0) {
+      pixels.push(pixel);
+      // }
       // row.push(pixel);
-      console.log(pixel);
+      // console.log(pixel);
     }
     // pixels.push(row);
   }
   //console.log(pixels);
   socket.emit('pixelMatrix', pixels);
-  lastPixels = pixels;
+  // lastPixels = pixels;
 }
 
 function draw() {
   clear();
   // background(10, 6, 1);
-  background(0, 0, 0);
+  background(119, 90, 17);
   fill(255, 215, 0);
   //drawingContext.shadowBlur = 15;
   //drawingContext.shadowColor = color(120, 2, 2);
