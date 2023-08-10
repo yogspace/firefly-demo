@@ -61,8 +61,10 @@ async function createHeadlessBrowser() {
     deviceScaleFactor: 1,
   });
   //   await page.setViewport({ width: 1200, height: 720 });
-  await page.goto('http://localhost:3001/', { waitUntil: 'networkidle0' }); // wait until page load
-  console.log('opened: http://localhost:3001/ headless');
+  await page.goto('http://localhost:3001/matrix', {
+    waitUntil: 'networkidle0',
+  }); // wait until page load
+  console.log('opened: http://localhost:3001/matrix headless');
 }
 
 const pixelMatrix = [
