@@ -99,7 +99,7 @@ const num_pixels_y = 16;
 const scale = sketchWidth / num_pixels_x;
 let x = sketchWidth / 2;
 let y = sketchHeight / 2;
-let speed = 0.4;
+let speed = 0.2;
 // console.log(scale);
 
 // function getAveragePixelColor(x, y) {
@@ -179,8 +179,8 @@ function getPixels() {
 function draw() {
   clear();
   // background(10, 6, 1);
-  background(119, 90, 17);
-  fill(255, 215, 0);
+  background(15, 3, 0);
+  fill(210, 180, 200);
   //drawingContext.shadowBlur = 15;
   //drawingContext.shadowColor = color(120, 2, 2);
   noStroke();
@@ -191,7 +191,6 @@ function draw() {
   if (x > width) {
     x = 0;
   }
-  // frameRate(fr);
   //textSize(12);
   //text('PENIS', width - posX, height / 2 + 5);
 }
