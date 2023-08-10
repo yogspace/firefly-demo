@@ -163,10 +163,10 @@ function getPixels() {
 
 function draw() {
   clear();
-  background(1, 1, 1);
-  fill(200, 40, 5);
-  drawingContext.shadowBlur = 15;
-  drawingContext.shadowColor = color(120, 2, 2);
+  background(, 1, 1);
+  fill(200, 40, 2);
+  //drawingContext.shadowBlur = 15;
+  //drawingContext.shadowColor = color(120, 2, 2);
   noStroke();
   circle(x, y, 1);
   // x = x + speed;
