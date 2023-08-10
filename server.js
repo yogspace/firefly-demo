@@ -1,14 +1,14 @@
 const puppeteer = require('puppeteer-core');
-const https = require('https');
+const http = require('http');
 const express = require('express');
 const path = require('path');
 const { Server } = require('socket.io');
 
 const app = express();
-const expressServer = https.createServer(app);
+const expressServer = http.createServer(app);
 const ioExpress = new Server(expressServer);
 
-const socketServerPixels = https.createServer();
+const socketServerPixels = http.createServer();
 const ioPixels = new Server(socketServerPixels);
 
 socketServerPixels.listen(3000);
@@ -28,9 +28,9 @@ app.get('/interface', (req, res) => {
 });
 
 expressServer.listen(3001, () => {
-  console.log('headless browser is on route https://localhost:3001/matrix');
-  console.log('display interface is on route https://localhost:3001/interface');
-  console.log('phone interface is on route https://localhost:3001/');
+  console.log('headless browser is on route http://localhost:3001/matrix');
+  console.log('display interface is on route http://localhost:3001/interface');
+  console.log('phone interface is on route http://localhost:3001/');
   createHeadlessBrowser();
 });
 
@@ -64,14 +64,14 @@ async function createHeadlessBrowser() {
   await page.setDefaultNavigationTimeout(0);
 
   //   await page.setViewport({ width: 1200, height: 720 });
-  await page.goto('https://localhost:3001/matrix', {
+  await page.goto('http://localhost:3001/matrix', {
     // waitUntil: 'networkidle0',
     waitUntil: 'load',
     // Remove the timeout
     timeout: 0,
   }); // wait until page load
 
-  console.log('opened: https://localhost:3001/matrix headless');
+  console.log('opened: http://localhost:3001/matrix headless');
 }
 
 const pixelMatrix = [
