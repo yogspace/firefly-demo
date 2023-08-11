@@ -258,13 +258,23 @@ let increaseInterval;
 let countdownInterval;
 let countdownValue = 10;
 function startIncrease() {
-  increaseInterval = setInterval(() => {
-    valueToIncrease++;
-    if (valueToIncrease > 10) {
-      valueToIncrease = 10;
-    }
-    bgColor = color(0, 0, valueToIncrease);
-  }, 1000); // Wert alle 1 Sekunde erhöhen
+  if (!increaseInterval) {
+    // Überprüfen, ob increaseInterval bereits aktiv ist
+    increaseInterval = setInterval(() => {
+      valueToIncrease++;
+      if (valueToIncrease > 10) {
+        valueToIncrease = 10;
+      }
+      bgColor = color(0, 0, valueToIncrease);
+    }, 1000); // Wert alle 1 Sekunde erhöhen
+  }
+}
+
+function resetIncrease() {
+  clearInterval(increaseInterval);
+  increaseInterval = null;
+  valueToIncrease = 0;
+  bgColor = color(0, 0, 0); // Setze die Hintergrundfarbe auf Schwarz
 }
 
 function startCountdown() {
@@ -281,7 +291,7 @@ function startCountdown() {
       if (valueToIncrease > 0) {
         handleDataAfterCountdown(); // Hier wird deine Funktion aufgerufen
       }
-      // valueToIncrease = 0; // Wert wieder auf 0 setzen
+      resetIncrease(); // Setze den Wert zurück
       bgColor = color(255, 0, 0);
     }
   }, 1000); // Timer alle 1 Sekunde aktualisieren
