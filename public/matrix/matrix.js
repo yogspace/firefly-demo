@@ -264,7 +264,7 @@ function startIncrease() {
   if (
     !increaseInterval &&
     !newDataReceivedDuringCountdown &&
-    countdownValue > 1
+    countdownValue > 2
   ) {
     increaseInterval = setInterval(() => {
       valueToIncrease++;
