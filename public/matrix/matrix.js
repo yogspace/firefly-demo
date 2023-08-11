@@ -293,6 +293,8 @@ function startCountdown() {
       } else {
         handleNoDataAfterCountdown(); // Funktion für keinen Datenempfang
       }
+      // Reset der Datenempfang-Variable nach dem Countdown
+      newDataReceived = false;
     }
   }, 1000); // Timer alle 1 Sekunde aktualisieren
 }
