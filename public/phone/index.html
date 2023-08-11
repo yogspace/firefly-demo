@@ -11,6 +11,7 @@
   <script>
     let socket = io();
     let lastGyrometerData = null;
+    let tolerance = 0.2;
 
     // Funktion zum Senden der Bewegungsdaten über den Socket
     function sendMovementData(data) {
@@ -59,9 +60,9 @@
 
       // Toleranz von 0.1 prüfen
       if (
-        Math.abs(thresholddData.x - currentData.x) > 0.1 ||
-        Math.abs(thresholddData.y - currentData.y) > 0.1 ||
-        Math.abs(thresholddData.z - currentData.z) > 0.1
+        Math.abs(thresholddData.x - currentData.x) > tolerance ||
+        Math.abs(thresholddData.y - currentData.y) > tolerance ||
+        Math.abs(thresholddData.z - currentData.z) > tolerance
       ) {
         sendMovementData(thresholddData);
       }
