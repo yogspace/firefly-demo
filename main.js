@@ -5,7 +5,6 @@ const http = require('http');
 const express = require('express');
 const path = require('path');
 const { Server } = require('socket.io');
-const publicIp = require('public-ip');
 
 const app = express();
 
@@ -39,10 +38,21 @@ app.get('/interface', (req, res) => {
 expressServer.listen(3001, async () => {
   console.log('display interface is on route https://localhost:3001/interface');
   console.log('phone interface is on route https://localhost:3001/');
-  const ip = await publicIp.v4(); // Erhalte die öffentliche IPv4-Adresse
-  console.log('rpi ip-adress is: ' + ip);
+  // console.log('rpi ip-adress is: ' + ip);
   createHeadlessBrowser();
 });
+
+(async () => {
+  try {
+    const publicIpModule = await import('public-ip');
+    const publicIp = publicIpModule.default;
+
+    const ipAddress = await publicIp.v4(); // Erhalte die öffentliche IPv4-Adresse
+    console.log(`Deine öffentliche IP-Adresse: ${ipAddress}`);
+  } catch (error) {
+    console.error('Fehler beim Abrufen der IP-Adresse:', error);
+  }
+})();
 
 async function createHeadlessBrowser() {
   const browser = await puppeteer.launch({
