@@ -266,7 +266,7 @@ function startIncrease() {
         valueToIncrease = 10;
       }
       bgColor = color(0, 0, valueToIncrease);
-    }, 1000); // Wert alle 1 Sekunde erhöhen
+    }, 100); // Wert alle 1 Sekunde erhöhen
   }
 }
 
@@ -293,7 +293,7 @@ function startCountdown() {
       }
       resetIncrease(); // Setze den Wert zurück
     }
-  }, 100); // Timer alle 1 Sekunde aktualisieren
+  }, 1000); // Timer alle 1 Sekunde aktualisieren
 }
 
 socket.on('movement data', function (data) {
