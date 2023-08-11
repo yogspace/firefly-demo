@@ -11,6 +11,8 @@
   <script>
     let socket = io();
     let sendingEnabled = false; // Zustand des Sendens
+    let lastGyrometerData = null;
+    let tolerance = 0.2;
 
     // Funktion zum Senden der Bewegungsdaten über den Socket
     function sendMovementData(data) {
@@ -61,9 +63,41 @@
 
     function handleDeviceMotion(event) {
       if (sendingEnabled) {
-        // Hier senden wir die Bewegungsdaten über den Socket
-        sendMovementData(event.accelerationIncludingGravity);
+        let currentGyrometerData = {
+          x: event.accelerationIncludingGravity.x,
+          y: event.accelerationIncludingGravity.y,
+          z: event.accelerationIncludingGravity.z,
+        };
+
+        // Wenn es vorherige Daten gibt, interpoliere sie und sende nur bei Abweichung
+        if (lastGyrometerData !== null) {
+          thresholdAndSendData(currentGyrometerData, lastGyrometerData);
+        }
+
+        lastGyrometerData = currentGyrometerData;
       }
+    }
+
+    function thresholdAndSendData(currentData, previousData) {
+      let thresholddData = {
+        x: threshold(currentData.x, previousData.x),
+        y: threshold(currentData.y, previousData.y),
+        z: threshold(currentData.z, previousData.z),
+      };
+
+      // Toleranz von 0.1 prüfen
+      if (
+        Math.abs(thresholddData.x - currentData.x) > tolerance ||
+        Math.abs(thresholddData.y - currentData.y) > tolerance ||
+        Math.abs(thresholddData.z - currentData.z) > tolerance
+      ) {
+        sendMovementData(thresholddData);
+      }
+    }
+
+    function threshold(currentValue, previousValue) {
+      // Interpoliere die Werte als Durchschnitt
+      return (currentValue + previousValue) / 2;
     }
   </script>
 </html>
