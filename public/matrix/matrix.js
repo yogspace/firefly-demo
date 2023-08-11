@@ -320,6 +320,7 @@ function handleDataAfterCountdown() {
   // immer noch Daten empfangen werden
   console.log('Daten werden immer noch empfangen nach Countdown.');
   bgColor = color(255, 0, 0);
+  newDataReceivedDuringCountdown = true;
   // Füge hier den Code hinzu, den du ausführen möchtest
 }
 
