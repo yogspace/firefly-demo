@@ -19,8 +19,6 @@ function setup() {
     bgColorInterrupt: color(0, 0, 10),
     bgColorStillInterrupt: color(255, 0, 0),
     updatePixelsInterval: 25, //ms
-    interpolationInterval: 25, //ms
-    countDownInterruption: 10, //s
   };
 
   bgColor = config.bgColorIdle;
@@ -320,7 +318,7 @@ function resetIncrease() {
 
 function startCountdown() {
   clearInterval(countdownInterval);
-  countdownValue = config.countDownInterruption + 1;
+  countdownValue = 11;
 
   countdownInterval = setInterval(() => {
     console.log(countdownValue);
