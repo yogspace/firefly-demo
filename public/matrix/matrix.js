@@ -262,7 +262,6 @@ let stillReceivingDataAfterCountdown = false;
 
 function startIncrease() {
   if (!increaseInterval && !newDataReceivedDuringCountdown) {
-    console.log('1: countdown');
     increaseInterval = setInterval(() => {
       valueToIncrease++;
       if (valueToIncrease > 10) {
@@ -270,7 +269,6 @@ function startIncrease() {
       }
       if (stillReceivingDataAfterCountdown === false) {
         bgColor = color(0, 0, valueToIncrease);
-        console.log('2: countdown');
       } else {
         clearInterval(increaseInterval);
       }
@@ -282,13 +280,11 @@ function resetIncrease() {
   clearInterval(increaseInterval);
   increaseInterval = null;
   valueToIncrease = 0;
-  console.log('3: reset');
 }
 
 function startCountdown() {
   clearInterval(countdownInterval);
   countdownValue = 11;
-  console.log('4: start countdown');
 
   countdownInterval = setInterval(() => {
     console.log(countdownValue);
@@ -345,4 +341,4 @@ function handleNoDataAfterCountdown() {
 }
 
 //UpdatePixels
-const updatePixels = setInterval(getPixels, 50);
+const updatePixels = setInterval(getPixels, 25);
