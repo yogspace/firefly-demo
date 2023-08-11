@@ -2,9 +2,23 @@ let socket = io();
 let sendingEnabled = false; // Zustand des Sendens
 let lastGyrometerData = null;
 let tolerance = 0.2;
+let id = generateUUID();
 
+console.log(id);
+
+function generateUUID() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    var r = (Math.random() * 16) | 0,
+      v = c == 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
 // Funktion zum Senden der Bewegungsdaten über den Socket
 function sendMovementData(data) {
+  data = {
+    id: id,
+    data: data,
+  };
   socket.emit('movement data', data);
 }
 
@@ -13,10 +27,12 @@ function toggleSending() {
   sendingEnabled = !sendingEnabled;
   let sendButton = document.getElementById('sendButton');
   if (sendingEnabled) {
+    socket.emit('phone login', id);
     sendButton.textContent = 'Senden stoppen';
     // Starte das Senden der Bewegungsdaten
     startSending();
   } else {
+    socket.emit('phone logout', id);
     sendButton.textContent = 'Bewegungsdaten senden';
     // Stoppe das Senden der Bewegungsdaten
     stopSending();
@@ -30,7 +46,11 @@ document.getElementById('sendButton').addEventListener('click', function () {
 
 // Funktion zum Starten des Sendens der Bewegungsdaten
 function startSending() {
-  getAccel();
+  if (isAppleDevice()) {
+    getAccelWithPermission();
+  } else {
+    getAccel();
+  }
 }
 
 // Funktion zum Stoppen des Sendens der Bewegungsdaten
@@ -38,14 +58,19 @@ function stopSending() {
   window.removeEventListener('devicemotion', handleDeviceMotion);
 }
 
-// Funktion, um die Accelerometer-Daten zu erhalten
-function getAccel() {
+// Funktion, um die Accelerometer-Daten zu erhalten, nur auf Apple-Geräten
+function getAccelWithPermission() {
   DeviceMotionEvent.requestPermission().then((response) => {
     if (response == 'granted') {
       // Listener für Beschleunigung hinzufügen
       window.addEventListener('devicemotion', handleDeviceMotion);
     }
   });
+}
+
+// Funktion, um die Accelerometer-Daten zu erhalten, auf anderen Geräten
+function getAccel() {
+  window.addEventListener('devicemotion', handleDeviceMotion);
 }
 
 function handleDeviceMotion(event) {
@@ -85,4 +110,11 @@ function thresholdAndSendData(currentData, previousData) {
 function threshold(currentValue, previousValue) {
   // Interpoliere die Werte als Durchschnitt
   return (currentValue + previousValue) / 2;
+}
+
+// Funktion zur Überprüfung, ob es sich um ein Apple-Gerät handelt
+function isAppleDevice() {
+  return /(iPhone|iPod|iPad|Macintosh|MacIntel|MacPPC|Mac68K)/i.test(
+    navigator.userAgent
+  );
 }
