@@ -266,7 +266,7 @@ function startIncrease() {
         valueToIncrease = 10;
       }
       bgColor = color(0, 0, valueToIncrease);
-    }, 100); // Wert alle 1 Sekunde erhöhen
+    }, 50); // Wert alle 1 Sekunde erhöhen
   }
 }
 
