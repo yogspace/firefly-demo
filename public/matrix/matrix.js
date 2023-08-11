@@ -268,8 +268,10 @@ function startIncrease() {
       if (valueToIncrease > 10) {
         valueToIncrease = 10;
       }
-      bgColor = color(0, 0, valueToIncrease);
-      console.log('2: countdown');
+      if (dead === false) {
+        bgColor = color(0, 0, valueToIncrease);
+        console.log('2: countdown');
+      }
     }, 50); // Wert alle 0.05 Sekunden erhöhen
   }
 }
@@ -325,6 +327,7 @@ function handleDataAfterCountdown() {
   // immer noch Daten empfangen werden
   console.log('Daten werden immer noch empfangen nach Countdown.');
   bgColor = color(255, 0, 0);
+  dead = true;
   // Füge hier den Code hinzu, den du ausführen möchtest
 }
 
