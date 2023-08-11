@@ -12,6 +12,7 @@ const app = express();
 const privateKey = fs.readFileSync('localhost-key.pem', 'utf8');
 const certificate = fs.readFileSync('localhost.pem', 'utf8');
 const credentials = { key: privateKey, cert: certificate };
+console.log(credentials);
 
 const expressServer = https.createServer(credentials, app);
 const ioExpress = new Server(expressServer);
@@ -39,7 +40,7 @@ expressServer.listen(3001, () => {
   console.log('headless browser is on route https://localhost:3001/matrix');
   console.log('display interface is on route https://localhost:3001/interface');
   console.log('phone interface is on route https://localhost:3001/');
-  createHeadlessBrowser();
+  //createHeadlessBrowser();
 });
 
 async function createHeadlessBrowser() {
