@@ -3,6 +3,8 @@ let sketchHeight = document.getElementById('sketch').offsetHeight;
 let sketch = document.getElementById('sketch');
 let socket = io();
 
+let bgColor;
+
 function preload() {}
 
 function setup() {
@@ -12,6 +14,7 @@ function setup() {
   renderer.parent('sketch');
   // frameRate(15);
   //rectMode(CENTER);
+  bgColor = color(15, 3, 0);
 }
 
 const pixelMatrixTranslation = [
@@ -250,7 +253,7 @@ function drawFireflies() {
 
 function draw() {
   clear();
-  background(15, 3, 0);
+  background(bgColor);
   // bgColor = color(15, 3, 0);
 
   drawFireflies();
@@ -259,7 +262,9 @@ function draw() {
 socket.on('movement data', function (data) {
   // console.log(msg);
   // bgColor = color(0, 0, 255);
-  speed = speed + 1;
+  // speed = speed + 1;
+  bgColor = color(0, 0, 255);
+
   // console.log(data);
 });
 
