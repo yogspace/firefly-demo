@@ -93,7 +93,7 @@ const pixelMatrixTranslation = [
 const num_pixels_x = 32;
 const num_pixels_y = 16;
 const scale = sketchWidth / num_pixels_x;
-let speed = 2;
+let speed = 1;
 
 class Firefly {
   constructor(x, y, speed) {
@@ -337,4 +337,4 @@ function handleNoDataAfterCountdown() {
 }
  */
 //UpdatePixels
-const updatePixels = setInterval(getPixels, 100);
+const updatePixels = setInterval(getPixels, 50);
