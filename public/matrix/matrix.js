@@ -259,13 +259,50 @@ function draw() {
   drawFireflies();
 }
 
-socket.on('movement data', function (data) {
-  // console.log(msg);
-  // bgColor = color(0, 0, 255);
-  // speed = speed + 1;
-  bgColor = color(0, 0, 10);
+let valueToIncrease = 0;
+let increaseInterval;
+let countdownInterval;
+let countdownValue = 10;
+function startIncrease() {
+  increaseInterval = setInterval(() => {
+    valueToIncrease++;
+    bgColor = color(0, 0, valueToIncrease);
+  }, 1000); // Wert alle 1 Sekunde erhöhen
+}
 
-  // console.log(data);
+function startCountdown() {
+  clearInterval(countdownInterval);
+  countdownValue = 10;
+
+  countdownInterval = setInterval(() => {
+    console.log(countdownValue);
+    countdownValue--;
+
+    if (countdownValue < 0) {
+      clearInterval(countdownInterval);
+      console.log('Countdown abgelaufen!');
+      if (valueToIncrease > 0) {
+        handleDataAfterCountdown(); // Hier wird deine Funktion aufgerufen
+      }
+      valueToIncrease = 0; // Wert wieder auf 0 setzen
+    }
+  }, 1000); // Timer alle 1 Sekunde aktualisieren
+}
+
+socket.on('movement data', function (data) {
+  startIncrease();
+  startCountdown();
+  // Füge hier den Code hinzu, um auf die empfangenen Daten zu reagieren
+  // z.B. bgColor = color(0, 0, 255);
+  // speed = speed + 1;
 });
 
-setInterval(getPixels, 100);
+function handleDataAfterCountdown() {
+  // Hier wird deine Funktion aufgerufen, wenn nach dem Countdown
+  // immer noch Daten empfangen werden
+  console.log('Daten werden immer noch empfangen nach Countdown.');
+  // Füge hier den Code hinzu, den du ausführen möchtest
+}
+
+//UpdatePixels
+const updatePixels = setInterval(getPixels, 100);
