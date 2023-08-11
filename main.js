@@ -1,5 +1,3 @@
-import { publicIp, publicIpv4, publicIpv6 } from 'public-ip';
-
 const fs = require('fs');
 const puppeteer = require('puppeteer-core');
 const https = require('https');
@@ -40,10 +38,25 @@ app.get('/interface', (req, res) => {
 expressServer.listen(3001, async () => {
   console.log('display interface is on route https://localhost:3001/interface');
   console.log('phone interface is on route https://localhost:3001/');
-  let ip = await publicIp();
-  console.log('rpi ip-adress is: ' + ip);
   createHeadlessBrowser();
 });
+
+(async () => {
+  try {
+    const publicIpModule = await import('public-ip');
+    const { publicIp, publicIpv4, publicIpv6 } = publicIpModule;
+
+    const ipAddress = await publicIp.v4(); // Erhalte die öffentliche IPv4-Adresse
+    const ipv4Address = await publicIpv4(); // Erhalte die öffentliche IPv4-Adresse
+    const ipv6Address = await publicIpv6(); // Erhalte die öffentliche IPv6-Adresse
+
+    console.log(`Deine öffentliche IPv4-Adresse: ${ipAddress}`);
+    console.log(`Deine öffentliche IPv4-Adresse (Methode 2): ${ipv4Address}`);
+    console.log(`Deine öffentliche IPv6-Adresse: ${ipv6Address}`);
+  } catch (error) {
+    console.error('Fehler beim Abrufen der IP-Adressen:', error);
+  }
+})();
 
 async function createHeadlessBrowser() {
   const browser = await puppeteer.launch({
