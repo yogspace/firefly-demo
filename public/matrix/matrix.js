@@ -252,9 +252,9 @@ function draw() {
   drawFireflies();
 }
 
-socket.on('interruption', function (data) {
-  // console.log(msg);
-  bgColor = color(0, 0, 255);
-});
+// socket.on('interruption', function (data) {
+//   // console.log(msg);
+//   bgColor = color(0, 0, 255);
+// });
 
 setInterval(getPixels, 100);
