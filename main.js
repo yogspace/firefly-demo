@@ -1,6 +1,6 @@
 // const fs = require('fs');
 const puppeteer = require('puppeteer-core');
-const http = require('http');
+const https = require('https');
 const selfsigned = require('selfsigned');
 const express = require('express');
 const path = require('path');
@@ -8,19 +8,18 @@ const { Server } = require('socket.io');
 
 const app = express();
 // Erstelle ein selbst signiertes Zertifikat
-// const attrs = [{ name: 'commonName', value: 'localhost' }];
-// const pems = selfsigned.generate(attrs, { days: 365 });
+const attrs = [{ name: 'commonName', value: 'localhost' }];
+const pems = selfsigned.generate(attrs, { days: 365 });
 
-// // Pfade zu den Zertifikat-Dateien
-// const privateKey = pems.private;
-// const certificate = pems.cert;
-// const credentials = { key: privateKey, cert: certificate };
+// Pfade zu den Zertifikat-Dateien
+const privateKey = pems.private;
+const certificate = pems.cert;
+const credentials = { key: privateKey, cert: certificate };
 
-// const expressServer = https.createServer(credentials, app);
-const expressServer = http.createServer(app);
+const expressServer = https.createServer(credentials, app);
 const ioExpress = new Server(expressServer);
 
-const socketServerPixels = http.createServer();
+const socketServerPixels = https.createServer();
 const ioPixels = new Server(socketServerPixels);
 
 socketServerPixels.listen(3000);
@@ -40,10 +39,10 @@ app.get('/interface', (req, res) => {
 });
 
 expressServer.listen(3001, () => {
-  console.log('headless browser is on route http://localhost:3001/matrix');
-  console.log('display interface is on route http://localhost:3001/interface');
-  console.log('phone interface is on route http://localhost:3001/');
-  createHeadlessBrowser();
+  console.log('headless browser is on route https://localhost:3001/matrix');
+  console.log('display interface is on route https://localhost:3001/interface');
+  console.log('phone interface is on route https://localhost:3001/');
+  //createHeadlessBrowser();
 });
 
 async function createHeadlessBrowser() {
@@ -76,14 +75,14 @@ async function createHeadlessBrowser() {
   await page.setDefaultNavigationTimeout(0);
 
   //   await page.setViewport({ width: 1200, height: 720 });
-  await page.goto('http://localhost:3001/matrix', {
+  await page.goto('https://localhost:3001/matrix', {
     // waitUntil: 'networkidle0',
     waitUntil: 'load',
     // Remove the timeout
     timeout: 0,
   }); // wait until page load
 
-  console.log('opened: http://localhost:3001/matrix headless');
+  console.log('opened: https://localhost:3001/matrix headless');
 }
 
 const pixelMatrix = [
