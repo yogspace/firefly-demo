@@ -263,7 +263,7 @@ socket.on('movement data', function (data) {
   // console.log(msg);
   // bgColor = color(0, 0, 255);
   // speed = speed + 1;
-  bgColor = color(0, 0, 255);
+  bgColor = color(0, 0, 10);
 
   // console.log(data);
 });
