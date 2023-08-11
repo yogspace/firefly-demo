@@ -93,7 +93,7 @@ const num_pixels_x = 32;
 const num_pixels_y = 16;
 const scale = sketchWidth / num_pixels_x;
 let speed = 1;
-let bgColor = color(15, 3, 0);
+// let bgColor = color(15, 3, 0);
 
 class Firefly {
   constructor(x, y, speed) {
@@ -248,13 +248,15 @@ function drawFireflies() {
 
 function draw() {
   clear();
-  background(bgColor);
+  background(15, 3, 0);
+  // bgColor = color(15, 3, 0);
+
   drawFireflies();
 }
 
 socket.on('movement data', function (data) {
   // console.log(msg);
-  bgColor = color(0, 0, 255);
+  // bgColor = color(0, 0, 255);
 });
 
 setInterval(getPixels, 100);
