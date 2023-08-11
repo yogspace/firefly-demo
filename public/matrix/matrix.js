@@ -258,10 +258,9 @@ let increaseInterval;
 let countdownInterval;
 let countdownValue = 10;
 let newDataReceivedDuringCountdown = false;
-// let dead = false;
 
 function startIncrease() {
-  if (!increaseInterval) {
+  if (!increaseInterval && !newDataReceivedDuringCountdown) {
     increaseInterval = setInterval(() => {
       valueToIncrease++;
       if (valueToIncrease > 10) {
@@ -304,7 +303,6 @@ function startCountdown() {
 }
 
 socket.on('movement data', function (data) {
-  // if (dead === false) {
   if (!newDataReceivedDuringCountdown) {
     startIncrease();
     newDataReceivedDuringCountdown = true; // Neue Daten während Countdown empfangen
@@ -312,7 +310,6 @@ socket.on('movement data', function (data) {
       startCountdown(); // Countdown neu starten, wenn Daten empfangen werden
     }
   }
-  // }
   // Füge hier den Code hinzu, um auf die empfangenen Daten zu reagieren
   // z.B. bgColor = color(0, 0, 255);
   // speed = speed + 1;
@@ -323,10 +320,6 @@ function handleDataAfterCountdown() {
   // immer noch Daten empfangen werden
   console.log('Daten werden immer noch empfangen nach Countdown.');
   bgColor = color(255, 0, 0);
-  // dead = true;
-  // // newDataReceivedDuringCountdown = true;
-  // resetIncrease(); // Setze den Wert zurück
-  // newDataReceivedDuringCountdown = false; // Zurücksetzen nach dem Aufrufen der Funktion
   // Füge hier den Code hinzu, den du ausführen möchtest
 }
 
