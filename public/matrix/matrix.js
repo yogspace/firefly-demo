@@ -287,8 +287,8 @@ function startCountdown() {
       if (valueToIncrease > 0) {
         handleDataAfterCountdown(); // Hier wird deine Funktion aufgerufen
       }
-      valueToIncrease = 0; // Wert wieder auf 0 setzen
-      bgColor = color(15, 3, 0);
+      // valueToIncrease = 0; // Wert wieder auf 0 setzen
+      bgColor = color(255, 0, 0);
     }
   }, 1000); // Timer alle 1 Sekunde aktualisieren
 }
