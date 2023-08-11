@@ -30,11 +30,11 @@ document.getElementById('sendButton').addEventListener('click', function () {
 
 // Funktion zum Starten des Sendens der Bewegungsdaten
 function startSending() {
-  if (isAppleDevice()) {
-    getAccelWithPermission();
-  } else {
-    getAccel();
-  }
+  //   if (isAppleDevice()) {
+  getAccelWithPermission();
+  //   } else {
+  //   getAccel();
+  //   }
 }
 
 // Funktion zum Stoppen des Sendens der Bewegungsdaten
