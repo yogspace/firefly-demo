@@ -92,6 +92,8 @@ const pixelMatrix = [
 const num_pixels_x = 32;
 const num_pixels_y = 16;
 const scale = sketchWidth / num_pixels_x;
+let speed = 1;
+let bgColor = color(15, 3, 0);
 
 class Firefly {
   constructor(x, y, speed) {
@@ -119,7 +121,7 @@ class Firefly {
     }
   }
 
-  move() {
+  move(speed) {
     if (!this.moving) {
       this.targetX = Math.round(random(0, width));
       this.targetY = Math.round(random(0, height));
@@ -132,7 +134,7 @@ class Firefly {
 
     if (distance > this.speed) {
       const angle = Math.atan2(dy, dx);
-      const newX = this.x + this.speed * Math.cos(angle);
+      const newX = this.x + this.speed * speed * Math.cos(angle);
 
       // Check if crossing the boundary is faster
       if (this.shouldCrossBoundary(newX)) {
@@ -141,7 +143,7 @@ class Firefly {
         this.x = newX;
       }
 
-      this.y += this.speed * Math.sin(angle);
+      this.y += this.speed * speed * Math.sin(angle);
     } else {
       this.x = this.targetX;
       this.y = this.targetY;
@@ -194,7 +196,6 @@ function getPixels() {
   }
 
   socket.emit('pixelMatrix', pixels);
-
   lastPixelMatrix = createPixelMatrix(); // Aktualisiere das letzte Pixel-Array
 }
 
@@ -241,15 +242,19 @@ function createPixelMatrix() {
 function drawFireflies() {
   for (let i = 0; i < fireflies.length; i++) {
     fireflies[i].display();
-    fireflies[i].move();
+    fireflies[i].move(speed);
   }
 }
 
 function draw() {
   clear();
-  // background(10, 6, 1);
-  background(15, 3, 0);
+  background(bgColor);
   drawFireflies();
 }
+
+socket.on('interruption', function (data) {
+  // console.log(msg);
+  bgColor = color(255, 0, 0);
+});
 
 setInterval(getPixels, 100);

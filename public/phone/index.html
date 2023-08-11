@@ -2,7 +2,6 @@
 <html>
   <head>
     <title>phone</title>
-    <!-- <link rel="stylesheet" type="text/css" href="style.css" /> -->
     <style>
       h1 {
         font-size: 50pt;
@@ -18,7 +17,6 @@
     <button id="sendButton">Bewegungsdaten senden</button>
   </body>
   <script src="/socket.io/socket.io.js"></script>
-  <!-- <script src="../public/phone/web.js"></script> -->
   <script>
     let socket = io();
     let sendingEnabled = false; // Zustand des Sendens
@@ -44,7 +42,7 @@
         id: id,
         data: data,
       };
-      socket.emit('movement data', data);
+      socket.emit('interruption', data);
     }
 
     // Funktion, um den Zustand des Sendens zu aktualisieren
