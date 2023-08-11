@@ -266,6 +266,9 @@ let countdownValue = 10;
 function startIncrease() {
   increaseInterval = setInterval(() => {
     valueToIncrease++;
+    if (valueToIncrease > 10) {
+      valueToIncrease = 10;
+    }
     bgColor = color(0, 0, valueToIncrease);
   }, 1000); // Wert alle 1 Sekunde erhöhen
 }
