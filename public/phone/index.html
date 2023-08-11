@@ -5,7 +5,9 @@
   </head>
   <body>
     <p>phone</p>
-    <button id="sendButton">Bewegungsdaten senden</button>
+    <button id="sendButton" onclick="toggleSending()">
+      Bewegungsdaten senden
+    </button>
   </body>
   <script src="/socket.io/socket.io.js"></script>
   <script>
@@ -25,22 +27,10 @@
       let sendButton = document.getElementById('sendButton');
       if (sendingEnabled) {
         sendButton.textContent = 'Bewegungsdaten senden';
-        sendButton.disabled = false;
       } else {
         sendButton.textContent = 'Senden deaktiviert';
-        sendButton.disabled = true;
       }
     }
-
-    // Event-Listener für den Button
-    document
-      .getElementById('sendButton')
-      .addEventListener('click', function () {
-        // Wenn der Zustand des Sendens aktiviert ist
-        if (sendingEnabled) {
-          getAccel();
-        }
-      });
 
     // Funktion, um die Accelerometer-Daten zu erhalten
     function getAccel() {
