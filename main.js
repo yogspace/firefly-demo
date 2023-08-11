@@ -12,7 +12,6 @@ const app = express();
 const privateKey = fs.readFileSync('localhost-key.pem', 'utf8');
 const certificate = fs.readFileSync('localhost.pem', 'utf8');
 const credentials = { key: privateKey, cert: certificate };
-console.log(credentials);
 
 const expressServer = https.createServer(credentials, app);
 const ioExpress = new Server(expressServer);
@@ -47,6 +46,7 @@ async function createHeadlessBrowser() {
   const browser = await puppeteer.launch({
     headless: true,
     executablePath: '/usr/bin/chromium-browser',
+    ignoreHTTPSErrors: true, // Ignoriere HTTPS-Fehler, die durch das selbst signierte Zertifikat verursacht werden
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
@@ -59,6 +59,9 @@ async function createHeadlessBrowser() {
       '--use-fake-device-for-media-stream',
       '--disable-sync',
       '--remote-debugging-port=9222',
+      `--ignore-certificate-errors`, // Ignoriere Zertifikatsfehler
+      `--allow-insecure-localhost`, // Erlaube unsichere Verbindung zu localhost
+      `--user-data-dir=/tmp/puppeteer-profile`, // Benutzerdatenverzeichnis für das benutzerdefinierte Profil
     ],
   });
   const page = await browser.newPage();
