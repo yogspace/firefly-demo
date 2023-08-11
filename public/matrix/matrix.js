@@ -93,6 +93,8 @@ const num_pixels_x = 32;
 const num_pixels_y = 16;
 const scale = sketchWidth / num_pixels_x;
 let speed = 1;
+
+socket.join('matrix');
 // let bgColor = color(15, 3, 0);
 
 class Firefly {
@@ -195,7 +197,7 @@ function getPixels() {
     }
   }
 
-  socket.emit('pixelMatrix', pixels);
+  socket.emit('updatePixels', pixels);
   lastPixelMatrix = createPixelMatrix(); // Aktualisiere das letzte Pixel-Array
 }
 
