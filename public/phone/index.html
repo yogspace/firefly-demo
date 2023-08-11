@@ -11,13 +11,28 @@
   <script>
     let socket = io();
 
+    // Funktion zum Senden der Bewegungsdaten über den Socket
+    function sendMovementData(data) {
+      socket.emit('movement data', data);
+    }
+
     // Event-Listener für den Button
     document
       .getElementById('sendButton')
       .addEventListener('click', function () {
         // Hier starten wir den Event-Listener für devicemotion, wenn der Button geklickt wird
-        window.addEventListener('devicemotion', handleDeviceMotion);
+        getAccel();
       });
+
+    // Funktion, um die Accelerometer-Daten zu erhalten
+    function getAccel() {
+      DeviceMotionEvent.requestPermission().then((response) => {
+        if (response == 'granted') {
+          // Listener für Beschleunigung hinzufügen
+          window.addEventListener('devicemotion', handleDeviceMotion);
+        }
+      });
+    }
 
     function handleDeviceMotion(event) {
       // Extrahiere die Gyrometer-Daten aus dem Event
@@ -31,11 +46,11 @@
       socket.emit('movement data', gyrometerData);
 
       // Event-Listener wieder entfernen, wenn die Daten gesendet wurden
-      //window.removeEventListener('devicemotion', handleDeviceMotion);
+      // window.removeEventListener('devicemotion', handleDeviceMotion);
     }
 
-    socket.on('chat message', function (msg) {
-      console.log(msg);
-    });
+    // socket.on('chat message', function (msg) {
+    //   console.log(msg);
+    // });
   </script>
 </html>

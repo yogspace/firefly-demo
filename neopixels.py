@@ -3,7 +3,6 @@ import neopixel
 import socketio
 import json
 
-
 #num_pixels = 768
 num_pixels = 512
 pixels = neopixel.NeoPixel(board.D18, num_pixels, auto_write = False)
