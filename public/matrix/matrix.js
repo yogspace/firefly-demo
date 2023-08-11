@@ -290,8 +290,9 @@ function startCountdown() {
       console.log('Countdown abgelaufen!');
       if (valueToIncrease > 0) {
         handleDataAfterCountdown();
+      } else {
+        resetIncrease(); // Setze den Wert zurück
       }
-      resetIncrease(); // Setze den Wert zurück
     }
   }, 1000); // Timer alle 1 Sekunde aktualisieren
 }
