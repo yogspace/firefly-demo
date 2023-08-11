@@ -254,7 +254,7 @@ function draw() {
 
 socket.on('interruption', function (data) {
   // console.log(msg);
-  bgColor = color(255, 0, 0);
+  bgColor = color(0, 0, 255);
 });
 
 setInterval(getPixels, 100);
