@@ -1,11 +1,11 @@
 const fs = require('fs');
-const publicIp = require('public-ip');
 const puppeteer = require('puppeteer-core');
 const https = require('https');
 const http = require('http');
 const express = require('express');
 const path = require('path');
 const { Server } = require('socket.io');
+const publicIp = require('public-ip');
 
 const app = express();
 
