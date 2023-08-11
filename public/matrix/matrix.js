@@ -257,7 +257,8 @@ let valueToIncrease = 0;
 let increaseInterval;
 let countdownInterval;
 let countdownValue = 10;
-let newDataReceived = false;
+let newDataReceivedDuringCountdown = false;
+
 function startIncrease() {
   if (!increaseInterval) {
     increaseInterval = setInterval(() => {
@@ -285,23 +286,27 @@ function startCountdown() {
     console.log(countdownValue);
     countdownValue--;
 
+    if (countdownValue === 1) {
+      newDataReceivedDuringCountdown = false; // Zurücksetzen während der letzten Sekunde
+    }
+
     if (countdownValue < 0) {
       clearInterval(countdownInterval);
       console.log('Countdown abgelaufen!');
-      if (newDataReceived) {
+      if (newDataReceivedDuringCountdown) {
         handleDataAfterCountdown();
       } else {
         handleNoDataAfterCountdown(); // Funktion für keinen Datenempfang
       }
-      // Reset der Datenempfang-Variable nach dem Countdown
-      newDataReceived = false;
     }
   }, 1000); // Timer alle 1 Sekunde aktualisieren
 }
 
 socket.on('movement data', function (data) {
   startIncrease();
-  newDataReceived = true; // Neue Daten empfangen
+  if (!newDataReceivedDuringCountdown) {
+    newDataReceivedDuringCountdown = true; // Neue Daten während Countdown empfangen
+  }
   if (!countdownInterval) {
     startCountdown();
   }
