@@ -253,7 +253,6 @@ function draw() {
   drawFireflies();
 }
 
-/*
 let valueToIncrease = 0;
 let increaseInterval;
 let countdownInterval;
@@ -335,6 +334,6 @@ function handleNoDataAfterCountdown() {
   newDataReceivedDuringCountdown = false; // Zurücksetzen nach dem Aufrufen der Funktion
   // Füge hier den Code hinzu, den du ausführen möchtest
 }
- */
+
 //UpdatePixels
 const updatePixels = setInterval(getPixels, 50);
