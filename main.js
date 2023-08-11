@@ -1,6 +1,7 @@
 const fs = require('fs');
 const puppeteer = require('puppeteer-core');
 const https = require('https');
+const http = require('http');
 // const selfsigned = require('selfsigned');
 const express = require('express');
 const path = require('path');
@@ -16,7 +17,7 @@ const credentials = { key: privateKey, cert: certificate };
 const expressServer = https.createServer(credentials, app);
 const ioExpress = new Server(expressServer);
 
-const socketServerPixels = https.createServer();
+const socketServerPixels = http.createServer();
 const ioPixels = new Server(socketServerPixels);
 
 socketServerPixels.listen(3000);
