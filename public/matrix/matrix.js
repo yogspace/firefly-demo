@@ -260,11 +260,7 @@ let countdownValue = 10;
 let newDataReceivedDuringCountdown = false;
 
 function startIncrease() {
-  if (
-    !increaseInterval &&
-    !newDataReceivedDuringCountdown &&
-    countdownValue > 2
-  ) {
+  if (!increaseInterval && !newDataReceivedDuringCountdown) {
     increaseInterval = setInterval(() => {
       valueToIncrease++;
       if (valueToIncrease > 10) {
