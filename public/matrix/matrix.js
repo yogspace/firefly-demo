@@ -256,9 +256,9 @@ function draw() {
 let valueToIncrease = 0;
 let increaseInterval;
 let countdownInterval;
-let countdownValue = 10;
+let countdownValue = 11;
 let newDataReceivedDuringCountdown = false;
-let dead = false;
+let stillReceivingDataAfterCountdown = false;
 
 function startIncrease() {
   if (!increaseInterval && !newDataReceivedDuringCountdown) {
@@ -268,7 +268,7 @@ function startIncrease() {
       if (valueToIncrease > 10) {
         valueToIncrease = 10;
       }
-      if (dead === false) {
+      if (stillReceivingDataAfterCountdown === false) {
         bgColor = color(0, 0, valueToIncrease);
         console.log('2: countdown');
       } else {
@@ -287,7 +287,7 @@ function resetIncrease() {
 
 function startCountdown() {
   clearInterval(countdownInterval);
-  countdownValue = 10;
+  countdownValue = 11;
   console.log('4: start countdown');
 
   countdownInterval = setInterval(() => {
@@ -329,7 +329,7 @@ function handleDataAfterCountdown() {
   // immer noch Daten empfangen werden
   console.log('Daten werden immer noch empfangen nach Countdown.');
   bgColor = color(255, 0, 0);
-  dead = true;
+  stillReceivingDataAfterCountdown = true;
   // Füge hier den Code hinzu, den du ausführen möchtest
 }
 
