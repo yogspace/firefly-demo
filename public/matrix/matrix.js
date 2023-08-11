@@ -12,8 +12,6 @@ function setup() {
   sketchHeight = document.getElementById('sketch').offsetHeight;
   let renderer = createCanvas(sketchWidth, sketchHeight);
   renderer.parent('sketch');
-  // frameRate(15);
-  //rectMode(CENTER);
   bgColor = color(15, 3, 0);
 }
 
@@ -96,9 +94,6 @@ const num_pixels_x = 32;
 const num_pixels_y = 16;
 const scale = sketchWidth / num_pixels_x;
 let speed = 1;
-
-// socket.join('matrix');
-// let bgColor = color(15, 3, 0);
 
 class Firefly {
   constructor(x, y, speed) {
@@ -254,7 +249,6 @@ function drawFireflies() {
 function draw() {
   clear();
   background(bgColor);
-  // bgColor = color(15, 3, 0);
 
   drawFireflies();
 }
