@@ -30,7 +30,11 @@ document.getElementById('sendButton').addEventListener('click', function () {
 
 // Funktion zum Starten des Sendens der Bewegungsdaten
 function startSending() {
-  getAccel();
+  if (isAppleDevice()) {
+    getAccelWithPermission();
+  } else {
+    getAccel();
+  }
 }
 
 // Funktion zum Stoppen des Sendens der Bewegungsdaten
@@ -38,14 +42,19 @@ function stopSending() {
   window.removeEventListener('devicemotion', handleDeviceMotion);
 }
 
-// Funktion, um die Accelerometer-Daten zu erhalten
-function getAccel() {
+// Funktion, um die Accelerometer-Daten zu erhalten, nur auf Apple-Geräten
+function getAccelWithPermission() {
   DeviceMotionEvent.requestPermission().then((response) => {
     if (response == 'granted') {
       // Listener für Beschleunigung hinzufügen
       window.addEventListener('devicemotion', handleDeviceMotion);
     }
   });
+}
+
+// Funktion, um die Accelerometer-Daten zu erhalten, auf anderen Geräten
+function getAccel() {
+  window.addEventListener('devicemotion', handleDeviceMotion);
 }
 
 function handleDeviceMotion(event) {
@@ -85,4 +94,11 @@ function thresholdAndSendData(currentData, previousData) {
 function threshold(currentValue, previousValue) {
   // Interpoliere die Werte als Durchschnitt
   return (currentValue + previousValue) / 2;
+}
+
+// Funktion zur Überprüfung, ob es sich um ein Apple-Gerät handelt
+function isAppleDevice() {
+  return /(iPhone|iPod|iPad|Macintosh|MacIntel|MacPPC|Mac68K)/i.test(
+    navigator.userAgent
+  );
 }

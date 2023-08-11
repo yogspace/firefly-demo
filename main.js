@@ -170,8 +170,8 @@ const pixelMatrix = [
   ],
 ];
 
-const width = 32;
-const height = 16;
+// const width = 32;
+// const height = 16;
 
 //Pixelmatrix
 ioPixels.on('connection', (client) => {
