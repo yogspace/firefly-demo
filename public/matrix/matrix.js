@@ -94,7 +94,7 @@ const num_pixels_y = 16;
 const scale = sketchWidth / num_pixels_x;
 let speed = 1;
 
-socket.join('matrix');
+// socket.join('matrix');
 // let bgColor = color(15, 3, 0);
 
 class Firefly {
