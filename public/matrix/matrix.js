@@ -258,7 +258,6 @@ let increaseInterval;
 let countdownInterval;
 let countdownValue = 10;
 let newDataReceivedDuringCountdown = false;
-let socketDataListenerInitialized = false;
 
 function startIncrease() {
   if (!increaseInterval) {
@@ -304,14 +303,11 @@ function startCountdown() {
 }
 
 socket.on('movement data', function (data) {
-  if (!socketDataListenerInitialized) {
-    socketDataListenerInitialized = true;
-    startIncrease();
-    if (!newDataReceivedDuringCountdown) {
-      newDataReceivedDuringCountdown = true; // Neue Daten während Countdown empfangen
-      if (!countdownInterval) {
-        startCountdown(); // Countdown neu starten, wenn Daten empfangen werden
-      }
+  startIncrease();
+  if (!newDataReceivedDuringCountdown) {
+    newDataReceivedDuringCountdown = true; // Neue Daten während Countdown empfangen
+    if (!countdownInterval) {
+      startCountdown(); // Countdown neu starten, wenn Daten empfangen werden
     }
   }
   // Füge hier den Code hinzu, um auf die empfangenen Daten zu reagieren
