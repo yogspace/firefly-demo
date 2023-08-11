@@ -1,8 +1,8 @@
 const fs = require('fs');
+const publicIp = require('public-ip');
 const puppeteer = require('puppeteer-core');
 const https = require('https');
 const http = require('http');
-// const selfsigned = require('selfsigned');
 const express = require('express');
 const path = require('path');
 const { Server } = require('socket.io');
@@ -36,10 +36,11 @@ app.get('/interface', (req, res) => {
   res.sendFile(__dirname + '/public/interface/index.html');
 });
 
-expressServer.listen(3001, () => {
-  console.log('headless browser is on route https://localhost:3001/matrix');
+expressServer.listen(3001, async () => {
   console.log('display interface is on route https://localhost:3001/interface');
   console.log('phone interface is on route https://localhost:3001/');
+  const ip = await publicIp.v4(); // Erhalte die öffentliche IPv4-Adresse
+  console.log('rpi ip-adress is: ' + ip);
   createHeadlessBrowser();
 });
 
@@ -67,7 +68,6 @@ async function createHeadlessBrowser() {
   });
   const page = await browser.newPage();
 
-  console.log('browser has been openend.');
   await page.setViewport({
     width: 700,
     height: 700,
@@ -167,7 +167,7 @@ const height = 16;
 
 //Pixelmatrix
 ioPixels.on('connection', (client) => {
-  console.log('new connection\n');
+  console.log('python socket: new connection\n');
   ioPixels.emit('clear', 'clear');
 
   client.on('event', (data) => {
