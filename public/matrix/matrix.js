@@ -261,12 +261,14 @@ let newDataReceivedDuringCountdown = false;
 
 function startIncrease() {
   if (!increaseInterval && !newDataReceivedDuringCountdown) {
+    console.log('1: countdown');
     increaseInterval = setInterval(() => {
       valueToIncrease++;
       if (valueToIncrease > 10) {
         valueToIncrease = 10;
       }
       bgColor = color(0, 0, valueToIncrease);
+      console.log('2: countdown');
     }, 50); // Wert alle 0.05 Sekunden erhöhen
   }
 }
@@ -275,11 +277,13 @@ function resetIncrease() {
   clearInterval(increaseInterval);
   increaseInterval = null;
   valueToIncrease = 0;
+  console.log('3: reset');
 }
 
 function startCountdown() {
   clearInterval(countdownInterval);
   countdownValue = 10;
+  console.log('4: start countdown');
 
   countdownInterval = setInterval(() => {
     console.log(countdownValue);
