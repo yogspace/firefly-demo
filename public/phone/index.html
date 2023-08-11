@@ -12,24 +12,41 @@
     let socket = io();
     let lastGyrometerData = null;
     let tolerance = 0.2;
+    let sendingEnabled = true; // Zustand des Buttons
 
     // Funktion zum Senden der Bewegungsdaten über den Socket
     function sendMovementData(data) {
       socket.emit('movement data', data);
     }
 
+    // Funktion, um den Zustand des Buttons zu aktualisieren
+    function toggleSending() {
+      sendingEnabled = !sendingEnabled;
+      let sendButton = document.getElementById('sendButton');
+      if (sendingEnabled) {
+        sendButton.textContent = 'Bewegungsdaten senden';
+        sendButton.disabled = false;
+      } else {
+        sendButton.textContent = 'Senden deaktiviert';
+        sendButton.disabled = true;
+      }
+    }
+
     // Event-Listener für den Button
     document
       .getElementById('sendButton')
       .addEventListener('click', function () {
-        // Hier starten wir den Event-Listener für devicemotion, wenn der Button geklickt wird
-        getAccel();
+        // Wenn der Zustand des Sendens aktiviert ist
+        if (sendingEnabled) {
+          getAccel();
+        }
       });
 
     // Funktion, um die Accelerometer-Daten zu erhalten
     function getAccel() {
       DeviceMotionEvent.requestPermission().then((response) => {
         if (response == 'granted') {
+          toggleSending(); // Aktualisiere den Zustand des Buttons
           // Listener für Beschleunigung hinzufügen
           window.addEventListener('devicemotion', handleDeviceMotion);
         }
