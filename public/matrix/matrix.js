@@ -272,7 +272,7 @@ function startIncrease() {
       } else {
         clearInterval(increaseInterval);
       }
-    }, 50); // Wert alle 0.05 Sekunden erhöhen
+    }, 25); // Wert alle 0.05 Sekunden erhöhen
   }
 }
 
