@@ -1,19 +1,16 @@
-// const fs = require('fs');
+const fs = require('fs');
 const puppeteer = require('puppeteer-core');
 const https = require('https');
-const selfsigned = require('selfsigned');
+// const selfsigned = require('selfsigned');
 const express = require('express');
 const path = require('path');
 const { Server } = require('socket.io');
 
 const app = express();
-// Erstelle ein selbst signiertes Zertifikat
-const attrs = [{ name: 'commonName', value: 'localhost' }];
-const pems = selfsigned.generate(attrs, { days: 365 });
 
 // Pfade zu den Zertifikat-Dateien
-const privateKey = pems.private;
-const certificate = pems.cert;
+const privateKey = fs.readFileSync('localhost-key.pem', 'utf8');
+const certificate = fs.readFileSync('localhost.pem', 'utf8');
 const credentials = { key: privateKey, cert: certificate };
 
 const expressServer = https.createServer(credentials, app);
