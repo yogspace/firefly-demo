@@ -257,16 +257,16 @@ let valueToIncrease = 0;
 let increaseInterval;
 let countdownInterval;
 let countdownValue = 10;
+let newDataReceived = false;
 function startIncrease() {
   if (!increaseInterval) {
-    // Überprüfen, ob increaseInterval bereits aktiv ist
     increaseInterval = setInterval(() => {
       valueToIncrease++;
       if (valueToIncrease > 10) {
         valueToIncrease = 10;
       }
       bgColor = color(0, 0, valueToIncrease);
-    }, 50); // Wert alle 1 Sekunde erhöhen
+    }, 50); // Wert alle 0.05 Sekunden erhöhen
   }
 }
 
@@ -288,10 +288,10 @@ function startCountdown() {
     if (countdownValue < 0) {
       clearInterval(countdownInterval);
       console.log('Countdown abgelaufen!');
-      if (valueToIncrease > 0) {
+      if (newDataReceived) {
         handleDataAfterCountdown();
       } else {
-        resetIncrease(); // Setze den Wert zurück
+        handleNoDataAfterCountdown(); // Funktion für keinen Datenempfang
       }
     }
   }, 1000); // Timer alle 1 Sekunde aktualisieren
@@ -299,7 +299,10 @@ function startCountdown() {
 
 socket.on('movement data', function (data) {
   startIncrease();
-  startCountdown();
+  newDataReceived = true; // Neue Daten empfangen
+  if (!countdownInterval) {
+    startCountdown();
+  }
   // Füge hier den Code hinzu, um auf die empfangenen Daten zu reagieren
   // z.B. bgColor = color(0, 0, 255);
   // speed = speed + 1;
@@ -310,8 +313,13 @@ function handleDataAfterCountdown() {
   // immer noch Daten empfangen werden
   console.log('Daten werden immer noch empfangen nach Countdown.');
   bgColor = color(255, 0, 0);
-  console.log(bgColor);
+  // Füge hier den Code hinzu, den du ausführen möchtest
+}
 
+function handleNoDataAfterCountdown() {
+  // Hier wird deine Funktion aufgerufen, wenn nach dem Countdown
+  // keine Daten mehr empfangen werden
+  console.log('Keine Daten mehr empfangen nach Countdown.');
   // Füge hier den Code hinzu, den du ausführen möchtest
 }
 
