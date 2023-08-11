@@ -258,9 +258,10 @@ let increaseInterval;
 let countdownInterval;
 let countdownValue = 10;
 let newDataReceivedDuringCountdown = false;
+let dead = false;
 
 function startIncrease() {
-  if (!increaseInterval && !newDataReceivedDuringCountdown) {
+  if (!increaseInterval && !newDataReceivedDuringCountdown && dead === false) {
     console.log('1: countdown');
     increaseInterval = setInterval(() => {
       valueToIncrease++;
@@ -290,6 +291,7 @@ function startCountdown() {
     countdownValue--;
 
     if (countdownValue === 1) {
+      dead = true;
       newDataReceivedDuringCountdown = false; // Zurücksetzen während der letzten Sekunde
     }
 
