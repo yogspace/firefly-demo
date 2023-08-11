@@ -252,7 +252,6 @@ function draw() {
 
   drawFireflies();
 }
-
 let valueToIncrease = 0;
 let increaseInterval;
 let countdownInterval;
@@ -275,7 +274,6 @@ function resetIncrease() {
   clearInterval(increaseInterval);
   increaseInterval = null;
   valueToIncrease = 0;
-  bgColor = color(15, 3, 0); // Setze die Hintergrundfarbe auf Orange
 }
 
 function startCountdown() {
@@ -297,6 +295,7 @@ function startCountdown() {
         handleDataAfterCountdown();
       } else {
         handleNoDataAfterCountdown(); // Funktion für keinen Datenempfang
+        newDataReceivedDuringCountdown = false; // Zurücksetzen nach dem Aufrufen der Funktion
       }
     }
   }, 1000); // Timer alle 1 Sekunde aktualisieren
@@ -306,9 +305,9 @@ socket.on('movement data', function (data) {
   startIncrease();
   if (!newDataReceivedDuringCountdown) {
     newDataReceivedDuringCountdown = true; // Neue Daten während Countdown empfangen
-  }
-  if (!countdownInterval) {
-    startCountdown();
+    if (!countdownInterval) {
+      startCountdown(); // Countdown neu starten, wenn Daten empfangen werden
+    }
   }
   // Füge hier den Code hinzu, um auf die empfangenen Daten zu reagieren
   // z.B. bgColor = color(0, 0, 255);
@@ -320,6 +319,7 @@ function handleDataAfterCountdown() {
   // immer noch Daten empfangen werden
   console.log('Daten werden immer noch empfangen nach Countdown.');
   bgColor = color(255, 0, 0);
+
   // Füge hier den Code hinzu, den du ausführen möchtest
 }
 
@@ -327,6 +327,8 @@ function handleNoDataAfterCountdown() {
   // Hier wird deine Funktion aufgerufen, wenn nach dem Countdown
   // keine Daten mehr empfangen werden
   bgColor = color(15, 3, 0);
+  resetIncrease(); // Setze den Wert zurück
+
   console.log('Keine Daten mehr empfangen nach Countdown.');
   // Füge hier den Code hinzu, den du ausführen möchtest
 }
