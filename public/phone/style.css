@@ -6,3 +6,11 @@ body {
   /* margin: 0px; */
   /* padding: 0px; */
 }
+
+h1 {
+  font-size: 50pt;
+}
+
+button {
+  font-size: 30pt;
+}
