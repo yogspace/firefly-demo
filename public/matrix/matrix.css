@@ -18,3 +18,11 @@ main {
   width: 32px;
   height: 16px;
 }
+
+h1 {
+  font-size: 50pt;
+}
+
+button {
+  font-size: 30pt;
+}
