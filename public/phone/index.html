@@ -2,14 +2,23 @@
 <html>
   <head>
     <title>phone</title>
-    <link rel="stylesheet" type="text/css" href="style.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="style.css" /> -->
+    <style>
+      h1 {
+        font-size: 50pt;
+      }
+
+      button {
+        font-size: 30pt;
+      }
+    </style>
   </head>
   <body>
     <h1>phone</h1>
     <button id="sendButton">Bewegungsdaten senden</button>
   </body>
   <script src="/socket.io/socket.io.js"></script>
-  <script src="../public/phone/web.js"></script>
+  <!-- <script src="../public/phone/web.js"></script> -->
   <script>
     let socket = io();
     let sendingEnabled = false; // Zustand des Sendens
