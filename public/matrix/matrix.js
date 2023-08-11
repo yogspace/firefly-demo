@@ -257,6 +257,7 @@ function draw() {
 socket.on('movement data', function (data) {
   // console.log(msg);
   // bgColor = color(0, 0, 255);
+  speed = 2;
 });
 
 setInterval(getPixels, 100);
