@@ -93,7 +93,7 @@ const pixelMatrixTranslation = [
 const num_pixels_x = 32;
 const num_pixels_y = 16;
 const scale = sketchWidth / num_pixels_x;
-let speed = 1;
+let speed = 2;
 
 class Firefly {
   constructor(x, y, speed) {
