@@ -18,8 +18,8 @@ function setup() {
     bgColorIdle: color(15, 3, 0),
     bgColorInterrupt: color(0, 0, 10),
     bgColorStillInterrupt: color(255, 0, 0),
-    updatePixelsInterval: 10, //ms
-    interpolationInterval: 10, //ms
+    updatePixelsInterval: 25, //ms
+    interpolationInterval: 25, //ms
     countDownInterruption: 10, //s
   };
 
