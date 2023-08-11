@@ -13,9 +13,19 @@
     let sendingEnabled = false; // Zustand des Sendens
     let lastGyrometerData = null;
     let tolerance = 0.2;
+    let id = getRandomInt(10000);
 
+    console.log(id);
+
+    function getRandomInt(max) {
+      return Math.floor(Math.random() * max);
+    }
     // Funktion zum Senden der Bewegungsdaten über den Socket
     function sendMovementData(data) {
+      data = {
+        id: id,
+        data: data,
+      };
       socket.emit('movement data', data);
     }
 
@@ -24,10 +34,12 @@
       sendingEnabled = !sendingEnabled;
       let sendButton = document.getElementById('sendButton');
       if (sendingEnabled) {
+        socket.emit('phone login', id);
         sendButton.textContent = 'Senden stoppen';
         // Starte das Senden der Bewegungsdaten
         startSending();
       } else {
+        socket.emit('phone logout', id);
         sendButton.textContent = 'Bewegungsdaten senden';
         // Stoppe das Senden der Bewegungsdaten
         stopSending();
