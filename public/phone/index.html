@@ -10,6 +10,7 @@
   <script src="/socket.io/socket.io.js"></script>
   <script>
     let socket = io();
+    let lastGyrometerData = null;
 
     // Funktion zum Senden der Bewegungsdaten über den Socket
     function sendMovementData(data) {
@@ -35,22 +36,40 @@
     }
 
     function handleDeviceMotion(event) {
-      // Extrahiere die Gyrometer-Daten aus dem Event
-      let gyrometerData = {
+      let currentGyrometerData = {
         x: event.accelerationIncludingGravity.x,
         y: event.accelerationIncludingGravity.y,
         z: event.accelerationIncludingGravity.z,
       };
 
-      // Sende die Gyrometer-Daten über den Socket
-      socket.emit('movement data', gyrometerData);
+      // Wenn es vorherige Daten gibt, interpoliere sie
+      if (lastGyrometerData !== null) {
+        thresholdAndSendData(currentGyrometerData, lastGyrometerData);
+      }
 
-      // Event-Listener wieder entfernen, wenn die Daten gesendet wurden
-      // window.removeEventListener('devicemotion', handleDeviceMotion);
+      lastGyrometerData = currentGyrometerData;
     }
 
-    // socket.on('chat message', function (msg) {
-    //   console.log(msg);
-    // });
+    function thresholdAndSendData(currentData, previousData) {
+      let thresholddData = {
+        x: threshold(currentData.x, previousData.x),
+        y: threshold(currentData.y, previousData.y),
+        z: threshold(currentData.z, previousData.z),
+      };
+
+      // Toleranz von 0.1 prüfen
+      if (
+        Math.abs(thresholddData.x - currentData.x) > 0.1 ||
+        Math.abs(thresholddData.y - currentData.y) > 0.1 ||
+        Math.abs(thresholddData.z - currentData.z) > 0.1
+      ) {
+        sendMovementData(thresholddData);
+      }
+    }
+
+    function threshold(currentValue, previousValue) {
+      // Interpoliere die Werte als Durchschnitt
+      return (currentValue + previousValue) / 2;
+    }
   </script>
 </html>
