@@ -258,16 +258,19 @@ let increaseInterval;
 let countdownInterval;
 let countdownValue = 10;
 let newDataReceivedDuringCountdown = false;
+let dead = false;
 
 function startIncrease() {
-  if (!increaseInterval && !newDataReceivedDuringCountdown) {
-    increaseInterval = setInterval(() => {
-      valueToIncrease++;
-      if (valueToIncrease > 10) {
-        valueToIncrease = 10;
-      }
-      bgColor = color(0, 0, valueToIncrease);
-    }, 50); // Wert alle 0.05 Sekunden erhöhen
+  if (dead === false) {
+    if (!increaseInterval && !newDataReceivedDuringCountdown) {
+      increaseInterval = setInterval(() => {
+        valueToIncrease++;
+        if (valueToIncrease > 10) {
+          valueToIncrease = 10;
+        }
+        bgColor = color(0, 0, valueToIncrease);
+      }, 50); // Wert alle 0.05 Sekunden erhöhen
+    }
   }
 }
 
@@ -285,7 +288,7 @@ function startCountdown() {
     console.log(countdownValue);
     countdownValue--;
 
-    if (countdownValue === 2) {
+    if (countdownValue === 1) {
       newDataReceivedDuringCountdown = false; // Zurücksetzen während der letzten Sekunde
     }
 
@@ -319,6 +322,7 @@ function handleDataAfterCountdown() {
   // Hier wird deine Funktion aufgerufen, wenn nach dem Countdown
   // immer noch Daten empfangen werden
   console.log('Daten werden immer noch empfangen nach Countdown.');
+  dead = true;
   bgColor = color(255, 0, 0);
   // Füge hier den Code hinzu, den du ausführen möchtest
 }
