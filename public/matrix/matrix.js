@@ -268,10 +268,12 @@ function startIncrease() {
       if (valueToIncrease > 10) {
         valueToIncrease = 10;
       }
-      if (dead === false) {
-        bgColor = color(0, 0, valueToIncrease);
-        console.log('2: countdown');
+      if (dead === true) {
+        clearInterval(increaseInterval);
       }
+
+      bgColor = color(0, 0, valueToIncrease);
+      console.log('2: countdown');
     }, 50); // Wert alle 0.05 Sekunden erhöhen
   }
 }
