@@ -258,6 +258,7 @@ let increaseInterval;
 let countdownInterval;
 let countdownValue = 10;
 let newDataReceivedDuringCountdown = false;
+let death = false;
 
 function startIncrease() {
   if (!increaseInterval) {
@@ -304,7 +305,7 @@ function startCountdown() {
 
 socket.on('movement data', function (data) {
   startIncrease();
-  if (!newDataReceivedDuringCountdown) {
+  if (!newDataReceivedDuringCountdown && death === false) {
     newDataReceivedDuringCountdown = true; // Neue Daten während Countdown empfangen
     if (!countdownInterval) {
       startCountdown(); // Countdown neu starten, wenn Daten empfangen werden
@@ -320,9 +321,10 @@ function handleDataAfterCountdown() {
   // immer noch Daten empfangen werden
   console.log('Daten werden immer noch empfangen nach Countdown.');
   bgColor = color(255, 0, 0);
-  // newDataReceivedDuringCountdown = true;
-  resetIncrease(); // Setze den Wert zurück
-  newDataReceivedDuringCountdown = false; // Zurücksetzen nach dem Aufrufen der Funktion
+  death = true;
+  // // newDataReceivedDuringCountdown = true;
+  // resetIncrease(); // Setze den Wert zurück
+  // newDataReceivedDuringCountdown = false; // Zurücksetzen nach dem Aufrufen der Funktion
   // Füge hier den Code hinzu, den du ausführen möchtest
 }
 
