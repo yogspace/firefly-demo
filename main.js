@@ -47,7 +47,7 @@ expressServer.listen(3001, async () => {
     const publicIpModule = await import('public-ip');
     const publicIp = publicIpModule.default;
 
-    const ipAddress = await publicIp.v4(); // Erhalte die öffentliche IPv4-Adresse
+    const ipAddress = await publicIp; // Erhalte die öffentliche IPv4-Adresse
     console.log(`Deine öffentliche IP-Adresse: ${ipAddress}`);
   } catch (error) {
     console.error('Fehler beim Abrufen der IP-Adresse:', error);
