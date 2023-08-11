@@ -4,6 +4,7 @@ let sketch = document.getElementById('sketch');
 let socket = io();
 
 let bgColor;
+let config;
 
 function preload() {}
 
@@ -12,7 +13,14 @@ function setup() {
   sketchHeight = document.getElementById('sketch').offsetHeight;
   let renderer = createCanvas(sketchWidth, sketchHeight);
   renderer.parent('sketch');
-  bgColor = color(15, 3, 0);
+
+  config = {
+    bgColorIdle: color(15, 3, 0),
+    bgColorInterrupt: color(0, 0, 10),
+    bgColorStillInterrupt: color(255, 0, 0),
+  };
+
+  bgColor = config.bgColorIdle;
 }
 
 const pixelMatrixTranslation = [
@@ -249,7 +257,6 @@ function drawFireflies() {
 function draw() {
   clear();
   background(bgColor);
-
   drawFireflies();
 }
 
@@ -259,20 +266,46 @@ let countdownInterval;
 let countdownValue = 11;
 let newDataReceivedDuringCountdown = false;
 let stillReceivingDataAfterCountdown = false;
+let colorInterpolationInterval;
+
+function interpolateColor(startColor, endColor, duration) {
+  let startTime = millis();
+  clearInterval(colorInterpolationInterval);
+
+  colorInterpolationInterval = setInterval(() => {
+    let currentTime = millis() - startTime;
+    if (currentTime >= duration) {
+      bgColor = endColor;
+      clearInterval(colorInterpolationInterval);
+    } else {
+      let interpolationRatio = currentTime / duration;
+      let r = lerp(
+        startColor.levels[0],
+        endColor.levels[0],
+        interpolationRatio
+      );
+      let g = lerp(
+        startColor.levels[1],
+        endColor.levels[1],
+        interpolationRatio
+      );
+      let b = lerp(
+        startColor.levels[2],
+        endColor.levels[2],
+        interpolationRatio
+      );
+      bgColor = color(r, g, b);
+    }
+  }, 25);
+}
 
 function startIncrease() {
-  if (!increaseInterval && !newDataReceivedDuringCountdown) {
-    increaseInterval = setInterval(() => {
-      valueToIncrease++;
-      if (valueToIncrease > 10) {
-        valueToIncrease = 10;
-      }
-      if (stillReceivingDataAfterCountdown === false) {
-        bgColor = color(0, 0, valueToIncrease);
-      } else {
-        clearInterval(increaseInterval);
-      }
-    }, 25); // Wert alle 0.05 Sekunden erhöhen
+  if (!newDataReceivedDuringCountdown) {
+    let startValue = valueToIncrease;
+    valueToIncrease = 10; // Setze den Wert direkt auf das Maximum
+    let startColor = color(0, 0, startValue);
+    let endColor = color(255, 0, 0); // Ändern Sie dies entsprechend Ihrer Anforderungen
+    interpolateColor(config.bgColorIdle, config.bgColorInterrupt, 3000); // 3000 Millisekunden (3 Sekunden)
   }
 }
 
@@ -324,7 +357,7 @@ function handleDataAfterCountdown() {
   // Hier wird deine Funktion aufgerufen, wenn nach dem Countdown
   // immer noch Daten empfangen werden
   console.log('Daten werden immer noch empfangen nach Countdown.');
-  bgColor = color(255, 0, 0);
+  bgColor = config.bgColorStillInterrupt;
   stillReceivingDataAfterCountdown = true;
   // Füge hier den Code hinzu, den du ausführen möchtest
 }
@@ -332,7 +365,7 @@ function handleDataAfterCountdown() {
 function handleNoDataAfterCountdown() {
   // Hier wird deine Funktion aufgerufen, wenn nach dem Countdown
   // keine Daten mehr empfangen werden
-  bgColor = color(15, 3, 0);
+  bgColor = config.bgColorIdle;
   console.log('Keine Daten mehr empfangen nach Countdown.');
 
   resetIncrease(); // Setze den Wert zurück
