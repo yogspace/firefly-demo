@@ -304,11 +304,13 @@ function startCountdown() {
 }
 
 socket.on('movement data', function (data) {
-  startIncrease();
-  if (!newDataReceivedDuringCountdown && death === false) {
-    newDataReceivedDuringCountdown = true; // Neue Daten während Countdown empfangen
-    if (!countdownInterval) {
-      startCountdown(); // Countdown neu starten, wenn Daten empfangen werden
+  if (death === false) {
+    startIncrease();
+    if (!newDataReceivedDuringCountdown) {
+      newDataReceivedDuringCountdown = true; // Neue Daten während Countdown empfangen
+      if (!countdownInterval) {
+        startCountdown(); // Countdown neu starten, wenn Daten empfangen werden
+      }
     }
   }
   // Füge hier den Code hinzu, um auf die empfangenen Daten zu reagieren
