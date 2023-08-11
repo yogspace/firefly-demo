@@ -261,16 +261,14 @@ let newDataReceivedDuringCountdown = false;
 let dead = false;
 
 function startIncrease() {
-  if (dead === false) {
-    if (!increaseInterval && !newDataReceivedDuringCountdown) {
-      increaseInterval = setInterval(() => {
-        valueToIncrease++;
-        if (valueToIncrease > 10) {
-          valueToIncrease = 10;
-        }
-        bgColor = color(0, 0, valueToIncrease);
-      }, 50); // Wert alle 0.05 Sekunden erhöhen
-    }
+  if (!increaseInterval && !newDataReceivedDuringCountdown) {
+    increaseInterval = setInterval(() => {
+      valueToIncrease++;
+      if (valueToIncrease > 10) {
+        valueToIncrease = 10;
+      }
+      bgColor = color(0, 0, valueToIncrease);
+    }, 50); // Wert alle 0.05 Sekunden erhöhen
   }
 }
 
@@ -306,16 +304,18 @@ function startCountdown() {
 }
 
 socket.on('movement data', function (data) {
-  if (!newDataReceivedDuringCountdown) {
-    startIncrease();
-    newDataReceivedDuringCountdown = true; // Neue Daten während Countdown empfangen
-    if (!countdownInterval) {
-      startCountdown(); // Countdown neu starten, wenn Daten empfangen werden
+  if (dead === false) {
+    if (!newDataReceivedDuringCountdown) {
+      startIncrease();
+      newDataReceivedDuringCountdown = true; // Neue Daten während Countdown empfangen
+      if (!countdownInterval) {
+        startCountdown(); // Countdown neu starten, wenn Daten empfangen werden
+      }
     }
+    // Füge hier den Code hinzu, um auf die empfangenen Daten zu reagieren
+    // z.B. bgColor = color(0, 0, 255);
+    // speed = speed + 1;
   }
-  // Füge hier den Code hinzu, um auf die empfangenen Daten zu reagieren
-  // z.B. bgColor = color(0, 0, 255);
-  // speed = speed + 1;
 });
 
 function handleDataAfterCountdown() {
