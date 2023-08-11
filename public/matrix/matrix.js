@@ -285,7 +285,7 @@ function startCountdown() {
     console.log(countdownValue);
     countdownValue--;
 
-    if (countdownValue === 1) {
+    if (countdownValue === 2) {
       newDataReceivedDuringCountdown = false; // Zurücksetzen während der letzten Sekunde
     }
 
