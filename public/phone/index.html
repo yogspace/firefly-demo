@@ -5,10 +5,34 @@
   </head>
   <body>
     <p>phone</p>
+    <button id="sendButton">Bewegungsdaten senden</button>
   </body>
   <script src="/socket.io/socket.io.js"></script>
   <script>
     let socket = io();
+
+    // Event-Listener für den Button
+    document
+      .getElementById('sendButton')
+      .addEventListener('click', function () {
+        // Hier starten wir den Event-Listener für devicemotion, wenn der Button geklickt wird
+        window.addEventListener('devicemotion', handleDeviceMotion);
+      });
+
+    function handleDeviceMotion(event) {
+      // Extrahiere die Gyrometer-Daten aus dem Event
+      let gyrometerData = {
+        x: event.accelerationIncludingGravity.x,
+        y: event.accelerationIncludingGravity.y,
+        z: event.accelerationIncludingGravity.z,
+      };
+
+      // Sende die Gyrometer-Daten über den Socket
+      socket.emit('movement data', gyrometerData);
+
+      // Event-Listener wieder entfernen, wenn die Daten gesendet wurden
+      //window.removeEventListener('devicemotion', handleDeviceMotion);
+    }
 
     socket.on('chat message', function (msg) {
       console.log(msg);

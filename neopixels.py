@@ -19,10 +19,7 @@ def setColorPixel(data):
     data = json.loads(data)
     print('message received with ', data)
     print(data["id"]);
-    #pixels.fill((0, 0, 0))
-    #pixels.fill((100, 30, 0))
     pixels[data['id']] = (data['color']['r'], data['color']['g'], data['color']['b'])
-    
     pixels.show()
     #sio.emit('my response', {'response': 'my response'})
 
@@ -42,14 +39,8 @@ def setColorCanvasArray(data):
     print('message received with ', data)
     for pixel in data:
         #print(pixel["id"]);
-        #pixels.fill((0, 0, 0))
-        #pixels.fill((100, 30, 0))
         pixels[pixel['id']] = (pixel['color']['r'], pixel['color']['g'], pixel['color']['b'])
     pixels.show()
-    # pixels.fill((0, 0, 0))
-    # pixels.show()
-
-        #sio.emit('my response', {'response': 'my response'})
 
 @sio.event
 def clear(data):

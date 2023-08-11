@@ -39,6 +39,7 @@ app.get('/interface', (req, res) => {
 expressServer.listen(3001, async () => {
   console.log('display interface is on route https://localhost:3001/interface');
   console.log('phone interface is on route https://localhost:3001/');
+  console.log('\n\n');
   const ipAddress = ip.address(); // Erhalte die IP-Adresse
   console.log(`the public ip address is: ${ipAddress}`);
   console.log(
