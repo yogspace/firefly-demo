@@ -296,7 +296,7 @@ function interpolateColor(startColor, endColor, duration) {
       );
       bgColor = color(r, g, b);
     }
-  }, 25);
+  }, 10);
 }
 
 function startIncrease() {
@@ -378,4 +378,4 @@ function handleNoDataAfterCountdown() {
 }
 
 //UpdatePixels
-const updatePixels = setInterval(getPixels, 25);
+const updatePixels = setInterval(getPixels, 10);

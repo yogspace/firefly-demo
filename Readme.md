@@ -6,8 +6,12 @@
 
 # to-do:
 
-https für accelerometer
-Unterbrechungen (smartphone muss an sein?)
+- initiate
+- pixel bewegen sich nach oben (areas)
+- recap
+
+- styling
+- farben anpassen
 
 # links:
 
