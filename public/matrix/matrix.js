@@ -326,6 +326,7 @@ function handleDataAfterCountdown() {
 function handleNoDataAfterCountdown() {
   // Hier wird deine Funktion aufgerufen, wenn nach dem Countdown
   // keine Daten mehr empfangen werden
+  bgColor = color(15, 3, 0);
   console.log('Keine Daten mehr empfangen nach Countdown.');
   // Füge hier den Code hinzu, den du ausführen möchtest
 }
