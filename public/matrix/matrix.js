@@ -18,6 +18,9 @@ function setup() {
     bgColorIdle: color(15, 3, 0),
     bgColorInterrupt: color(0, 0, 10),
     bgColorStillInterrupt: color(255, 0, 0),
+    updatePixelsInterval: 10, //ms
+    interpolationInterval: 10, //ms
+    countDownInterruption: 10, //s
   };
 
   bgColor = config.bgColorIdle;
@@ -296,7 +299,7 @@ function interpolateColor(startColor, endColor, duration) {
       );
       bgColor = color(r, g, b);
     }
-  }, 25);
+  }, config.interpolationInterval);
 }
 
 function startIncrease() {
@@ -317,7 +320,7 @@ function resetIncrease() {
 
 function startCountdown() {
   clearInterval(countdownInterval);
-  countdownValue = 11;
+  countdownValue = config.countDownInterruption + 1;
 
   countdownInterval = setInterval(() => {
     console.log(countdownValue);
@@ -378,4 +381,4 @@ function handleNoDataAfterCountdown() {
 }
 
 //UpdatePixels
-const updatePixels = setInterval(getPixels, 25);
+const updatePixels = setInterval(getPixels, config.updatePixelsInterval);
