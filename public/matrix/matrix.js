@@ -18,7 +18,6 @@ function setup() {
     bgColorIdle: color(15, 3, 0),
     bgColorInterrupt: color(0, 0, 10),
     bgColorStillInterrupt: color(255, 0, 0),
-    updatePixelsInterval: 25, //ms
   };
 
   bgColor = config.bgColorIdle;
@@ -297,7 +296,7 @@ function interpolateColor(startColor, endColor, duration) {
       );
       bgColor = color(r, g, b);
     }
-  }, config.interpolationInterval);
+  }, 25);
 }
 
 function startIncrease() {
@@ -379,4 +378,4 @@ function handleNoDataAfterCountdown() {
 }
 
 //UpdatePixels
-const updatePixels = setInterval(getPixels, config.updatePixelsInterval);
+const updatePixels = setInterval(getPixels, 25);
