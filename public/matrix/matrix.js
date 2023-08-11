@@ -305,7 +305,7 @@ function startIncrease() {
     valueToIncrease = 10; // Setze den Wert direkt auf das Maximum
     let startColor = color(0, 0, startValue);
     let endColor = color(255, 0, 0); // Ändern Sie dies entsprechend Ihrer Anforderungen
-    interpolateColor(config.bgColorIdle, config.bgColorInterrupt, 3000); // 3000 Millisekunden (3 Sekunden)
+    interpolateColor(config.bgColorIdle, config.bgColorInterrupt, 1500);
   }
 }
 
@@ -357,7 +357,9 @@ function handleDataAfterCountdown() {
   // Hier wird deine Funktion aufgerufen, wenn nach dem Countdown
   // immer noch Daten empfangen werden
   console.log('Daten werden immer noch empfangen nach Countdown.');
-  bgColor = config.bgColorStillInterrupt;
+  // bgColor = config.bgColorStillInterrupt;
+  interpolateColor(config.bgColorInterrupt, config.bgColorStillInterrupt, 1500);
+
   stillReceivingDataAfterCountdown = true;
   // Füge hier den Code hinzu, den du ausführen möchtest
 }
@@ -365,7 +367,9 @@ function handleDataAfterCountdown() {
 function handleNoDataAfterCountdown() {
   // Hier wird deine Funktion aufgerufen, wenn nach dem Countdown
   // keine Daten mehr empfangen werden
-  bgColor = config.bgColorIdle;
+  // bgColor = config.bgColorIdle;
+  interpolateColor(config.bgColorInterrupt, config.bgColorIdle, 1500);
+
   console.log('Keine Daten mehr empfangen nach Countdown.');
 
   resetIncrease(); // Setze den Wert zurück
