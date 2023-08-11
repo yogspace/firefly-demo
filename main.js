@@ -1,14 +1,25 @@
+const fs = require('fs');
 const puppeteer = require('puppeteer-core');
-const http = require('http');
+const https = require('https');
+const selfsigned = require('selfsigned');
 const express = require('express');
 const path = require('path');
 const { Server } = require('socket.io');
 
 const app = express();
-const expressServer = http.createServer(app);
+// Erstelle ein selbst signiertes Zertifikat
+const attrs = [{ name: 'commonName', value: 'localhost' }];
+const pems = selfsigned.generate(attrs, { days: 365 });
+
+// Pfade zu den Zertifikat-Dateien
+const privateKey = pems.private;
+const certificate = pems.cert;
+const credentials = { key: privateKey, cert: certificate };
+
+const expressServer = https.createServer(credentials, app);
 const ioExpress = new Server(expressServer);
 
-const socketServerPixels = http.createServer();
+const socketServerPixels = https.createServer();
 const ioPixels = new Server(socketServerPixels);
 
 socketServerPixels.listen(3000);
@@ -31,7 +42,7 @@ expressServer.listen(3001, () => {
   console.log('headless browser is on route https://localhost:3001/matrix');
   console.log('display interface is on route https://localhost:3001/interface');
   console.log('phone interface is on route https://localhost:3001/');
-  // createHeadlessBrowser();
+  createHeadlessBrowser();
 });
 
 async function createHeadlessBrowser() {

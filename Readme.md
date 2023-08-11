@@ -5,6 +5,5 @@
 3. start neopixels: "sudo python neopixels.py"
 
 to-do:
-pixelmatrix
-p5 Headless
+https für accelerometer
 Unterbrechungen (smartphone muss an sein?)
