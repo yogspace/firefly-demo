@@ -274,7 +274,7 @@ function resetIncrease() {
   clearInterval(increaseInterval);
   increaseInterval = null;
   valueToIncrease = 0;
-  bgColor = color(0, 0, 0); // Setze die Hintergrundfarbe auf Schwarz
+  bgColor = color(15, 3, 0); // Setze die Hintergrundfarbe auf Orange
 }
 
 function startCountdown() {
@@ -292,7 +292,6 @@ function startCountdown() {
         handleDataAfterCountdown(); // Hier wird deine Funktion aufgerufen
       }
       resetIncrease(); // Setze den Wert zurück
-      bgColor = color(255, 0, 0);
     }
   }, 1000); // Timer alle 1 Sekunde aktualisieren
 }
