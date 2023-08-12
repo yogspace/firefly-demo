@@ -109,8 +109,8 @@ function startActive() {
   if (config.startActive === true) {
     if (config.scale < 1) {
       config.scale = config.scale + 0.01;
-      btn1.style.left = `${700}px`;
-      btn2.style.left = `${-700}px`;
+      btn1.style.left = `${600 + 0.01}px`;
+      btn2.style.left = `${-600 - 0.01}px`;
       btn1.style.opacity = '0.1'; // Set opacity to 100% when touched
       btn2.style.opacity = '0.1'; // Set opacity to 100% when touched
     }
