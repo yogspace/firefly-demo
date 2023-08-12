@@ -136,13 +136,23 @@ socket.on('interrupt', (data) => {
   switch (data) {
     case 'start':
       speed = 0.1;
-      config.interruptScale = 0.5;
+      while (config.scale > 0.5) {
+        setTimeout(() => {
+          config.scale = config.scale - 0.05;
+        }, 20);
+      }
+      // config.interruptScale = 0.5;
       break;
     case 'end':
       break;
     case 'idle':
       speed = 0.01;
       config.interruptScale = 1;
+      while (config.scale < 1) {
+        setTimeout(() => {
+          config.scale = config.scale + 0.05;
+        }, 20);
+      }
 
       break;
     default:
