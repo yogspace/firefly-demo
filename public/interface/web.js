@@ -36,7 +36,7 @@ function btn1Touched() {
   btn1.style.opacity = '1'; // Set opacity to 100% when touched
   btnPressedCount++;
   checkTouchCount();
-  data = { setting: 'idle', area: ['A'] };
+  data = { setting: 'idle', area: ['B'] };
   socket.emit('init', data);
 }
 
@@ -45,7 +45,7 @@ function btn2Touched() {
   btn2.style.opacity = '1'; // Set opacity to 100% when touched
   btnPressedCount++;
   checkTouchCount();
-  data = { setting: 'idle', area: ['B'] };
+  data = { setting: 'idle', area: ['A'] };
   socket.emit('init', data);
 }
 

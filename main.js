@@ -55,7 +55,7 @@ expressServer.listen(3001, async () => {
   );
   console.log(`phone interface is on route https://${ipAddress}:3001/`);
   console.log('###################\n');
-  // createHeadlessBrowser();
+  createHeadlessBrowser();
 });
 
 async function createHeadlessBrowser() {
