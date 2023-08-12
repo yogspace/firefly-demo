@@ -18,6 +18,7 @@ function setup() {
 
   config = {
     bgColor: color(20, 20, 20),
+    scale: 0,
   };
 
   btn1 = document.getElementById('btn1');
@@ -32,6 +33,11 @@ function setup() {
 function draw() {
   clear();
   background(config.bgColor);
+  drawLightPoint();
+}
+
+function drawLightPoint() {
+  circle(sketchWidth / 2, sketchHeight / 2, 0.5 * sketchWidth * config.scale);
 }
 
 function btn1Touched() {
@@ -93,4 +99,35 @@ function thirdFunction() {
   );
   data = { setting: 'active', area: ['A', 'B'], speed: 0.5 };
   socket.emit('init', data);
+  initialize();
+}
+
+function inizialize() {
+  btn1.style.opacity = '0.1'; // Set opacity back to 10% when released
+  btn2.style.opacity = '0.1'; // Set opacity back to 10% when released
+  btn1.style.left = '800px';
+  btn1.style.left = '-800px';
+  cpnfig.scale = interpolateValue(3000);
+}
+
+function interpolateValue(duration) {
+  let startTime = millis();
+  let startValue = 0;
+  let endValue = 1;
+
+  let interval = 10; // Intervall zwischen den Schritten in Millisekunden
+
+  return new Promise((resolve, reject) => {
+    let interpolationInterval = setInterval(() => {
+      let currentTime = millis() - startTime;
+      if (currentTime >= duration) {
+        clearInterval(interpolationInterval);
+        resolve(endValue); // Sicherstellen, dass der Wert genau 1 ist
+      } else {
+        let progress = currentTime / duration;
+        let interpolatedValue = lerp(startValue, endValue, progress);
+        resolve(interpolatedValue);
+      }
+    }, interval);
+  });
 }

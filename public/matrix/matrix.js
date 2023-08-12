@@ -507,8 +507,6 @@ socket.on('init', (data) => {
       });
     }, 3000);
   }
-
-  // console.log(data);
 });
 
 //UpdatePixels
