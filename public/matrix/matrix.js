@@ -18,7 +18,7 @@ function setup() {
 
   config = {
     // bgColorIdle: color(14, 3, 0),
-    bgColorIdle: color(14, 3, 0),
+    bgColorIdle: color(10, 3, 0),
     bgColorInterrupt: color(0, 0, 10),
     bgColorStillInterrupt: color(1, 1, 1),
   };
