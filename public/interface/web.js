@@ -156,7 +156,7 @@ socket.on('interrupt', (data) => {
         } else {
           clearInterval(decreaseInterruptSpeed);
         }
-      }, 20);
+      }, 100);
 
       break;
     default:
