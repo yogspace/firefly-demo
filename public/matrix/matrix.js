@@ -346,7 +346,7 @@ function startIncrease() {
     let endColor = color(255, 0, 0); // Ändern Sie dies entsprechend Ihrer Anforderungen
     interpolateColor(config.bgColorIdle, config.bgColorInterrupt, 1500);
     // speed = 3;
-    newMode = { area: ['A'], speed: 1 };
+    newMode = { area: [], speed: 1 };
     fireflies.forEach((firefly) => {
       firefly.updateMode(newMode);
     });
@@ -404,7 +404,7 @@ function handleDataAfterCountdown() {
   // bgColor = config.bgColorStillInterrupt;
   interpolateColor(config.bgColorInterrupt, config.bgColorStillInterrupt, 1500);
   // speed = 1;
-  newMode = { area: ['bottom'], speed: 0.2 };
+  newMode = { area: ['bottom'], speed: 0.1 };
   fireflies.forEach((firefly) => {
     firefly.updateMode(newMode);
   });
