@@ -346,7 +346,7 @@ function startIncrease() {
     let startColor = color(0, 0, startValue);
     let endColor = color(255, 0, 0); // Ändern Sie dies entsprechend Ihrer Anforderungen
     // speed = 3;
-    interpolateColor(config.bgColorIdle, config.bgColorInterrupt, 1000);
+    interpolateColor(config.bgColorIdle, config.bgColorInterrupt, 100);
     newMode = { area: [], speed: 2 };
     fireflies.forEach((firefly) => {
       firefly.updateMode(newMode);
