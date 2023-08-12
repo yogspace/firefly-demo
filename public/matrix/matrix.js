@@ -22,7 +22,7 @@ function setup() {
     bgColorInterrupt: color(18, 8, 7),
     bgColorStillInterrupt: color(1, 1, 1),
     fireflyColor: color(210, 180, 200, 40),
-    fireflyColorHighlight: color(255, 255, 255, 40),
+    fireflyColorHighlight: color(255, 0, 0, 40),
   };
 
   bgColor = config.bgColorIdle;
