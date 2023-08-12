@@ -22,7 +22,7 @@ function setup() {
     bgColorInterrupt: color(18, 8, 7),
     bgColorStillInterrupt: color(1, 1, 1),
     fireflyColor: color(210, 180, 200, 40),
-    fireflyColorHighlight: color(255, 0, 0, 40),
+    fireflyColorHighlight: color(255, 255, 255, 255),
   };
 
   bgColor = config.bgColorIdle;
@@ -465,7 +465,7 @@ socket.on('init', (data) => {
   if (setting === 'active') {
     fireflyColor = config.fireflyColorHighlight;
     setTimeout(() => {
-      fireflyColor = config.fireflyColorHighlight;
+      fireflyColor = config.fireflyColor;
     }, 1000);
     setTimeout(() => {
       newMode = { area: [], speed: 0.2 };
