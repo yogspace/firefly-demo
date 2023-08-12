@@ -92,5 +92,7 @@ function thirdFunction() {
     'Both buttons are touched simultaneously! Third function executed.'
   );
   data = { setting: 'active', area: ['A', 'B'], speed: 0.5 };
-  socket.emit('init', data);
+  setTimeout(() => {
+    socket.emit('init', data);
+  }, 3000);
 }
