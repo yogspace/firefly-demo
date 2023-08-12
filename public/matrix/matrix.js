@@ -493,15 +493,14 @@ socket.on('init', (data) => {
     firefly.updateMode(newMode);
   });
   if (setting === 'active') {
-    // fireflyColor = config.fireflyColor;
+    interpolateFirefly(config.fireflyColor, config.fireflyColorHighlight, 500);
     setTimeout(() => {
       interpolateFirefly(
         config.fireflyColorHighlight,
         config.fireflyColor,
-        2000
+        1500
       );
-    }, 3000);
-    setTimeout(() => {
+
       newMode = { area: [], speed: 0.2 };
       fireflies.forEach((firefly) => {
         firefly.updateMode(newMode);
