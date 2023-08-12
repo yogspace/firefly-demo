@@ -100,7 +100,7 @@ function thirdFunction() {
   );
   data = { setting: 'active', area: ['A', 'B'], speed: 0.5 };
   socket.emit('init', data);
-  // initialize();
+  initialize();
 }
 
 function inizialize() {
