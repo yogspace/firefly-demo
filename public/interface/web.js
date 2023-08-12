@@ -18,7 +18,7 @@ function setup() {
 
   config = {
     bgColor: color(20, 20, 20),
-    scale: 0,
+    scale: 1,
   };
 
   btn1 = document.getElementById('btn1');
