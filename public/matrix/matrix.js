@@ -24,9 +24,9 @@ function setup() {
 
   bgColor = config.bgColorIdle;
 
-  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.2), mode);
-  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.2), mode);
-  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.2), mode);
+  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.2, mode));
+  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.2, mode));
+  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.2, mode));
 }
 
 const pixelMatrixTranslation = [
