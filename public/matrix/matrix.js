@@ -433,6 +433,7 @@ function startCountdown() {
 }
 
 socket.on('movement data', function (data) {
+  console.log(setting);
   if (setting === 'active') {
     if (!newDataReceivedDuringCountdown) {
       startIncrease();
