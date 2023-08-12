@@ -110,7 +110,7 @@ const scale = sketchWidth / num_pixels_x;
 let speed = 1;
 
 let mode = {
-  area: ['A'],
+  area: [],
 };
 
 class Firefly {
@@ -373,6 +373,7 @@ function startCountdown() {
 }
 
 socket.on('movement data', function (data) {
+  mode = ['A'];
   if (!newDataReceivedDuringCountdown) {
     startIncrease();
     newDataReceivedDuringCountdown = true; // Neue Daten während Countdown empfangen
