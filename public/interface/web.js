@@ -176,16 +176,17 @@ function resetAll() {
   console.log('reset in 10s');
   let t = 0;
   let resetInterval = setInterval(() => {
-    t++;
+    console.log(t);
     if (t === 10) {
+      clearInterval(resetInterval);
       console.log('reset now');
       socket.emit('reset', '');
-      clearInterval(resetInterval);
     }
+    t++;
   }, 1000);
 }
 
-socket.on('reset', (data) => {
+socket.on('resetAll', (data) => {
   console.log('resetted all');
   btn1.style.left = `800px`;
   btn2.style.left = `-800px`;

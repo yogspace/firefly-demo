@@ -132,7 +132,7 @@ ioExpress.on('connection', (socket) => {
 
   socket.on('reset', (data) => {
     console.log('reset');
-    ioExpress.emit('reset', data);
+    ioExpress.emit('resetAll', data);
   });
 
   socket.on('interrupt', (data) => {
