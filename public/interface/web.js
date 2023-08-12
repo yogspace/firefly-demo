@@ -174,10 +174,15 @@ socket.on('interrupt', (data) => {
 
 function resetAll() {
   console.log('reset in 10s');
-  let t = setTimeOut(() => {
-    console.log('reset now');
-    socket.emit('reset', '');
-  }, 10000);
+  let t = 0;
+  let resetInterval = setInterval(() => {
+    t++;
+    if (t === 10) {
+      console.log('reset now');
+      socket.emit('reset', '');
+      clearInterval(resetInterval);
+    }
+  }, 1000);
 }
 
 socket.on('reset', (data) => {
