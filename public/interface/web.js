@@ -161,10 +161,8 @@ socket.on('interrupt', (data) => {
         if (config.interruptScale < 1) {
           config.interruptScale = config.interruptScale + 0.05;
         } else {
+          reset();
           clearInterval(decreaseInterruptSpeed);
-          setTimeOut(() => {
-            socket.emit('reset', '');
-          }, 10000);
         }
       }, 100);
 
@@ -173,6 +171,14 @@ socket.on('interrupt', (data) => {
       break;
   }
 });
+
+function reset() {
+  console.log('reset in 10s');
+  setTimeOut(() => {
+    console.log('reset now');
+    socket.emit('reset', '');
+  }, 10000);
+}
 
 socket.on('reset', (data) => {
   btn1.style.left = `800px`;
