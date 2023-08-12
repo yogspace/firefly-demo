@@ -8,12 +8,10 @@ let btn2Clicked = false; // New flag variable to track if btn2 was clicked
 let setting = 'idle';
 
 //wabern
-let phase;
-let speed;
-let scale;
-let alpha;
-let color1;
-let color2;
+let phase = 1;
+let speed = 0.01;
+let scale = 1;
+
 //speed = 0.01 = fast
 
 let socket = io();
@@ -39,11 +37,6 @@ function setup() {
   btn1.addEventListener('touchend', btnReleased);
   btn2.addEventListener('touchend', btnReleased);
 
-  //wabern
-  phase = 1;
-  speed = 0.1;
-  scale = 1;
-
   //speed = 0.01 = fast
 }
 
@@ -55,11 +48,12 @@ function draw() {
     0,
     100,
     0.5,
-    250 * config.scale,
-    250 * config.scale,
+    200 * config.scale,
+    400 * config.scale,
     speed,
     color(255, 255, 255),
-    color(230, 136, 57),
+    // color(200, 136, 57),
+    color(255, 255, 255),
     0.9 * PI,
     255
   );
@@ -145,12 +139,12 @@ socket.on('interrupt', (data) => {
   console.log(data);
   switch (data) {
     case 'start':
-      speed = 1;
+      speed = 0.1;
       break;
     case 'end':
       break;
     case 'idle':
-      speed = 0.1;
+      speed = 0.01;
       break;
     default:
       break;
