@@ -389,6 +389,8 @@ function startIncrease() {
     let startColor = color(0, 0, startValue);
     let endColor = color(255, 0, 0); // Ändern Sie dies entsprechend Ihrer Anforderungen
     // speed = 3;
+    socket.emit('interrupt', 'start');
+
     interpolateBG(config.bgColorIdle, config.bgColorInterrupt, 500);
     newMode = { area: [], speed: 2 };
     fireflies.forEach((firefly) => {
@@ -410,7 +412,6 @@ function startCountdown() {
   countdownInterval = setInterval(() => {
     console.log(countdownValue);
     countdownValue--;
-    socket.emit('interrupt', 'start');
 
     if (countdownValue === 1) {
       newDataReceivedDuringCountdown = false; // Zurücksetzen während der letzten Sekunde
