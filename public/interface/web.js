@@ -146,6 +146,14 @@ socket.on('interrupt', (data) => {
       // config.interruptScale = 0.5;
       break;
     case 'end':
+      speed = 0.01;
+      let endInterruptionSpeed = setInterval(() => {
+        if (config.interruptScale > 0) {
+          config.interruptScale = config.interruptScale - 0.05;
+        } else {
+          clearInterval(endcreaseInterruptSpeed);
+        }
+      }, 400);
       break;
     case 'idle':
       speed = 0.01;
