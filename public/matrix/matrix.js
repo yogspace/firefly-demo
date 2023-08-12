@@ -28,6 +28,13 @@ function setup() {
   fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
   fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
   fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
+  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
+  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
+  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
+  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
+  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
+  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
+  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
 }
 
 const pixelMatrixTranslation = [
