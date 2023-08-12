@@ -19,6 +19,7 @@ function setup() {
   config = {
     bgColor: color(20, 20, 20),
     scale: 0,
+    startActive: false,
   };
 
   btn1 = document.getElementById('btn1');
@@ -34,6 +35,7 @@ function draw() {
   clear();
   background(config.bgColor);
   drawLightPoint();
+  startActive();
 }
 
 function drawLightPoint() {
@@ -100,17 +102,13 @@ function thirdFunction() {
   );
   data = { setting: 'active', area: ['A', 'B'], speed: 0.5 };
   socket.emit('init', data);
-  startActive();
+  config.startActive = true;
 }
 
 function startActive() {
-  // btn1.style.opacity = '0.1'; // Set opacity back to 10% when released
-  // btn2.style.opacity = '0.1'; // Set opacity back to 10% when released
-  // btn1.style.left = '800px';
-  // btn1.style.left = '-800px';
-  // btn1.style.opacity = 1.1 - interpolateValue(1000);
-  // btn2.style.opacity = 1.1 - interpolateValue(1000);
-  while (config.scale < 1) {
-    config.scale = config.scale + 0.01;
+  if (config.startActive === true) {
+    if (config.scale < 1) {
+      config.scale = config.scale + 0.01;
+    }
   }
 }
