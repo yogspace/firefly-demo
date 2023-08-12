@@ -35,38 +35,38 @@ function draw() {
 }
 
 function btn1Touched() {
-  if (setting === 'idle') {
-    console.log('Button 1 touched!');
-    btn1.style.opacity = '1'; // Set opacity to 100% when touched
-    btn1TouchedFlag = true;
-    checkTouchCount();
-    data = { setting: setting, area: ['B'], speed: 0.2 };
-    socket.emit('init', data);
-  }
+  // if (setting === 'idle') {
+  console.log('Button 1 touched!');
+  btn1.style.opacity = '1'; // Set opacity to 100% when touched
+  btn1TouchedFlag = true;
+  checkTouchCount();
+  data = { setting: setting, area: ['B'], speed: 0.2 };
+  socket.emit('init', data);
+  // }
 }
 
 function btn2Touched() {
-  if (setting === 'idle') {
-    console.log('Button 2 touched!');
-    btn2.style.opacity = '1'; // Set opacity to 100% when touched
-    btn2TouchedFlag = true;
-    checkTouchCount();
-    data = { setting: setting, area: ['A'], speed: 0.5 };
-    socket.emit('init', data);
-  }
+  // if (setting === 'idle') {
+  console.log('Button 2 touched!');
+  btn2.style.opacity = '1'; // Set opacity to 100% when touched
+  btn2TouchedFlag = true;
+  checkTouchCount();
+  data = { setting: setting, area: ['A'], speed: 0.5 };
+  socket.emit('init', data);
+  // }
 }
 
 function btnReleased() {
-  if (setting === 'idle') {
-    console.log('Button released!');
-    btn1.style.opacity = '0.1'; // Set opacity back to 10% when released
-    btn2.style.opacity = '0.1'; // Set opacity back to 10% when released
-    btn1TouchedFlag = false;
-    btn2TouchedFlag = false;
-    checkTouchCount();
-    data = { setting: setting, area: [], speed: 0.2 };
-    socket.emit('init', data);
-  }
+  // if (setting === 'idle') {
+  console.log('Button released!');
+  btn1.style.opacity = '0.1'; // Set opacity back to 10% when released
+  btn2.style.opacity = '0.1'; // Set opacity back to 10% when released
+  btn1TouchedFlag = false;
+  btn2TouchedFlag = false;
+  checkTouchCount();
+  data = { setting: setting, area: [], speed: 0.2 };
+  socket.emit('init', data);
+  // }
 }
 
 function checkTouchCount() {
