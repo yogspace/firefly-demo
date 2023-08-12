@@ -18,7 +18,7 @@ function setup() {
 
   config = {
     bgColor: color(20, 20, 20),
-    scale: 1,
+    scale: 0,
   };
 
   btn1 = document.getElementById('btn1');
@@ -100,17 +100,17 @@ function thirdFunction() {
   );
   data = { setting: 'active', area: ['A', 'B'], speed: 0.5 };
   socket.emit('init', data);
-  initialize();
+  startActive();
 }
 
-function inizialize() {
+function startActive() {
   // btn1.style.opacity = '0.1'; // Set opacity back to 10% when released
   // btn2.style.opacity = '0.1'; // Set opacity back to 10% when released
   // btn1.style.left = '800px';
   // btn1.style.left = '-800px';
-  btn1.style.opacity = 1.1 - interpolateValue(1000);
-  btn2.style.opacity = 1.1 - interpolateValue(1000);
-  // config.scale = interpolateValue(3000);
+  // btn1.style.opacity = 1.1 - interpolateValue(1000);
+  // btn2.style.opacity = 1.1 - interpolateValue(1000);
+  config.scale = interpolateValue(3000);
 }
 
 function interpolateValue(duration) {
