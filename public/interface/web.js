@@ -55,6 +55,7 @@ function btnReleased() {
   btn2.style.opacity = '0.1'; // Set opacity back to 10% when released
   btnPressedCount--;
   checkTouchCount();
+  data = { setting: 'idle', area: [], speed: 0.2 };
 }
 
 function checkTouchCount() {
