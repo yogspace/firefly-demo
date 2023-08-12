@@ -4,6 +4,8 @@ let btn1;
 let btn2;
 let btnPressedCount = 0;
 
+let socket = io();
+
 function setup() {
   sketchWidth = document.getElementById('sketch').offsetWidth;
   sketchHeight = document.getElementById('sketch').offsetHeight;
