@@ -328,7 +328,7 @@ function interpolateColor(startColor, endColor, duration) {
       );
       bgColor = color(r, g, b);
     }
-  }, 1);
+  }, 10);
 }
 
 function startIncrease() {
@@ -338,7 +338,7 @@ function startIncrease() {
     let startColor = color(0, 0, startValue);
     let endColor = color(255, 0, 0); // Ändern Sie dies entsprechend Ihrer Anforderungen
     interpolateColor(config.bgColorIdle, config.bgColorInterrupt, 1500);
-    speed = 3;
+    speed = 4;
   }
 }
 
@@ -417,4 +417,4 @@ function handleNoDataAfterCountdown() {
 }
 
 //UpdatePixels
-const updatePixels = setInterval(getPixels, 1);
+const updatePixels = setInterval(getPixels, 10);
