@@ -452,9 +452,9 @@ function handleNoDataAfterCountdown() {
 }
 
 socket.on('init', (data) => {
-  setting = data.setting;
+  // setting = data.setting;
   newMode = { area: data.area };
-  console.log(data);
+  // console.log(data);
 
   fireflies.forEach((firefly) => {
     firefly.updateMode(newMode);
