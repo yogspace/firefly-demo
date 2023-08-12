@@ -150,8 +150,8 @@ socket.on('interrupt', (data) => {
         if (config.interruptScale > 0) {
           config.interruptScale = config.interruptScale - 0.01;
         } else {
-          clearInterval(endInterruptionSpeed);
           socket.emit('reset', '');
+          clearInterval(endInterruptionSpeed);
         }
       }, 20);
       break;
@@ -164,7 +164,6 @@ socket.on('interrupt', (data) => {
           clearInterval(decreaseInterruptSpeed);
         }
       }, 20);
-
       break;
     default:
       break;
