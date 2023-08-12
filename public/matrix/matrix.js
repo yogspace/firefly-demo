@@ -362,20 +362,20 @@ function startCountdown() {
   clearInterval(countdownInterval);
   countdownValue = 8;
 
-  if (countdownValue === 6) {
-    interpolateColor(config.bgColorIdle, config.bgColorInterrupt, 1500);
-    newMode = { area: [], speed: 0.2 };
-    fireflies.forEach((firefly) => {
-      firefly.updateMode(newMode);
-    });
-  }
-
   countdownInterval = setInterval(() => {
     console.log(countdownValue);
     countdownValue--;
 
     if (countdownValue === 1) {
       newDataReceivedDuringCountdown = false; // Zurücksetzen während der letzten Sekunde
+    }
+
+    if (countdownValue === 6) {
+      interpolateColor(config.bgColorIdle, config.bgColorInterrupt, 1500);
+      newMode = { area: [], speed: 0.2 };
+      fireflies.forEach((firefly) => {
+        firefly.updateMode(newMode);
+      });
     }
 
     if (countdownValue < 0) {
