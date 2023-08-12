@@ -41,7 +41,7 @@ function setup() {
 
   //wabern
   phase = 1;
-  speed = 0.01;
+  speed = 0.1;
   scale = 1;
 
   //speed = 0.01 = fast
@@ -145,12 +145,12 @@ socket.on('interrupt', (data) => {
   console.log(data);
   switch (data) {
     case 'start':
-      speed = 0.1;
+      speed = 1;
       break;
     case 'end':
       break;
     case 'idle':
-      speed = 0.01;
+      speed = 0.1;
       break;
     default:
       break;
