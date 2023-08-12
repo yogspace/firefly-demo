@@ -172,8 +172,8 @@ socket.on('interrupt', (data) => {
 
 socket.on('reset', (data) => {
   console.log('resetted all');
-  btn1.style.left = `800px`;
-  btn2.style.left = `-800px`;
+  btn1.style.left = `600px`;
+  btn2.style.left = `-600px`;
   btn1.style.opacity = `0.1`;
   btn2.style.opacity = `0.1`;
   setting = 'idle';

@@ -131,11 +131,11 @@ ioExpress.on('connection', (socket) => {
   });
 
   socket.on('reset', (data) => {
-    console.log('reset in 10s');
+    console.log('reset in 25s');
     let t = 0;
     let resetInterval = setInterval(() => {
       console.log(t);
-      if (t === 10) {
+      if (t === 25) {
         clearInterval(resetInterval);
         console.log('reset now');
         ioExpress.emit('reset', data);
