@@ -482,7 +482,7 @@ socket.on('init', (data) => {
       fireflies.forEach((firefly) => {
         firefly.updateMode(newMode);
       });
-    }, 1000);
+    }, 3000);
   }
 
   // console.log(data);
