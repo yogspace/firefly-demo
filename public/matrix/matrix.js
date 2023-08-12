@@ -8,6 +8,8 @@ let config;
 
 function preload() {}
 
+let fireflies = [];
+
 function setup() {
   sketchWidth = document.getElementById('sketch').offsetWidth;
   sketchHeight = document.getElementById('sketch').offsetHeight;
@@ -21,6 +23,10 @@ function setup() {
   };
 
   bgColor = config.bgColorIdle;
+
+  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.2), mode);
+  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.2), mode);
+  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.2), mode);
 }
 
 const pixelMatrixTranslation = [
@@ -202,11 +208,6 @@ class Firefly {
     }
   }
 }
-
-let fireflies = [];
-fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.2), mode);
-fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.2), mode);
-fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.2), mode);
 
 let lastPixelMatrix = null;
 function getPixels() {
