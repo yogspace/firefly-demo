@@ -409,7 +409,7 @@ function handleDataAfterCountdown() {
   // immer noch Daten empfangen werden
   console.log('Daten werden immer noch empfangen nach Countdown.');
   // bgColor = config.bgColorStillInterrupt;
-  interpolateColor(config.bgColorInterrupt, config.bgColorStillInterrupt, 1500);
+  interpolateColor(config.bgColorIdle, config.bgColorStillInterrupt, 1500);
   // speed = 1;
   newMode = { area: ['bottom'], speed: 0.1 };
   fireflies.forEach((firefly) => {
