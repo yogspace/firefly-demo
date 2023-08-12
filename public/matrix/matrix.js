@@ -344,7 +344,6 @@ function startIncrease() {
     valueToIncrease = 10; // Setze den Wert direkt auf das Maximum
     let startColor = color(0, 0, startValue);
     let endColor = color(255, 0, 0); // Ändern Sie dies entsprechend Ihrer Anforderungen
-    interpolateColor(config.bgColorIdle, config.bgColorInterrupt, 1500);
     // speed = 3;
     newMode = { area: [], speed: 2 };
     fireflies.forEach((firefly) => {
@@ -362,6 +361,14 @@ function resetIncrease() {
 function startCountdown() {
   clearInterval(countdownInterval);
   countdownValue = 8;
+
+  if (countdownValue === 6) {
+    interpolateColor(config.bgColorIdle, config.bgColorInterrupt, 1500);
+    newMode = { area: [], speed: 0.2 };
+    fireflies.forEach((firefly) => {
+      firefly.updateMode(newMode);
+    });
+  }
 
   countdownInterval = setInterval(() => {
     console.log(countdownValue);
