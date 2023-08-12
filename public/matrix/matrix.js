@@ -373,7 +373,7 @@ function startCountdown() {
 }
 
 socket.on('movement data', function (data) {
-  mode = ['A'];
+  mode.area['A'];
   if (!newDataReceivedDuringCountdown) {
     startIncrease();
     newDataReceivedDuringCountdown = true; // Neue Daten während Countdown empfangen
