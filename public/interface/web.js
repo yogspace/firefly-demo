@@ -26,6 +26,7 @@ function setup() {
   config = {
     bgColor: color(20, 20, 20),
     scale: 0,
+    interruptScale: 1,
     startActive: false,
   };
 
@@ -43,19 +44,14 @@ function setup() {
 function draw() {
   clear();
   background(config.bgColor);
-  polygon(
+  polygons(
     0,
     0,
-    100,
-    0.5,
-    200 * config.scale,
-    400 * config.scale,
-    speed,
+    (config.interruptScale * config.scale * sketchHeight) / 250,
+    color(255, 180, 30),
     color(255, 255, 255),
-    // color(200, 136, 57),
-    color(255, 255, 255),
-    0.9 * PI,
-    255
+    160,
+    speed
   );
   startActive();
 }
@@ -140,11 +136,14 @@ socket.on('interrupt', (data) => {
   switch (data) {
     case 'start':
       speed = 0.1;
+      config.interruptScale = 0.5;
       break;
     case 'end':
       break;
     case 'idle':
       speed = 0.01;
+      config.interruptScale = 1;
+
       break;
     default:
       break;
@@ -170,6 +169,50 @@ function getCircleSpread(x, y, npoints, noiseVal, noiseMin, noiseMax, speed) {
   // phase = phase + phase;
   phase += speed;
   return circleSpread;
+}
+
+function polygons(x, y, scale, color1, color2, alpha, speed) {
+  push();
+  translate(x, y);
+  polygon(
+    0,
+    0,
+    100,
+    0.5,
+    70 * scale,
+    100 * scale,
+    speed,
+    color1,
+    color2,
+    0.9 * PI,
+    alpha
+  );
+  polygon(
+    0,
+    0,
+    100,
+    0.6,
+    50 * scale,
+    100 * scale,
+    speed,
+    color1,
+    color2,
+    0.3 * PI,
+    alpha
+  );
+  polygon(
+    0,
+    0,
+    100,
+    1,
+    50 * scale,
+    80 * scale,
+    speed,
+    color1,
+    color2,
+    0.6 * PI,
+    alpha
+  );
 }
 
 function polygon(
