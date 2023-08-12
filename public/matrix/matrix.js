@@ -475,7 +475,7 @@ socket.on('init', (data) => {
       interpolateColor(
         config.fireflyColor,
         config.fireflyColorHighlight,
-        500,
+        10,
         fireflyColor
       );
     }, 2000);
