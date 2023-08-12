@@ -56,6 +56,7 @@ function btnReleased() {
   btnPressedCount--;
   checkTouchCount();
   data = { setting: 'idle', area: [], speed: 0.2 };
+  socket.emit('init', data);
 }
 
 function checkTouchCount() {
