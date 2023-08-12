@@ -110,7 +110,7 @@ const scale = sketchWidth / num_pixels_x;
 let speed = 1;
 
 let mode = {
-  area: [],
+  area: ['A'],
 };
 
 class Firefly {
