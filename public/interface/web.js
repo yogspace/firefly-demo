@@ -65,5 +65,5 @@ function thirdFunction() {
   console.log(
     'Both buttons are touched simultaneously! Third function executed.'
   );
-  socket.emit('init', { setting: 'idle', area: ['A', 'B'] });
+  socket.emit('init', { setting: 'active', area: ['A', 'B'] });
 }
