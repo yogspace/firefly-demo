@@ -170,7 +170,7 @@ class Firefly {
   }
 
   display() {
-    fill(210, 180, 200, 40);
+    fill(210, 0, 0, 40);
     drawingContext.shadowBlur = 15;
     drawingContext.shadowColor = color(255, 255, 255, 40);
     noStroke();
