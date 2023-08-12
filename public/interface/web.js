@@ -138,7 +138,7 @@ socket.on('interrupt', (data) => {
       speed = 0.06;
       let increaseInterruptSpeed = setInterval(() => {
         if (config.interruptScale > 0.5) {
-          config.interruptScale = config.interruptScale - 0.05;
+          config.interruptScale = config.interruptScale - 0.01;
         } else {
           clearInterval(increaseInterruptSpeed);
         }
@@ -151,16 +151,16 @@ socket.on('interrupt', (data) => {
         if (config.interruptScale > 0) {
           config.interruptScale = config.interruptScale - 0.01;
         } else {
-          resetAll();
           clearInterval(endInterruptionSpeed);
         }
+        resetAll();
       }, 20);
       break;
     case 'idle':
       speed = 0.01;
       let decreaseInterruptSpeed = setInterval(() => {
         if (config.interruptScale < 1) {
-          config.interruptScale = config.interruptScale + 0.05;
+          config.interruptScale = config.interruptScale + 0.01;
         } else {
           clearInterval(decreaseInterruptSpeed);
         }
