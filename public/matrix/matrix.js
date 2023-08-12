@@ -369,7 +369,7 @@ function resetIncrease() {
 
 function startCountdown() {
   clearInterval(countdownInterval);
-  countdownValue = 8;
+  countdownValue = 6;
 
   countdownInterval = setInterval(() => {
     console.log(countdownValue);
