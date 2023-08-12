@@ -34,21 +34,30 @@ function draw() {
 }
 
 function btn1Touched() {
-  console.log('Button 1 touched!');
-  btn1.style.opacity = '1'; // Set opacity to 100% when touched
   btn1Clicked = true; // Set flag to true when btn1 is clicked
-  checkTouchCount();
-  data = { setting: 'idle', area: ['B'], speed: 0.2 };
-  socket.emit('init', data);
+
+  if (!btn2Clicked) {
+    console.log('Button 1 touched!');
+    btn1.style.opacity = '1'; // Set opacity to 100% when touched
+    checkTouchCount();
+    data = { setting: 'idle', area: ['B'], speed: 0.2 };
+    socket.emit('init', data);
+  } else {
+    checkTouchCount();
+  }
 }
 
 function btn2Touched() {
-  console.log('Button 2 touched!');
-  btn2.style.opacity = '1'; // Set opacity to 100% when touched
   btn2Clicked = true; // Set flag to true when btn2 is clicked
-  checkTouchCount();
-  data = { setting: 'idle', area: ['A'], speed: 0.5 };
-  socket.emit('init', data);
+  if (!btn1Clicked) {
+    console.log('Button 2 touched!');
+    btn2.style.opacity = '1'; // Set opacity to 100% when touched
+    checkTouchCount();
+    data = { setting: 'idle', area: ['A'], speed: 0.5 };
+    socket.emit('init', data);
+  } else {
+    checkTouchCount();
+  }
 }
 
 function btnReleased() {
@@ -65,6 +74,8 @@ function btnReleased() {
 function checkTouchCount() {
   if (btn1Clicked && btn2Clicked) {
     thirdFunction();
+    btn1.style.opacity = '1'; // Set opacity to 100% when touched
+    btn2.style.opacity = '1'; // Set opacity to 100% when touched
   }
 }
 
