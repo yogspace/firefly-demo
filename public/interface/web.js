@@ -180,7 +180,8 @@ socket.on('reset', (data) => {
   config.startActive = false;
   config.scale = 0;
   config.interruptScale = 1;
-
+  btn1Clicked = false;
+  btn2Clicked = false;
   speed = 0.01;
 });
 
