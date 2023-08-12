@@ -424,7 +424,7 @@ function handleNoDataAfterCountdown() {
   // Hier wird deine Funktion aufgerufen, wenn nach dem Countdown
   // keine Daten mehr empfangen werden
   // bgColor = config.bgColorIdle;
-  interpolateColor(config.bgColorInterrupt, config.bgColorIdle, 1500);
+  // interpolateColor(config.bgColorInterrupt, config.bgColorIdle, 1500);
   newMode = { area: [], speed: 0.2 };
   fireflies.forEach((firefly) => {
     firefly.updateMode(newMode);
