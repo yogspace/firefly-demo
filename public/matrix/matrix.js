@@ -320,14 +320,14 @@ let newDataReceivedDuringCountdown = false;
 let stillReceivingDataAfterCountdown = false;
 let colorInterpolationInterval;
 
-function interpolateColor(variable, startColor, endColor, duration) {
+function interpolateColor(targetVariable, startColor, endColor, duration) {
   let startTime = millis();
   clearInterval(colorInterpolationInterval);
 
   colorInterpolationInterval = setInterval(() => {
     let currentTime = millis() - startTime;
     if (currentTime >= duration) {
-      variable = endColor;
+      targetVariable = endColor;
       clearInterval(colorInterpolationInterval);
     } else {
       let interpolationRatio = currentTime / duration;
@@ -346,7 +346,7 @@ function interpolateColor(variable, startColor, endColor, duration) {
         endColor.levels[2],
         interpolationRatio
       );
-      variable = color(r, g, b);
+      targetVariable = color(r, g, b);
     }
   }, 10);
 }
