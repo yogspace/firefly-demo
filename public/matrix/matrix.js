@@ -19,7 +19,7 @@ function setup() {
   config = {
     bgColorIdle: color(15, 3, 0),
     bgColorInterrupt: color(0, 0, 10),
-    bgColorStillInterrupt: color(255, 0, 0),
+    bgColorStillInterrupt: color(1, 1, 1),
   };
 
   bgColor = config.bgColorIdle;
@@ -124,7 +124,7 @@ class Firefly {
     this.targetX = x;
     this.targetY = y;
 
-    this.mode = mode || { area: [] }; // Standardmäßig leerer Bereich
+    this.mode = mode || { area: [], speed: 1 }; // Standardmäßig leerer Bereich
     this.setTargetPosition();
   }
 
