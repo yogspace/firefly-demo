@@ -107,10 +107,11 @@ const pixelMatrixTranslation = [
 const num_pixels_x = 32;
 const num_pixels_y = 16;
 const scale = sketchWidth / num_pixels_x;
-let speed = 1;
+// let speed = 1;
 
 let mode = {
   area: [],
+  speed: 1,
 };
 
 class Firefly {
@@ -144,12 +145,18 @@ class Firefly {
       // Wenn mode.area ["A", "B"] enthält
       this.targetX = Math.round(random(0, width));
       this.targetY = Math.round(random(0, height / 5));
+    } else if (this.mode.area.includes('bottom')) {
+      // Set targetX between 0 and width
+      this.targetX = Math.round(random(0, width));
+      // Set targetY between height and height - height / 5
+      this.targetY = Math.round(random(height, height - height / 5));
     }
   }
 
   updateMode(newMode) {
     this.mode = newMode;
     this.setTargetPosition();
+    this.move();
   }
 
   display() {
@@ -167,7 +174,7 @@ class Firefly {
     }
   }
 
-  move(speed) {
+  move() {
     if (!this.moving) {
       this.setTargetPosition();
       this.moving = true;
@@ -179,7 +186,7 @@ class Firefly {
 
     if (distance > this.speed) {
       const angle = Math.atan2(dy, dx);
-      const newX = this.x + this.speed * speed * Math.cos(angle);
+      const newX = this.x + this.speed * mode.speed * Math.cos(angle);
 
       // Check if crossing the boundary is faster
       if (this.shouldCrossBoundary(newX)) {
@@ -188,7 +195,7 @@ class Firefly {
         this.x = newX;
       }
 
-      this.y += this.speed * speed * Math.sin(angle);
+      this.y += this.speed * mode.speed * Math.sin(angle);
     } else {
       this.x = this.targetX;
       this.y = this.targetY;
@@ -282,7 +289,7 @@ function createPixelMatrix() {
 function drawFireflies() {
   for (let i = 0; i < fireflies.length; i++) {
     fireflies[i].display();
-    fireflies[i].move(speed);
+    fireflies[i].move();
   }
 }
 
@@ -338,7 +345,11 @@ function startIncrease() {
     let startColor = color(0, 0, startValue);
     let endColor = color(255, 0, 0); // Ändern Sie dies entsprechend Ihrer Anforderungen
     interpolateColor(config.bgColorIdle, config.bgColorInterrupt, 1500);
-    speed = 3;
+    // speed = 3;
+    newMode = { area: [], speed: 3 };
+    fireflies.forEach((firefly) => {
+      firefly.updateMode(newMode);
+    });
   }
 }
 
@@ -374,10 +385,6 @@ function startCountdown() {
 }
 
 socket.on('movement data', function (data) {
-  // newMode = { area: ['A'] };
-  // fireflies.forEach((firefly) => {
-  //   firefly.updateMode(newMode);
-  // });
   if (!newDataReceivedDuringCountdown) {
     startIncrease();
     newDataReceivedDuringCountdown = true; // Neue Daten während Countdown empfangen
@@ -396,7 +403,11 @@ function handleDataAfterCountdown() {
   console.log('Daten werden immer noch empfangen nach Countdown.');
   // bgColor = config.bgColorStillInterrupt;
   interpolateColor(config.bgColorInterrupt, config.bgColorStillInterrupt, 1500);
-  speed = 1;
+  // speed = 1;
+  newMode = { area: ['bottom'], speed: 1 };
+  fireflies.forEach((firefly) => {
+    firefly.updateMode(newMode);
+  });
 
   stillReceivingDataAfterCountdown = true;
   // Füge hier den Code hinzu, den du ausführen möchtest
@@ -407,8 +418,10 @@ function handleNoDataAfterCountdown() {
   // keine Daten mehr empfangen werden
   // bgColor = config.bgColorIdle;
   interpolateColor(config.bgColorInterrupt, config.bgColorIdle, 1500);
-  speed = 1;
-
+  newMode = { area: [], speed: 1 };
+  fireflies.forEach((firefly) => {
+    firefly.updateMode(newMode);
+  });
   console.log('Keine Daten mehr empfangen nach Countdown.');
 
   resetIncrease(); // Setze den Wert zurück
