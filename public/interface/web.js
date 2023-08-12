@@ -149,7 +149,6 @@ socket.on('interrupt', (data) => {
       break;
     case 'idle':
       speed = 0.01;
-      config.interruptScale = 1;
       let decreaseInterruptSpeed = setInterval(() => {
         if (config.interruptScale < 1) {
           config.interruptScale = config.interruptScale + 0.05;
