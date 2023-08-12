@@ -338,7 +338,7 @@ function startIncrease() {
     let startColor = color(0, 0, startValue);
     let endColor = color(255, 0, 0); // Ändern Sie dies entsprechend Ihrer Anforderungen
     interpolateColor(config.bgColorIdle, config.bgColorInterrupt, 1500);
-    speed = 2;
+    speed = 3;
   }
 }
 
