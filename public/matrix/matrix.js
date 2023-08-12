@@ -320,41 +320,13 @@ let newDataReceivedDuringCountdown = false;
 let stillReceivingDataAfterCountdown = false;
 let colorInterpolationInterval;
 
-function interpolateColor(
-  startColor,
-  endColor,
-  duration,
-  targetVariable,
-  revertTime
-) {
+function interpolateColor(startColor, endColor, duration, targetVariable) {
   let startTime = millis();
   clearInterval(colorInterpolationInterval);
 
   colorInterpolationInterval = setInterval(() => {
     let currentTime = millis() - startTime;
-
-    if (revertTime && currentTime >= revertTime) {
-      let reversedTime = currentTime - revertTime;
-      let reversedInterpolationRatio = reversedTime / duration;
-      let r = lerp(
-        endColor.levels[0],
-        startColor.levels[0],
-        reversedInterpolationRatio
-      );
-      let g = lerp(
-        endColor.levels[1],
-        startColor.levels[1],
-        reversedInterpolationRatio
-      );
-      let b = lerp(
-        endColor.levels[2],
-        startColor.levels[2],
-        reversedInterpolationRatio
-      );
-      targetVariable.setRed(r);
-      targetVariable.setGreen(g);
-      targetVariable.setBlue(b);
-    } else if (currentTime >= duration) {
+    if (currentTime >= duration) {
       targetVariable.setRed(endColor.levels[0]);
       targetVariable.setGreen(endColor.levels[1]);
       targetVariable.setBlue(endColor.levels[2]);
@@ -503,8 +475,7 @@ socket.on('init', (data) => {
       config.fireflyColor,
       config.fireflyColorHighlight,
       200,
-      fireflyColor,
-      200
+      fireflyColor
     );
     newMode = { area: [], speed: 0.2 };
     fireflies.forEach((firefly) => {
