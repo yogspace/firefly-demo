@@ -320,14 +320,14 @@ let newDataReceivedDuringCountdown = false;
 let stillReceivingDataAfterCountdown = false;
 let colorInterpolationInterval;
 
-function interpolateColor(startColor, endColor, duration) {
+function interpolateColor(variable, startColor, endColor, duration) {
   let startTime = millis();
   clearInterval(colorInterpolationInterval);
 
   colorInterpolationInterval = setInterval(() => {
     let currentTime = millis() - startTime;
     if (currentTime >= duration) {
-      bgColor = endColor;
+      variable = endColor;
       clearInterval(colorInterpolationInterval);
     } else {
       let interpolationRatio = currentTime / duration;
@@ -346,7 +346,7 @@ function interpolateColor(startColor, endColor, duration) {
         endColor.levels[2],
         interpolationRatio
       );
-      bgColor = color(r, g, b);
+      variable = color(r, g, b);
     }
   }, 10);
 }
@@ -358,7 +358,7 @@ function startIncrease() {
     let startColor = color(0, 0, startValue);
     let endColor = color(255, 0, 0); // Ändern Sie dies entsprechend Ihrer Anforderungen
     // speed = 3;
-    interpolateColor(config.bgColorIdle, config.bgColorInterrupt, 500);
+    interpolateColor(bgColor, config.bgColorIdle, config.bgColorInterrupt, 500);
     newMode = { area: [], speed: 2 };
     fireflies.forEach((firefly) => {
       firefly.updateMode(newMode);
@@ -426,7 +426,12 @@ function handleDataAfterCountdown() {
   // immer noch Daten empfangen werden
   console.log('Daten werden immer noch empfangen nach Countdown.');
   // bgColor = config.bgColorStillInterrupt;
-  interpolateColor(config.bgColorInterrupt, config.bgColorStillInterrupt, 1500);
+  interpolateColor(
+    bgColor,
+    config.bgColorInterrupt,
+    config.bgColorStillInterrupt,
+    1500
+  );
   // speed = 1;
   newMode = { area: ['bottom'], speed: 0.1 };
   fireflies.forEach((firefly) => {
@@ -441,7 +446,7 @@ function handleNoDataAfterCountdown() {
   // Hier wird deine Funktion aufgerufen, wenn nach dem Countdown
   // keine Daten mehr empfangen werden
   // bgColor = config.bgColorIdle;
-  interpolateColor(config.bgColorInterrupt, config.bgColorIdle, 1500);
+  interpolateColor(bgColor, config.bgColorInterrupt, config.bgColorIdle, 1500);
   newMode = { area: [], speed: 0.2 };
   fireflies.forEach((firefly) => {
     firefly.updateMode(newMode);
@@ -463,9 +468,19 @@ socket.on('init', (data) => {
     firefly.updateMode(newMode);
   });
   if (setting === 'active') {
-    fireflyColor = config.fireflyColorHighlight;
+    interpolateColor(
+      fireflyColor,
+      config.fireflyColor,
+      config.fireflyColorHighlight,
+      1000
+    );
     setTimeout(() => {
-      fireflyColor = config.fireflyColor;
+      interpolateColor(
+        fireflyColor,
+        config.fireflyColorHighlight,
+        config.fireflyColor,
+        1000
+      );
     }, 1000);
     setTimeout(() => {
       newMode = { area: [], speed: 0.2 };
