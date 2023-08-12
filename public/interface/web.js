@@ -5,6 +5,7 @@ let btn2;
 let btnPressedCount = 0;
 let btn1Clicked = false; // New flag variable to track if btn1 was clicked
 let btn2Clicked = false; // New flag variable to track if btn2 was clicked
+let setting = 'idle';
 
 let socket = io();
 
@@ -34,41 +35,47 @@ function draw() {
 }
 
 function btn1Touched() {
-  btn1Clicked = true; // Set flag to true when btn1 is clicked
+  if (setting === 'idle') {
+    btn1Clicked = true; // Set flag to true when btn1 is clicked
 
-  if (!btn2Clicked) {
-    console.log('Button 1 touched!');
-    btn1.style.opacity = '1'; // Set opacity to 100% when touched
-    checkTouchCount();
-    data = { setting: 'idle', area: ['B'], speed: 0.2 };
-    socket.emit('init', data);
-  } else {
-    checkTouchCount();
+    if (!btn2Clicked) {
+      console.log('Button 1 touched!');
+      btn1.style.opacity = '1'; // Set opacity to 100% when touched
+      checkTouchCount();
+      data = { setting: 'idle', area: ['B'], speed: 0.2 };
+      socket.emit('init', data);
+    } else {
+      checkTouchCount();
+    }
   }
 }
 
 function btn2Touched() {
-  btn2Clicked = true; // Set flag to true when btn2 is clicked
-  if (!btn1Clicked) {
-    console.log('Button 2 touched!');
-    btn2.style.opacity = '1'; // Set opacity to 100% when touched
-    checkTouchCount();
-    data = { setting: 'idle', area: ['A'], speed: 0.5 };
-    socket.emit('init', data);
-  } else {
-    checkTouchCount();
+  if (setting === 'idle') {
+    btn2Clicked = true; // Set flag to true when btn2 is clicked
+    if (!btn1Clicked) {
+      console.log('Button 2 touched!');
+      btn2.style.opacity = '1'; // Set opacity to 100% when touched
+      checkTouchCount();
+      data = { setting: 'idle', area: ['A'], speed: 0.5 };
+      socket.emit('init', data);
+    } else {
+      checkTouchCount();
+    }
   }
 }
 
 function btnReleased() {
-  console.log('Button released!');
-  btn1.style.opacity = '0.1'; // Set opacity back to 10% when released
-  btn2.style.opacity = '0.1'; // Set opacity back to 10% when released
-  btn1Clicked = false; // Reset flag when btn1 is released
-  btn2Clicked = false; // Reset flag when btn2 is released
-  checkTouchCount();
-  data = { setting: 'idle', area: [], speed: 0.2 };
-  socket.emit('init', data);
+  if (setting === 'idle') {
+    console.log('Button released!');
+    btn1.style.opacity = '0.1'; // Set opacity back to 10% when released
+    btn2.style.opacity = '0.1'; // Set opacity back to 10% when released
+    btn1Clicked = false; // Reset flag when btn1 is released
+    btn2Clicked = false; // Reset flag when btn2 is released
+    checkTouchCount();
+    data = { setting: 'idle', area: [], speed: 0.2 };
+    socket.emit('init', data);
+  }
 }
 
 function checkTouchCount() {
@@ -76,6 +83,7 @@ function checkTouchCount() {
     thirdFunction();
     btn1.style.opacity = '1'; // Set opacity to 100% when touched
     btn2.style.opacity = '1'; // Set opacity to 100% when touched
+    setting = 'active';
   }
 }
 
