@@ -42,7 +42,7 @@ function btn1Touched() {
       console.log('Button 1 touched!');
       btn1.style.opacity = '1'; // Set opacity to 100% when touched
       checkTouchCount();
-      data = { setting: 'idle', area: ['B'], speed: 0.2 };
+      data = { setting: 'idle', area: ['B'], speed: 0.6 };
       socket.emit('init', data);
     } else {
       checkTouchCount();
@@ -73,7 +73,7 @@ function btnReleased() {
     btn1Clicked = false; // Reset flag when btn1 is released
     btn2Clicked = false; // Reset flag when btn2 is released
     checkTouchCount();
-    data = { setting: 'idle', area: [], speed: 0.2 };
+    data = { setting: 'idle', area: [], speed: 0.6 };
     socket.emit('init', data);
   }
 }
