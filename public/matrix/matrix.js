@@ -472,14 +472,14 @@ socket.on('init', (data) => {
       fireflyColor,
       config.fireflyColor,
       config.fireflyColorHighlight,
-      1000
+      10
     );
     setTimeout(() => {
       interpolateColor(
         fireflyColor,
         config.fireflyColorHighlight,
         config.fireflyColor,
-        1000
+        10
       );
     }, 1000);
     setTimeout(() => {
