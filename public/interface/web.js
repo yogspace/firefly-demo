@@ -1,7 +1,8 @@
 let sketchWidth;
 let sketchHeight;
-let bgColor;
-let island;
+let circleOpacity = 0.5;
+let isCircle1Touched = false;
+let isCircle2Touched = false;
 
 function setup() {
   sketchWidth = document.getElementById('sketch').offsetWidth;
@@ -10,50 +11,72 @@ function setup() {
   let renderer = createCanvas(sketchWidth, sketchHeight);
   renderer.parent('sketch');
 
-  bgColor = color(20, 20, 20);
-  island = new Island();
+  config = {
+    bgColor: color(20, 20, 20),
+  };
 }
 
 function draw() {
   clear();
-  background(bgColor);
-  island.display();
+  background(config.bgColor);
+
+  // Draw reference circle
+  noFill();
+  stroke(255);
+  ellipse(sketchWidth / 2, sketchHeight / 2, sketchWidth);
+
+  // Draw circles with opacity
+  noStroke();
+  fill(255, 0, 0, circleOpacity * 255);
+  ellipse(sketchWidth / 4, sketchHeight / 2, 100);
+  fill(0, 0, 255, (1 - circleOpacity) * 255);
+  ellipse((3 * sketchWidth) / 4, sketchHeight / 2, 100);
+
+  if (isCircle1Touched && isCircle2Touched) {
+    // Both circles are touched
+    // Execute a function or perform an action
+    executeFunctionBothCirclesTouched();
+  } else if (isCircle1Touched) {
+    // Circle 1 is touched
+    // Execute a function or perform an action
+    executeFunctionCircle1Touched();
+  }
 }
 
-class Island {
-  constructor() {
-    this.diameter = sketchWidth;
-    this.radius = this.diameter / 2;
-    this.centerX = sketchWidth / 2;
-    this.centerY = sketchHeight / 2;
-    this.opacity1 = 127; // Anfangs 50% Sichtbarkeit
-    this.opacity2 = 63; // Anfangs 25% Sichtbarkeit
-    this.touched = false; // Für die Berührungssteuerung
-  }
+function touchStarted() {
+  // Check if touches are on the circles
+  let circle1Dist = dist(
+    touches[0].x,
+    touches[0].y,
+    sketchWidth / 4,
+    sketchHeight / 2
+  );
+  let circle2Dist = dist(
+    touches[0].x,
+    touches[0].y,
+    (3 * sketchWidth) / 4,
+    sketchHeight / 2
+  );
 
-  display() {
-    noStroke();
-    fill(255, this.opacity1); // Kreis 1
-    circle(this.centerX, this.centerY, this.diameter);
-
-    if (this.touched) {
-      fill(255, this.opacity2); // Kreis 2
-      circle(sketchWidth / 2, sketchHeight / 2, this.diameter);
-    }
+  if (circle1Dist < 50) {
+    isCircle1Touched = true;
   }
-
-  touchStarted() {
-    let distance = dist(touches[0].x, touches[0].y, this.centerX, this.centerY);
-    if (touches.length === 2 && distance < this.radius) {
-      this.touched = true;
-      this.opacity1 = 255; // Kreis 1 wird 100% sichtbar
-      this.opacity2 = 127; // Kreis 2 wird 50% sichtbar
-    }
+  if (circle2Dist < 50) {
+    isCircle2Touched = true;
   }
+}
 
-  touchEnded() {
-    this.touched = false;
-    this.opacity1 = 127; // Kreis 1 zurück auf 50% Sichtbarkeit
-    this.opacity2 = 63; // Kreis 2 zurück auf 25% Sichtbarkeit
-  }
+function touchEnded() {
+  isCircle1Touched = false;
+  isCircle2Touched = false;
+}
+
+function executeFunctionBothCirclesTouched() {
+  // Your code for the action when both circles are touched
+  console.log('Both circles are touched!');
+}
+
+function executeFunctionCircle1Touched() {
+  // Your code for the action when only circle 1 is touched
+  console.log('Circle 1 is touched!');
 }
