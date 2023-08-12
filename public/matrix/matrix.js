@@ -370,9 +370,9 @@ function startCountdown() {
       newDataReceivedDuringCountdown = false; // Zurücksetzen während der letzten Sekunde
     }
 
-    if (countdownValue === 6) {
-      interpolateColor(config.bgColorIdle, config.bgColorInterrupt, 1500);
-      newMode = { area: [], speed: 0.2 };
+    if (countdownValue === 5) {
+      interpolateColor(config.bgColorIdle, config.bgColorInterrupt, 3000);
+      newMode = { area: [], speed: 0.4 };
       fireflies.forEach((firefly) => {
         firefly.updateMode(newMode);
       });
