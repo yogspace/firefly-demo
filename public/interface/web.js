@@ -135,7 +135,7 @@ socket.on('interrupt', (data) => {
   console.log(data);
   switch (data) {
     case 'start':
-      speed = 0.1;
+      speed = 0.06;
       let increaseInterruptSpeed = setInterval(() => {
         if (config.interruptScale > 0.5) {
           config.interruptScale = config.interruptScale - 0.05;
@@ -153,7 +153,7 @@ socket.on('interrupt', (data) => {
         } else {
           clearInterval(endcreaseInterruptSpeed);
         }
-      }, 400);
+      }, 100);
       break;
     case 'idle':
       speed = 0.01;
