@@ -328,7 +328,7 @@ function interpolateColor(startColor, endColor, duration) {
       );
       bgColor = color(r, g, b);
     }
-  }, 10);
+  }, 1);
 }
 
 function startIncrease() {
@@ -338,6 +338,7 @@ function startIncrease() {
     let startColor = color(0, 0, startValue);
     let endColor = color(255, 0, 0); // Ändern Sie dies entsprechend Ihrer Anforderungen
     interpolateColor(config.bgColorIdle, config.bgColorInterrupt, 1500);
+    speed = 2;
   }
 }
 
@@ -373,10 +374,10 @@ function startCountdown() {
 }
 
 socket.on('movement data', function (data) {
-  newMode = { area: ['A'] };
-  fireflies.forEach((firefly) => {
-    firefly.updateMode(newMode);
-  });
+  // newMode = { area: ['A'] };
+  // fireflies.forEach((firefly) => {
+  //   firefly.updateMode(newMode);
+  // });
   if (!newDataReceivedDuringCountdown) {
     startIncrease();
     newDataReceivedDuringCountdown = true; // Neue Daten während Countdown empfangen
@@ -395,6 +396,7 @@ function handleDataAfterCountdown() {
   console.log('Daten werden immer noch empfangen nach Countdown.');
   // bgColor = config.bgColorStillInterrupt;
   interpolateColor(config.bgColorInterrupt, config.bgColorStillInterrupt, 1500);
+  speed = 1;
 
   stillReceivingDataAfterCountdown = true;
   // Füge hier den Code hinzu, den du ausführen möchtest
@@ -405,6 +407,7 @@ function handleNoDataAfterCountdown() {
   // keine Daten mehr empfangen werden
   // bgColor = config.bgColorIdle;
   interpolateColor(config.bgColorInterrupt, config.bgColorIdle, 1500);
+  speed = 1;
 
   console.log('Keine Daten mehr empfangen nach Countdown.');
 
@@ -414,4 +417,4 @@ function handleNoDataAfterCountdown() {
 }
 
 //UpdatePixels
-const updatePixels = setInterval(getPixels, 10);
+const updatePixels = setInterval(getPixels, 1);
