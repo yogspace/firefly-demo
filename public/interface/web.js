@@ -5,6 +5,7 @@ let btn2;
 let btnPressedCount = 0;
 let btn1TouchedFlag = false;
 let btn2TouchedFlag = false;
+let thirdFunctionExecuted = false; // New variable to track thirdFunction execution
 
 let socket = io();
 
@@ -34,6 +35,7 @@ function draw() {
 }
 
 function btn1Touched() {
+  if (thirdFunctionExecuted) return; // Don't execute if thirdFunction already executed
   console.log('Button 1 touched!');
   btn1.style.opacity = '1'; // Set opacity to 100% when touched
   btn1TouchedFlag = true;
@@ -43,6 +45,7 @@ function btn1Touched() {
 }
 
 function btn2Touched() {
+  if (thirdFunctionExecuted) return; // Don't execute if thirdFunction already executed
   console.log('Button 2 touched!');
   btn2.style.opacity = '1'; // Set opacity to 100% when touched
   btn2TouchedFlag = true;
@@ -52,6 +55,7 @@ function btn2Touched() {
 }
 
 function btnReleased() {
+  if (thirdFunctionExecuted) return; // Don't execute if thirdFunction already executed
   console.log('Button released!');
   btn1.style.opacity = '0.1'; // Set opacity back to 10% when released
   btn2.style.opacity = '0.1'; // Set opacity back to 10% when released
@@ -63,7 +67,7 @@ function btnReleased() {
 }
 
 function checkTouchCount() {
-  if (btn1TouchedFlag && btn2TouchedFlag) {
+  if (btn1TouchedFlag && btn2TouchedFlag && !thirdFunctionExecuted) {
     thirdFunction();
   }
 }
@@ -72,6 +76,7 @@ function thirdFunction() {
   console.log(
     'Both buttons are touched simultaneously! Third function executed.'
   );
+  thirdFunctionExecuted = true; // Set the flag to true after executing thirdFunction
   data = { setting: 'active', area: ['A', 'B'], speed: 0.5 };
   socket.emit('init', data);
 }
