@@ -9,11 +9,9 @@
 
 # to-do:
 
-- initiate
-- pixel bewegen sich nach oben (areas)
-- recap
 - styling
-- farben anpassen
+- neuer Lichtpunkt fliegt rein (positives Ende)
+- Smartphone wird weggelegt und Punkte beruhigen sich
 
 # links:
 
