@@ -488,7 +488,7 @@ socket.on('init', (data) => {
       interpolateColor(
         config.fireflyColor,
         config.fireflyColorHighlight,
-        1000,
+        3000,
         (newColor) => {
           fireflyColor = newColor; // Update the variable with the new color
         }
@@ -499,7 +499,7 @@ socket.on('init', (data) => {
       interpolateColor(
         config.fireflyColorHighlight,
         config.fireflyColor,
-        1000,
+        3000,
         (newColor) => {
           fireflyColor = newColor; // Update the variable with the new color
         }
@@ -508,7 +508,7 @@ socket.on('init', (data) => {
       fireflies.forEach((firefly) => {
         firefly.updateMode(newMode);
       });
-    }, 2000);
+    }, 3200);
   }
 
   // console.log(data);
