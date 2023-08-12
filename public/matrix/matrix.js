@@ -144,11 +144,11 @@ class Firefly {
       // Wenn mode.area ein leerer Array ist
       this.targetX = Math.round(random(0, width));
       this.targetY = Math.round(random(0, height));
-    } else if (this.mode.area.includes('A')) {
+    } else if (this.mode.area.includes('A') && !this.mode.area.includes('B')) {
       // Wenn mode.area ["A"] enthält
       this.targetX = Math.round(random(0, width / 2));
       this.targetY = Math.round(random(0, height / 5));
-    } else if (this.mode.area.includes('B')) {
+    } else if (this.mode.area.includes('B') && !this.mode.area.includes('A')) {
       // Wenn mode.area ["B"] enthält
       this.targetX = Math.round(random(width / 2, width));
       this.targetY = Math.round(random(0, height / 5));
