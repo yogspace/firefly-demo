@@ -389,7 +389,6 @@ function startIncrease() {
     let startColor = color(0, 0, startValue);
     let endColor = color(255, 0, 0); // Ändern Sie dies entsprechend Ihrer Anforderungen
     // speed = 3;
-    socket.emit('interrupt', 'start');
 
     interpolateBG(config.bgColorIdle, config.bgColorInterrupt, 500);
     newMode = { area: [], speed: 2 };
@@ -406,10 +405,13 @@ function resetIncrease() {
 }
 
 function startCountdown() {
+  socket.emit('interrupt', 'start');
+
   clearInterval(countdownInterval);
   countdownValue = 6;
 
   countdownInterval = setInterval(() => {
+    socket.emit('interrupt', 'start');
     console.log(countdownValue);
     countdownValue--;
 
