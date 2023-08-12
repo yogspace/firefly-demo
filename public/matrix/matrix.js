@@ -469,7 +469,7 @@ socket.on('reset', (data) => {
     firefly.updateMode(newMode);
   });
   setting = 'idle';
-  interpolateBG(config.bgColorStillInterrupt, config.bgColor, 1500); // speed = 1;
+  interpolateBG(config.bgColorStillInterrupt, config.bgColorIdle, 1500); // speed = 1;
 });
 
 function handleNoDataAfterCountdown() {
