@@ -147,12 +147,12 @@ socket.on('interrupt', (data) => {
       break;
     case 'end':
       speed = 0.01;
-      reset();
       let endInterruptionSpeed = setInterval(() => {
         if (config.interruptScale > 0) {
           config.interruptScale = config.interruptScale - 0.05;
         } else {
-          clearInterval(endcreaseInterruptSpeed);
+          resetAll();
+          clearInterval(endInterruptionSpeed);
         }
       }, 100);
       break;
@@ -172,7 +172,7 @@ socket.on('interrupt', (data) => {
   }
 });
 
-function reset() {
+function resetAll() {
   console.log('reset in 10s');
   setTimeOut(() => {
     console.log('reset now');
