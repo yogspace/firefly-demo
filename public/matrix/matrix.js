@@ -461,7 +461,7 @@ function handleDataAfterCountdown() {
 
 socket.on('reset', (data) => {
   console.log('resetted all');
-  mode = {
+  let newMode = {
     area: [],
     speed: 0.2,
   };
