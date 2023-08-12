@@ -107,7 +107,7 @@ function inizialize() {
   btn2.style.opacity = '0.1'; // Set opacity back to 10% when released
   btn1.style.left = '800px';
   btn1.style.left = '-800px';
-  cpnfig.scale = interpolateValue(3000);
+  config.scale = interpolateValue(3000);
 }
 
 function interpolateValue(duration) {
