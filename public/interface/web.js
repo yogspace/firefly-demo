@@ -36,7 +36,8 @@ function btn1Touched() {
   btn1.style.opacity = '1'; // Set opacity to 100% when touched
   btnPressedCount++;
   checkTouchCount();
-  socket.emit('init', { setting: 'idle', area: ['A'] });
+  data = { setting: 'idle', area: ['A'] };
+  socket.emit('init', data);
 }
 
 function btn2Touched() {
@@ -44,7 +45,8 @@ function btn2Touched() {
   btn2.style.opacity = '1'; // Set opacity to 100% when touched
   btnPressedCount++;
   checkTouchCount();
-  socket.emit('init', { setting: 'idle', area: ['B'] });
+  data = { setting: 'idle', area: ['B'] };
+  socket.emit('init', data);
 }
 
 function btnReleased() {
@@ -65,5 +67,6 @@ function thirdFunction() {
   console.log(
     'Both buttons are touched simultaneously! Third function executed.'
   );
-  socket.emit('init', { setting: 'active', area: ['A', 'B'] });
+  data = { setting: 'active', area: ['A', 'B'] };
+  socket.emit('init', data);
 }
