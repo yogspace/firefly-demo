@@ -18,8 +18,8 @@ function setup() {
 
   config = {
     // bgColorIdle: color(14, 3, 0),
-    bgColorIdle: color(10, 3, 0),
-    bgColorInterrupt: color(0, 0, 10),
+    bgColorIdle: color(35, 10, 2),
+    bgColorInterrupt: color(18, 8, 7),
     bgColorStillInterrupt: color(1, 1, 1),
   };
 
@@ -161,9 +161,9 @@ class Firefly {
   }
 
   display() {
-    fill(210, 180, 200, 20);
+    fill(210, 180, 200, 40);
     drawingContext.shadowBlur = 15;
-    drawingContext.shadowColor = color(255, 255, 255, 20);
+    drawingContext.shadowColor = color(255, 255, 255, 40);
     noStroke();
     circle(this.x, this.y, this.radius * 2);
 
