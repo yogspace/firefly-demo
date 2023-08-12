@@ -16,7 +16,6 @@ function setup() {
 function draw() {
   clear();
   background(config.bgColor);
-  island.display();
   // fill(config.bgColor);
   // circle(sketchWidth / 2, sketchHeight / 2, sketchWidth);
   // getTouchControls();

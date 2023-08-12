@@ -122,8 +122,17 @@ ioExpress.on('connection', (socket) => {
     ioPixels.emit('setColorCanvasArray', JSON.stringify(pixels));
   });
   socket.on('movement data', (data) => {
-    console.log('got movement data: ', data);
+    // console.log('got movement data: ', data);
     ioExpress.emit('movement data', data);
+  });
+  socket.on('init', (data) => {
+    console.log('got init data: ', data);
+    ioExpress.emit('init', data);
+  });
+
+  socket.on('interrupt', (data) => {
+    console.log('got init data: ', data);
+    ioExpress.emit('interrupt', data);
   });
 });
 

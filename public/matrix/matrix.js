@@ -122,6 +122,8 @@ let mode = {
   speed: 0.2,
 };
 
+let setting = 'idle';
+
 class Firefly {
   constructor(x, y, mode) {
     this.x = x;
@@ -368,6 +370,7 @@ function resetIncrease() {
 }
 
 function startCountdown() {
+  socket.emit('interrupt', 'start');
   clearInterval(countdownInterval);
   countdownValue = 6;
 
@@ -401,16 +404,18 @@ function startCountdown() {
 }
 
 socket.on('movement data', function (data) {
-  if (!newDataReceivedDuringCountdown) {
-    startIncrease();
-    newDataReceivedDuringCountdown = true; // Neue Daten während Countdown empfangen
-    if (!countdownInterval) {
-      startCountdown(); // Countdown neu starten, wenn Daten empfangen werden
+  if (setting === 'active') {
+    if (!newDataReceivedDuringCountdown) {
+      startIncrease();
+      newDataReceivedDuringCountdown = true; // Neue Daten während Countdown empfangen
+      if (!countdownInterval) {
+        startCountdown(); // Countdown neu starten, wenn Daten empfangen werden
+      }
     }
+    // Füge hier den Code hinzu, um auf die empfangenen Daten zu reagieren
+    // z.B. bgColor = color(0, 0, 255);
+    // speed = speed + 1;
   }
-  // Füge hier den Code hinzu, um auf die empfangenen Daten zu reagieren
-  // z.B. bgColor = color(0, 0, 255);
-  // speed = speed + 1;
 });
 
 function handleDataAfterCountdown() {
@@ -424,7 +429,7 @@ function handleDataAfterCountdown() {
   fireflies.forEach((firefly) => {
     firefly.updateMode(newMode);
   });
-
+  socket.emit('interrupt', 'end');
   stillReceivingDataAfterCountdown = true;
   // Füge hier den Code hinzu, den du ausführen möchtest
 }
@@ -438,12 +443,22 @@ function handleNoDataAfterCountdown() {
   fireflies.forEach((firefly) => {
     firefly.updateMode(newMode);
   });
+  socket.emit('interrupt', 'idle');
   console.log('Keine Daten mehr empfangen nach Countdown.');
 
   resetIncrease(); // Setze den Wert zurück
   newDataReceivedDuringCountdown = false; // Zurücksetzen nach dem Aufrufen der Funktion
   // Füge hier den Code hinzu, den du ausführen möchtest
 }
+
+socket.on('init', (data) => {
+  setting = data.setting;
+  newMode = { area: data.area };
+  fireflies.forEach((firefly) => {
+    firefly.updateMode(newMode);
+  });
+  // console.log(data);
+});
 
 //UpdatePixels
 const updatePixels = setInterval(getPixels, 10);
