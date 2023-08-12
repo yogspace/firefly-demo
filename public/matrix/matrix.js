@@ -419,14 +419,6 @@ function startCountdown() {
       newDataReceivedDuringCountdown = false; // Zurücksetzen während der letzten Sekunde
     }
 
-    // if (countdownValue === 5) {
-    //       interpolateBG(config.bgColorIdle, config.bgColorInterrupt, 500, bgColor);
-    //   newMode = { area: [], speed: 0.4 };
-    //   fireflies.forEach((firefly) => {
-    //     firefly.updateMode(newMode);
-    //   });
-    // }
-
     if (countdownValue < 0) {
       clearInterval(countdownInterval);
       console.log('Countdown abgelaufen!');
@@ -449,9 +441,6 @@ socket.on('movement data', function (data) {
         startCountdown(); // Countdown neu starten, wenn Daten empfangen werden
       }
     }
-    // Füge hier den Code hinzu, um auf die empfangenen Daten zu reagieren
-    // z.B. bgColor = color(0, 0, 255);
-    // speed = speed + 1;
   }
 });
 
@@ -469,6 +458,19 @@ function handleDataAfterCountdown() {
   stillReceivingDataAfterCountdown = true;
   // Füge hier den Code hinzu, den du ausführen möchtest
 }
+
+socket.on('reset', (data) => {
+  console.log('resetted all');
+  mode = {
+    area: [],
+    speed: 0.2,
+  };
+  fireflies.forEach((firefly) => {
+    firefly.updateMode(newMode);
+  });
+  setting = 'idle';
+  interpolateBG(config.bgColorStillInterrupt, config.bgColor, 1500); // speed = 1;
+});
 
 function handleNoDataAfterCountdown() {
   // Hier wird deine Funktion aufgerufen, wenn nach dem Countdown

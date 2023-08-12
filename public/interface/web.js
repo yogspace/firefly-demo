@@ -10,7 +10,6 @@ let setting = 'idle';
 //wabern
 let phase = 1;
 let speed = 0.01;
-let scale = 1;
 
 //speed = 0.01 = fast
 
@@ -152,7 +151,7 @@ socket.on('interrupt', (data) => {
           config.interruptScale = config.interruptScale - 0.01;
         } else {
           clearInterval(endInterruptionSpeed);
-          resetAll();
+          socket.emit('reset', '');
         }
       }, 20);
       break;
@@ -172,21 +171,7 @@ socket.on('interrupt', (data) => {
   }
 });
 
-function resetAll() {
-  console.log('reset in 10s');
-  let t = 0;
-  let resetInterval = setInterval(() => {
-    console.log(t);
-    if (t === 10) {
-      clearInterval(resetInterval);
-      console.log('reset now');
-      socket.emit('reset', '');
-    }
-    t++;
-  }, 1000);
-}
-
-socket.on('resetAll', (data) => {
+socket.on('reset', (data) => {
   console.log('resetted all');
   btn1.style.left = `800px`;
   btn2.style.left = `-800px`;
@@ -196,6 +181,8 @@ socket.on('resetAll', (data) => {
   config.startActive = false;
   config.scale = 0;
   config.interruptScale = 1;
+
+  speed = 0.01;
 });
 
 // WABERN##########################################################

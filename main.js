@@ -131,8 +131,17 @@ ioExpress.on('connection', (socket) => {
   });
 
   socket.on('reset', (data) => {
-    console.log('reset');
-    ioExpress.emit('resetAll', data);
+    console.log('reset in 10s');
+    let t = 0;
+    let resetInterval = setInterval(() => {
+      console.log(t);
+      if (t === 10) {
+        clearInterval(resetInterval);
+        console.log('reset now');
+        ioExpress.emit('reset', data);
+      }
+      t++;
+    }, 1000);
   });
 
   socket.on('interrupt', (data) => {
