@@ -3,6 +3,7 @@ let sketchHeight;
 let btn1;
 let btn2;
 let btnPressedCount = 0;
+let setting = 'init';
 
 let socket = io();
 
@@ -34,9 +35,8 @@ function draw() {
 function btn1Touched() {
   console.log('Button 1 touched!');
   btn1.style.opacity = '1'; // Set opacity to 100% when touched
-  btnPressedCount++;
   checkTouchCount();
-  data = { setting: 'idle', area: ['B'], speed: 0.2 };
+  data = { setting: setting, area: ['B'], speed: 0.2 };
   socket.emit('init', data);
 }
 
@@ -45,18 +45,20 @@ function btn2Touched() {
   btn2.style.opacity = '1'; // Set opacity to 100% when touched
   btnPressedCount++;
   checkTouchCount();
-  data = { setting: 'idle', area: ['A'], speed: 0.5 };
+  data = { setting: setting, area: ['A'], speed: 0.5 };
   socket.emit('init', data);
 }
 
 function btnReleased() {
-  console.log('Button released!');
-  btn1.style.opacity = '0.1'; // Set opacity back to 10% when released
-  btn2.style.opacity = '0.1'; // Set opacity back to 10% when released
-  btnPressedCount--;
-  checkTouchCount();
-  data = { setting: 'idle', area: [], speed: 0.5 };
-  socket.emit('init', data);
+  if (setting === 'idle') {
+    console.log('Button released!');
+    btn1.style.opacity = '0.1'; // Set opacity back to 10% when released
+    btn2.style.opacity = '0.1'; // Set opacity back to 10% when released
+    btnPressedCount--;
+    checkTouchCount();
+    data = { setting: setting, area: [], speed: 0.2 };
+    socket.emit('init', data);
+  }
 }
 
 function checkTouchCount() {
@@ -66,9 +68,10 @@ function checkTouchCount() {
 }
 
 function thirdFunction() {
+  setting = 'active';
   console.log(
     'Both buttons are touched simultaneously! Third function executed.'
   );
-  data = { setting: 'active', area: ['A', 'B'], speed: 0.5 };
+  data = { setting: setting, area: ['A', 'B'], speed: 0.5 };
   socket.emit('init', data);
 }
