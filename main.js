@@ -130,6 +130,11 @@ ioExpress.on('connection', (socket) => {
     ioExpress.emit('init', data);
   });
 
+  socket.on('reset', (data) => {
+    console.log('reset');
+    ioExpress.emit('reset', data);
+  });
+
   socket.on('interrupt', (data) => {
     console.log('got interrupt data: ', data);
     ioExpress.emit('interrupt', data);

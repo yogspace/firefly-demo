@@ -162,6 +162,9 @@ socket.on('interrupt', (data) => {
           config.interruptScale = config.interruptScale + 0.05;
         } else {
           clearInterval(decreaseInterruptSpeed);
+          setTimeOut(() => {
+            socket.emit('reset', '');
+          }, 10000);
         }
       }, 100);
 
@@ -169,6 +172,17 @@ socket.on('interrupt', (data) => {
     default:
       break;
   }
+});
+
+socket.on('reset', (data) => {
+  btn1.style.left = `800px`;
+  btn2.style.left = `-800px`;
+  btn1.style.opacity = `0.1`;
+  btn2.style.opacity = `0.1`;
+  setting = 'idle';
+  config.startActive = false;
+  config.scale = 0;
+  config.interruptScale = 1;
 });
 
 // WABERN##########################################################
