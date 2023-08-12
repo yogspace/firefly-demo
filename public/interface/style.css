@@ -2,29 +2,37 @@ html,
 body {
   padding: 0px;
   margin: 0px;
-  background-color: black;
+  /* background-color: black; */
   overflow: hidden;
   overflow-x: hidden;
   overflow-y: hidden;
-  pointer-events: none;
-}
-.no-zoom {
-  zoom: 1 !important;
-}
-.canvas-container {
-  position: relative;
-  width: 800px; /* Anpassen an deine benötigte Größe */
-  height: 800px; /* Anpassen an deine benötigte Größe */
-  /* background-color: black; */
-  overflow: hidden;
 }
 
 #sketch {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 800px; /* Anpassen an deine benötigte Größe */
+  height: 800px; /* Anpassen an deine benötigte Größe */
   /* pointer-events: all; */
   overflow: hidden;
+  z-index: 0;
+}
+
+button {
+  position: absolute;
+  background-color: #fff;
+  width: 800px;
+  height: 800px;
+  border-radius: 100%;
+  z-index: 10;
+  top: 0px;
+  opacity: 10%;
+  /* top: 360px; */
+}
+#btn1 {
+  left: 600px;
+}
+#btn2 {
+  left: -600px;
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-zoom">
+<html>
   <head>
     <meta
       name="viewport"
@@ -8,11 +8,10 @@
     <title>interface</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
   </head>
-  <body class="no-zoom">
-    <main class="canvas-container no-zoom">
-      <div class="sketch no-zoom" id="sketch"></div>
-      <!-- <div class="mask"></div> -->
-    </main>
+  <body>
+    <div id="sketch" class="sketch-container"></div>
+    <button id="btn1" className="button"></button>
+    <button id="btn2" className="button"></button>
     <script src="/socket.io/socket.io.js"></script>
     <script src="../../p5/p5.js"></script>
     <script src="../../p5/p5.min.js"></script>
