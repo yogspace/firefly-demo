@@ -152,8 +152,8 @@ socket.on('interrupt', (data) => {
           config.interruptScale = config.interruptScale - 0.01;
         } else {
           clearInterval(endInterruptionSpeed);
+          resetAll();
         }
-        resetAll();
       }, 20);
       break;
     case 'idle':
