@@ -22,7 +22,7 @@ function setup() {
     bgColorInterrupt: color(18, 8, 7),
     bgColorStillInterrupt: color(1, 1, 1),
     fireflyColor: color(210, 180, 200, 40),
-    fireflyColorHighlight: color(220, 220, 220, 255),
+    fireflyColorHighlight: color(255, 255, 255, 255),
   };
 
   bgColor = config.bgColorIdle;
@@ -475,7 +475,7 @@ socket.on('init', (data) => {
       interpolateColor(
         config.fireflyColor,
         config.fireflyColorHighlight,
-        3000,
+        500,
         fireflyColor
       );
     }, 2000);
@@ -484,14 +484,14 @@ socket.on('init', (data) => {
       interpolateColor(
         config.fireflyColorHighlight,
         config.fireflyColor,
-        3000,
+        500,
         fireflyColor
       );
       newMode = { area: [], speed: 0.2 };
       fireflies.forEach((firefly) => {
         firefly.updateMode(newMode);
       });
-    }, 3200);
+    }, 600);
   }
 
   // console.log(data);
