@@ -7,6 +7,15 @@ let btn1Clicked = false; // New flag variable to track if btn1 was clicked
 let btn2Clicked = false; // New flag variable to track if btn2 was clicked
 let setting = 'idle';
 
+//wabern
+let phase;
+let speed;
+let scale;
+let alpha;
+let color1;
+let color2;
+//speed = 0.01 = fast
+
 let socket = io();
 
 function setup() {
@@ -29,18 +38,32 @@ function setup() {
   btn2.addEventListener('touchstart', btn2Touched);
   btn1.addEventListener('touchend', btnReleased);
   btn2.addEventListener('touchend', btnReleased);
+
+  //wabern
+  phase = 1;
+  speed = 0.01;
+  scale = 1;
+
+  //speed = 0.01 = fast
 }
 
 function draw() {
   clear();
   background(config.bgColor);
-  drawLightPoint();
+  polygon(
+    0,
+    0,
+    100,
+    0.5,
+    250 * config.scale,
+    250 * config.scale,
+    speed,
+    color(255, 255, 255),
+    color(230, 136, 57),
+    0.9 * PI,
+    255
+  );
   startActive();
-}
-
-function drawLightPoint() {
-  fill(255, 0, 0);
-  circle(sketchWidth / 2, sketchHeight / 2, 0.5 * sketchWidth * config.scale);
 }
 
 function btn1Touched() {
@@ -109,10 +132,103 @@ function startActive() {
   if (config.startActive === true) {
     if (config.scale < 1) {
       config.scale = config.scale + 0.01;
-      btn1.style.left = `${600 + 100 * config.scale}px`;
-      btn2.style.left = `${-600 - 100 * config.scale}px`;
+      btn1.style.left = `${600 - 600 * config.scale}px`;
+      btn2.style.left = `${-600 + 600 * config.scale}px`;
+      btn1.style.opacity = `${1 - config.scale}`;
+      btn2.style.opacity = `${1 - config.scale}`;
       // btn1.style.opacity = '0.1'; // Set opacity to 100% when touched
       // btn2.style.opacity = '0.1'; // Set opacity to 100% when touched
     }
   }
+}
+socket.on('interrupt', (data) => {
+  switch (data) {
+    case 'start':
+      speed = 0.1;
+      break;
+    case 'end':
+      break;
+    case 'idle':
+      speed = 0.01;
+      break;
+    default:
+      break;
+  }
+});
+
+// WABERN##########################################################
+function getCircleSpread(x, y, npoints, noiseVal, noiseMin, noiseMax, speed) {
+  let circleSpread = [];
+
+  let angle = TWO_PI / npoints;
+  //Polarkoordinate um Punkte auf einem Kreis zu bekommen
+  for (let a = 0; a < TWO_PI; a += angle) {
+    let offX = map(cos(a), -1, 1, 0, noiseVal);
+    let offY = map(sin(a + phase), -1, 1, 0, noiseVal);
+    r = map(noise(offX, offY, sin(phase / 2)), 0, 1, noiseMin, noiseMax);
+    let sx = x + cos(a) * r;
+    let sy = y + sin(a) * r;
+    let e = [sx, sy, offX, offY];
+    //Koordinaten + Winkel zum Mittelpunkt werden gespeichert
+    circleSpread.push(e);
+  }
+  // phase = phase + phase;
+  phase += speed;
+  return circleSpread;
+}
+
+function polygon(
+  x,
+  y,
+  npoints,
+  noiseVal,
+  noiseMin,
+  noiseMax,
+  speed,
+  color1,
+  color2,
+  rotation,
+  alpha
+) {
+  //die Mitte ist der Nullpunkt
+  push();
+  translate(width / 2, height / 2);
+  //ein Array aus Punkten auf einem Kreis
+
+  let circleSpread = getCircleSpread(
+    x,
+    y,
+    npoints,
+    noiseVal,
+    noiseMin,
+    noiseMax,
+    speed
+  );
+
+  //Aus jedem neuen Punkt wird ein Vector gemacht und als vertex gezeichnet
+  noStroke();
+  rotate(rotation);
+
+  gradientColor(-noiseMax + x, 0, noiseMax + x, 0, color1, color2, alpha);
+
+  beginShape();
+  for (let i = 0; i <= circleSpread.length - 1; i++) {
+    let pointX = circleSpread[i][0];
+    let pointY = circleSpread[i][1];
+    vertex(pointX, pointY);
+  }
+  endShape(CLOSE);
+  pop();
+}
+
+function gradientColor(x1, y1, x2, y2, color1, color2, alpha) {
+  // linear gradient from start to end of line
+  var grad = this.drawingContext.createLinearGradient(x1, y1, x2, y2);
+  color1.setAlpha(alpha);
+  color2.setAlpha(alpha);
+
+  grad.addColorStop(0, color1);
+  grad.addColorStop(1, color2);
+
+  this.drawingContext.fillStyle = grad;
 }
