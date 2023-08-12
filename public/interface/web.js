@@ -110,7 +110,8 @@ function startActive() {
   // btn1.style.left = '-800px';
   // btn1.style.opacity = 1.1 - interpolateValue(1000);
   // btn2.style.opacity = 1.1 - interpolateValue(1000);
-  config.scale = interpolateValue(3000);
+  // config.scale = config.scale * interpolateValue(3000);
+  console.log(interpolateValue(1000));
 }
 
 function interpolateValue(duration) {
