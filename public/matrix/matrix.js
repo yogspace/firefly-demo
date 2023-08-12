@@ -373,7 +373,10 @@ function startCountdown() {
 }
 
 socket.on('movement data', function (data) {
-  mode.area['A'];
+  newMode = { area: ['A'] };
+  fireflies.forEach((firefly) => {
+    firefly.updateMode(newMode);
+  });
   if (!newDataReceivedDuringCountdown) {
     startIncrease();
     newDataReceivedDuringCountdown = true; // Neue Daten während Countdown empfangen
