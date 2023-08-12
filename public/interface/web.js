@@ -18,7 +18,7 @@ function setup() {
 
   config = {
     bgColor: color(20, 20, 20),
-    scale: 0,
+    scale: 1,
   };
 
   btn1 = document.getElementById('btn1');
@@ -37,6 +37,7 @@ function draw() {
 }
 
 function drawLightPoint() {
+  fill(255, 0, 0);
   circle(sketchWidth / 2, sketchHeight / 2, 0.5 * sketchWidth * config.scale);
 }
 
@@ -103,11 +104,13 @@ function thirdFunction() {
 }
 
 function inizialize() {
-  btn1.style.opacity = '0.1'; // Set opacity back to 10% when released
-  btn2.style.opacity = '0.1'; // Set opacity back to 10% when released
-  btn1.style.left = '800px';
-  btn1.style.left = '-800px';
-  config.scale = interpolateValue(3000);
+  // btn1.style.opacity = '0.1'; // Set opacity back to 10% when released
+  // btn2.style.opacity = '0.1'; // Set opacity back to 10% when released
+  // btn1.style.left = '800px';
+  // btn1.style.left = '-800px';
+  btn1.style.opacity = 1.1 - interpolateValue(1000);
+  btn2.style.opacity = 1.1 - interpolateValue(1000);
+  // config.scale = interpolateValue(3000);
 }
 
 function interpolateValue(duration) {
