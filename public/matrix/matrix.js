@@ -370,13 +370,13 @@ function startCountdown() {
       newDataReceivedDuringCountdown = false; // Zurücksetzen während der letzten Sekunde
     }
 
-    if (countdownValue === 5) {
-      interpolateColor(config.bgColorIdle, config.bgColorInterrupt, 3000);
-      newMode = { area: [], speed: 0.4 };
-      fireflies.forEach((firefly) => {
-        firefly.updateMode(newMode);
-      });
-    }
+    // if (countdownValue === 5) {
+    //   interpolateColor(config.bgColorIdle, config.bgColorInterrupt, 3000);
+    //   newMode = { area: [], speed: 0.4 };
+    //   fireflies.forEach((firefly) => {
+    //     firefly.updateMode(newMode);
+    //   });
+    // }
 
     if (countdownValue < 0) {
       clearInterval(countdownInterval);
