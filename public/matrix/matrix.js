@@ -310,7 +310,7 @@ function draw() {
 let valueToIncrease = 0;
 let increaseInterval;
 let countdownInterval;
-let countdownValue = 11;
+let countdownValue = 6;
 let newDataReceivedDuringCountdown = false;
 let stillReceivingDataAfterCountdown = false;
 let colorInterpolationInterval;
