@@ -2,14 +2,16 @@
 
 1. start the server: "node server.js"
 2. start neopixels: "sudo python neopixels.py"
-3. connect your phone to the website in the console
+3. start chromium in kiosk:
+   /usr/bin/chromium-browser --disable-session-crashed-bubble --disable-infobars --kiosk --no-first-run --incognito --disable-pinch --overcroll-history-navigation=0 'https://localhost:3001/interface'
+
+4. connect your phone to the website in the console
 
 # to-do:
 
 - initiate
 - pixel bewegen sich nach oben (areas)
 - recap
-
 - styling
 - farben anpassen
 

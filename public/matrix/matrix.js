@@ -103,8 +103,12 @@ const num_pixels_y = 16;
 const scale = sketchWidth / num_pixels_x;
 let speed = 1;
 
+let mode = {
+  area: [],
+};
+
 class Firefly {
-  constructor(x, y, speed) {
+  constructor(x, y, speed, mode) {
     this.x = x;
     this.y = y;
     this.speed = speed;
@@ -112,6 +116,34 @@ class Firefly {
     this.moving = false;
     this.targetX = x;
     this.targetY = y;
+
+    this.mode = mode || { area: [] }; // Standardmäßig leerer Bereich
+    this.setTargetPosition();
+  }
+
+  setTargetPosition() {
+    if (this.mode.area.length === 0) {
+      // Wenn mode.area ein leerer Array ist
+      this.targetX = Math.round(random(0, width));
+      this.targetY = Math.round(random(0, height));
+    } else if (this.mode.area.includes('A')) {
+      // Wenn mode.area ["A"] enthält
+      this.targetX = Math.round(random(0, width / 2));
+      this.targetY = Math.round(random(0, height / 5));
+    } else if (this.mode.area.includes('B')) {
+      // Wenn mode.area ["B"] enthält
+      this.targetX = Math.round(random(width / 2, width));
+      this.targetY = Math.round(random(0, height / 5));
+    } else if (this.mode.area.includes('A') && this.mode.area.includes('B')) {
+      // Wenn mode.area ["A", "B"] enthält
+      this.targetX = Math.round(random(0, width));
+      this.targetY = Math.round(random(0, height / 5));
+    }
+  }
+
+  updateMode(newMode) {
+    this.mode = newMode;
+    this.setTargetPosition();
   }
 
   display() {
@@ -131,8 +163,7 @@ class Firefly {
 
   move(speed) {
     if (!this.moving) {
-      this.targetX = Math.round(random(0, width));
-      this.targetY = Math.round(random(0, height));
+      this.setTargetPosition();
       this.moving = true;
     }
 
@@ -173,9 +204,9 @@ class Firefly {
 }
 
 let fireflies = [];
-fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.2));
-fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.2));
-fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.2));
+fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.2), mode);
+fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.2), mode);
+fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, 0.2), mode);
 
 let lastPixelMatrix = null;
 function getPixels() {
@@ -317,7 +348,7 @@ function resetIncrease() {
 
 function startCountdown() {
   clearInterval(countdownInterval);
-  countdownValue = 11;
+  countdownValue = 8;
 
   countdownInterval = setInterval(() => {
     console.log(countdownValue);

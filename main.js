@@ -23,11 +23,17 @@ const ioPixels = new Server(socketServerPixels);
 socketServerPixels.listen(3000);
 
 app.use(express.json());
+// app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public', 'phone')));
+app.use(express.static(path.join(__dirname, 'public', 'matrix')));
+app.use(express.static(path.join(__dirname, 'public', 'interface')));
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/phone/index.html');
+  // res.sendFile(__dirname + '/public/phone/index.html');
+  res.sendFile(path.join(__dirname, 'public', 'phone', 'index.html'));
 });
+
 app.get('/matrix', (req, res) => {
   console.log(__dirname);
   res.sendFile(__dirname + '/public/matrix/index.html');

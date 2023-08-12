@@ -1,17 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html class="no-zoom">
   <head>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
     <title>interface</title>
-    <link rel="stylesheet" type="text/css" href="interface.css" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
   </head>
-  <body>
-    <main>
-      <div class="sketch" id="sketch"></div>
+  <body class="no-zoom">
+    <main class="canvas-container no-zoom">
+      <div class="sketch no-zoom" id="sketch"></div>
+      <!-- <div class="mask"></div> -->
     </main>
     <script src="/socket.io/socket.io.js"></script>
-    <script></script>
-    <script src="./interface.js"></script>
     <script src="../../p5/p5.js"></script>
     <script src="../../p5/p5.min.js"></script>
+    <script src="./web.js"></script>
   </body>
 </html>
