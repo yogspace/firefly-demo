@@ -477,7 +477,7 @@ socket.on('init', (data) => {
       200,
       fireflyColor
     );
-
+    console.log(fireflyColor);
     setTimeout(() => {
       interpolateColor(
         config.fireflyColorHighlight,
@@ -486,6 +486,7 @@ socket.on('init', (data) => {
         fireflyColor
       );
     }, 2000);
+    console.log(fireflyColor);
 
     newMode = { area: [], speed: 0.2 };
     fireflies.forEach((firefly) => {
