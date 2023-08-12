@@ -123,12 +123,13 @@ class Firefly {
     this.moving = false;
     this.targetX = x;
     this.targetY = y;
-
+    this.speed = 0.2;
     this.mode = mode || { area: [], speed: 0.2 }; // Standardmäßig leerer Bereich
     this.setTargetPosition();
   }
 
   setTargetPosition() {
+    this.speed = this.mode.speed;
     if (this.mode.area.length === 0) {
       // Wenn mode.area ein leerer Array ist
       this.targetX = Math.round(random(0, width));
@@ -156,7 +157,6 @@ class Firefly {
   updateMode(newMode) {
     this.mode = newMode;
     this.setTargetPosition();
-    this.move();
   }
 
   display() {
@@ -184,9 +184,9 @@ class Firefly {
     const dy = this.targetY - this.y;
     const distance = Math.sqrt(dx * dx + dy * dy);
 
-    if (distance > this.mode.speed) {
+    if (distance > this.speed) {
       const angle = Math.atan2(dy, dx);
-      const newX = this.x + this.mode.speed * Math.cos(angle);
+      const newX = this.x + this.speed * Math.cos(angle);
 
       // Check if crossing the boundary is faster
       if (this.shouldCrossBoundary(newX)) {
@@ -195,7 +195,7 @@ class Firefly {
         this.x = newX;
       }
 
-      this.y += this.mode.speed * Math.sin(angle);
+      this.y += this.speed * Math.sin(angle);
     } else {
       this.x = this.targetX;
       this.y = this.targetY;
