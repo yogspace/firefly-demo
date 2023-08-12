@@ -471,10 +471,12 @@ socket.on('init', (data) => {
     firefly.updateMode(newMode);
   });
   if (setting === 'active') {
+    fireflyColor = config.fireflyColorHighlight;
+
     setTimeout(() => {
       interpolateColor(
-        config.fireflyColor,
         config.fireflyColorHighlight,
+        config.fireflyColor,
         200,
         fireflyColor
       );
