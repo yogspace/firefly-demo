@@ -404,13 +404,13 @@ function resetIncrease() {
 }
 
 function startCountdown() {
-  socket.emit('interrupt', 'start');
   clearInterval(countdownInterval);
   countdownValue = 6;
 
   countdownInterval = setInterval(() => {
     console.log(countdownValue);
     countdownValue--;
+    socket.emit('interrupt', 'start');
 
     if (countdownValue === 1) {
       newDataReceivedDuringCountdown = false; // Zurücksetzen während der letzten Sekunde

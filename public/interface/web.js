@@ -142,6 +142,7 @@ function startActive() {
   }
 }
 socket.on('interrupt', (data) => {
+  console.log(data);
   switch (data) {
     case 'start':
       speed = 0.1;

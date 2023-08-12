@@ -126,12 +126,12 @@ ioExpress.on('connection', (socket) => {
     ioExpress.emit('movement data', data);
   });
   socket.on('init', (data) => {
-    console.log('got init data: ', data);
+    // console.log('got init data: ', data);
     ioExpress.emit('init', data);
   });
 
   socket.on('interrupt', (data) => {
-    console.log('got init data: ', data);
+    console.log('got interrupt data: ', data);
     ioExpress.emit('interrupt', data);
   });
 });
