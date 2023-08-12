@@ -18,7 +18,7 @@ function setup() {
 
   config = {
     bgColor: color(20, 20, 20),
-    scale: 1,
+    scale: 0,
   };
 
   btn1 = document.getElementById('btn1');
@@ -110,28 +110,7 @@ function startActive() {
   // btn1.style.left = '-800px';
   // btn1.style.opacity = 1.1 - interpolateValue(1000);
   // btn2.style.opacity = 1.1 - interpolateValue(1000);
-  // config.scale = config.scale * interpolateValue(3000);
-  console.log(interpolateValue(1000));
-}
-
-function interpolateValue(duration) {
-  let startTime = millis();
-  let startValue = 0;
-  let endValue = 1;
-
-  let interval = 10; // Intervall zwischen den Schritten in Millisekunden
-
-  return new Promise((resolve, reject) => {
-    let interpolationInterval = setInterval(() => {
-      let currentTime = millis() - startTime;
-      if (currentTime >= duration) {
-        clearInterval(interpolationInterval);
-        resolve(endValue); // Sicherstellen, dass der Wert genau 1 ist
-      } else {
-        let progress = currentTime / duration;
-        let interpolatedValue = lerp(startValue, endValue, progress);
-        resolve(interpolatedValue);
-      }
-    }, interval);
-  });
+  while (config.scale < 1) {
+    config.scale = config.scale + 0.01;
+  }
 }
