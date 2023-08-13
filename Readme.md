@@ -1,18 +1,22 @@
-# firefly-demo
+# firefly-demo: HOW TO START
 
-1. start the server: "node server.js"
-2. start neopixels: "sudo python neopixels.py"
-3. start chromium in kiosk:
-   /usr/bin/chromium-browser --disable-session-crashed-bubble --disable-infobars --kiosk --no-first-run --incognito --disable-pinch --overcroll-history-navigation=0 --force-device-scale-factor=2.0 'https://localhost:3001/interface'
+1. power the raspberry pi (the pi will boot automatically)
 
-4. connect your phone to the website in the console
-5. den Kiosk Modus kann man mit strg und f4 verlassen.
+2. power the led matrix
+
+3. wait for the pi to boot.
+
+4. open a terminal and type "sudo ./firefly.sh"
+   (the server and everything will start automatically)
+
+5. start chromium in kiosk by type the following (without doubble quotes) in a new terminal:
+   "/usr/bin/chromium-browser --disable-session-crashed-bubble --disable-infobars --kiosk --no-first-run --incognito --disable-pinch --overcroll-history-navigation=0 --force-device-scale-factor=2.0 'https://localhost:3001/interface'"
+
+   you can leave this kiosk by clicking strg and f4.
+
+6. connect your phone to the website showing in the console (https:.../)
 
 # to-do:
-
-- styling
-- neuer Lichtpunkt fliegt rein (positives Ende)
-- Smartphone wird weggelegt und Punkte beruhigen sich
 
 # links:
 
