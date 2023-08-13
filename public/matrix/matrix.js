@@ -125,10 +125,6 @@ function setup() {
   // fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
   // fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
   // fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
-
-  pseudoFirefly.x = sketchWidth / 2;
-  pseudoFirefly.maxY = sketchHeight / 2;
-  pseudoFirefly.maxX = sketchWidth / 2;
 }
 
 class Firefly {
@@ -234,13 +230,13 @@ class Firefly {
 }
 
 let pseudoFirefly = {
-  x: 0,
+  x: sketchWidth / 2,
   y: 0,
   isVisible: true,
   speed: 4, // Geschwindigkeit auf der x-Achse
   initialSpeed: 4, // Anfangsgeschwindigkeit
-  maxX: 0,
-  maxY: 0,
+  maxX: sketchHeight / 2,
+  maxY: sketchWidth / 2,
 
   update() {
     if (this.isVisible)
