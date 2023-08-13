@@ -211,4 +211,6 @@ socket.on('reset', (data) => {
   speed = 0.01;
   posX = 0;
   posY = 0;
+  config.endInitialized = false;
+  config.allowEnd = false;
 });

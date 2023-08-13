@@ -6,41 +6,6 @@ let socket = io();
 let bgColor;
 let config;
 
-function preload() {}
-
-let fireflies = [];
-
-function setup() {
-  sketchWidth = document.getElementById('sketch').offsetWidth;
-  sketchHeight = document.getElementById('sketch').offsetHeight;
-  let renderer = createCanvas(sketchWidth, sketchHeight);
-  renderer.parent('sketch');
-
-  config = {
-    // bgColorIdle: color(14, 3, 0),
-    bgColorIdle: color(35, 10, 2),
-    bgColorInterrupt: color(18, 8, 7),
-    bgColorStillInterrupt: color(1, 1, 1),
-    // fireflyColor: color(210, 180, 200, 40),
-    fireflyColor: color(240, 200, 210, 40),
-    fireflyColorHighlight: color(255, 255, 255, 255),
-  };
-
-  bgColor = config.bgColorIdle;
-  fireflyColor = config.fireflyColor;
-
-  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
-  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
-  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
-  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
-  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
-  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
-  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
-  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
-  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
-  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
-}
-
 const pixelMatrixTranslation = [
   [
     0, 15, 16, 31, 32, 47, 48, 63, 64, 79, 80, 95, 96, 111, 112, 127, 128, 143,
@@ -121,12 +86,81 @@ const num_pixels_y = 16;
 const scale = sketchWidth / num_pixels_x;
 // let speed = 1;
 
+let pseudoFirefly = {
+  x: 0,
+  y: 0,
+  isVisible: true,
+  easingValue: 0,
+  targetY: 0,
+  easingIncrement: 0.005,
+  diameter: 10, // Hier den gewünschten Durchmesser einstellen
+
+  move() {
+    this.x = map(this.easingValue, 0, 1, width / 2, width);
+    this.y = map(this.easingValue, 0, 1, 0, this.targetY);
+
+    this.easingValue += this.easingIncrement;
+    this.easingValue = constrain(this.easingValue, 0, 1);
+    if (this.easingValue === 1) {
+      this.targetY += 1;
+      if (this.targetY > height / 2) {
+        this.targetY = height / 2;
+        this.isVisible = false;
+      }
+      this.easingValue = 0;
+    }
+  },
+
+  display() {
+    if (this.isVisible) {
+      fill(255);
+      noStroke();
+      circle(this.x, this.y, this.diameter);
+    }
+  },
+};
+
 let mode = {
   area: [],
   speed: 0.2,
 };
 
 let setting = 'idle';
+
+function preload() {}
+
+let fireflies = [];
+
+function setup() {
+  sketchWidth = document.getElementById('sketch').offsetWidth;
+  sketchHeight = document.getElementById('sketch').offsetHeight;
+  let renderer = createCanvas(sketchWidth, sketchHeight);
+  renderer.parent('sketch');
+
+  config = {
+    // bgColorIdle: color(14, 3, 0),
+    bgColorIdle: color(35, 10, 2),
+    bgColorInterrupt: color(18, 8, 7),
+    bgColorStillInterrupt: color(1, 1, 1),
+    // fireflyColor: color(210, 180, 200, 40),
+    fireflyColor: color(240, 200, 210, 40),
+    fireflyColorHighlight: color(255, 255, 255, 255),
+  };
+  pseudoFirefly.x = width / 2;
+  bgColor = config.bgColorIdle;
+  fireflyColor = config.fireflyColor;
+
+  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
+  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
+  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
+  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
+  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
+  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
+  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
+  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
+  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
+  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
+}
 
 class Firefly {
   constructor(x, y, mode) {
@@ -311,6 +345,8 @@ function draw() {
   clear();
   background(bgColor);
   drawFireflies();
+  pseudoFirefly.move();
+  pseudoFirefly.display();
 }
 
 let valueToIncrease = 0;
