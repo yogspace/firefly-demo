@@ -6,15 +6,18 @@
 
 3. wait for the pi to boot.
 
-4. open a terminal and type "sudo ./firefly.sh"
-   (the server and everything will start automatically)
+4. open a terminal and go to the repo folder "cd Desktop/server"
 
-5. start chromium in kiosk by type the following (without doubble quotes) in a new terminal:
+5. create 2 new Tabs in the terminal
+
+6. in the first terminal type "node main.js" to start the server
+   in the second terminal type "sudo python neopixels.py" to start the led process
+   in the third terminal type the following command to start the chrome kiosk window (all commands without the doublequotes btw.):
    "/usr/bin/chromium-browser --disable-session-crashed-bubble --disable-infobars --kiosk --no-first-run --incognito --disable-pinch --overcroll-history-navigation=0 'https://localhost:3001/interface'"
 
    you can leave this kiosk by clicking strg and f4.
 
-6. connect your phone to the website showing in the console (https:.../)
+7. connect your phone to the website showing in the first terminals console (https:.../).
 
 # to-do:
 
