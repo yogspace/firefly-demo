@@ -238,14 +238,13 @@ let pseudoFirefly = {
   isVisible: true,
   speed: 2, // Geschwindigkeit auf der x-Achse
   maxY: 0,
-  direction: 1,
 
   update() {
     if (this.y < this.maxY) {
-      this.x += this.speed * this.direction;
-      if (this.x > width || this.x < 0) {
+      this.x += this.speed;
+      if (this.x > width) {
+        this.x = 0;
         this.y++;
-        this.direction *= -1;
       }
     }
     if (this.y >= this.maxY) {
@@ -257,7 +256,7 @@ let pseudoFirefly = {
     if (this.isVisible) {
       fill(255);
       noStroke();
-      circle(this.x, this.y, 2); // Hier den gewünschten Durchmesser einstellen
+      circle(this.x, this.y, 10); // Hier den gewünschten Durchmesser einstellen
     }
   },
 };
