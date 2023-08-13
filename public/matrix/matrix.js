@@ -126,8 +126,8 @@ function setup() {
   fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
   fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
 
-  pseudoFirefly.x = width / 2;
-  pseudoFirefly.maxY = height / 2;
+  pseudoFirefly.x = sketchWidth / 2;
+  pseudoFirefly.maxY = sketchHeight / 2;
 }
 
 class Firefly {
