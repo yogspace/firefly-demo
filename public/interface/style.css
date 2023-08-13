@@ -12,8 +12,8 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  width: 800px; /* Anpassen an deine benötigte Größe */
-  height: 800px; /* Anpassen an deine benötigte Größe */
+  width: 700px; /* Anpassen an deine benötigte Größe */
+  height: 700px; /* Anpassen an deine benötigte Größe */
   /* pointer-events: all; */
   overflow: hidden;
   z-index: 0;
@@ -22,12 +22,13 @@ body {
 button {
   position: absolute;
   background-color: #fff;
-  width: 800px;
-  height: 800px;
+  width: 700px;
+  height: 700px;
   border-radius: 100%;
   z-index: 10;
   top: 0px;
   opacity: 10%;
+  border-style: none;
   /* top: 360px; */
 }
 #btn1 {
