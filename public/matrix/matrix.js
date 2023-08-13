@@ -259,7 +259,7 @@ let pseudoFirefly = {
     if (this.isVisible) {
       fill(255);
       noStroke();
-      circle(this.x, this.y, 1); // Hier den gewünschten Durchmesser einstellen
+      circle(this.x, this.y, 5); // Hier den gewünschten Durchmesser einstellen
     }
   },
 };
