@@ -252,6 +252,7 @@ let pseudoFirefly = {
     }
     if (this.y >= this.maxY) {
       this.x = min(this.x, this.maxX); // Punkt bei maxX stoppen
+      // this.isVisible = false;
     }
   },
 
