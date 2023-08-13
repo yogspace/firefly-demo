@@ -248,7 +248,7 @@ let pseudoFirefly = {
       if (this.x > width) {
         this.x = 0;
         this.y++;
-        // this.speed = map(this.y, 0, this.maxY, this.initialSpeed, 1); // Geschwindigkeit anpassen
+        this.speed = map(this.y, 0, this.maxY, this.initialSpeed, 1); // Geschwindigkeit anpassen
       }
     } else {
       if (this.x < this.maxX) {
