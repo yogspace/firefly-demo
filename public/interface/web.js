@@ -31,6 +31,7 @@ function setup() {
     startActive: false,
     allowEnd: false,
     endInitialized: false,
+    isInterrupting: false,
   };
 
   btn1 = document.getElementById('btn1');
@@ -140,7 +141,8 @@ function allowEnd() {
   if (
     config.allowEnd === true &&
     touches.length === 4 &&
-    config.endInitialized === false
+    config.endInitialized === false &&
+    config.isInterrupting === false
   ) {
     config.endInitialized = true;
     socket.emit('end', 'init');
@@ -158,6 +160,7 @@ function allowEnd() {
 }
 
 socket.on('interrupt', (data) => {
+  config.isInterrupting = true;
   console.log(data);
   switch (data) {
     case 'start':
@@ -166,6 +169,7 @@ socket.on('interrupt', (data) => {
         if (config.interruptScale > 0.5) {
           config.interruptScale = config.interruptScale - 0.01;
         } else {
+          config.isInterrupting = false;
           clearInterval(increaseInterruptSpeed);
         }
       }, 20);
@@ -177,6 +181,7 @@ socket.on('interrupt', (data) => {
           config.interruptScale = config.interruptScale - 0.01;
         } else {
           socket.emit('reset', '');
+          config.isInterrupting = false;
           clearInterval(endInterruptionSpeed);
         }
       }, 20);
@@ -187,6 +192,7 @@ socket.on('interrupt', (data) => {
         if (config.interruptScale < 1) {
           config.interruptScale = config.interruptScale + 0.01;
         } else {
+          config.isInterrupting = false;
           clearInterval(decreaseInterruptSpeed);
         }
       }, 20);
