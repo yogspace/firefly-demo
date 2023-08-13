@@ -125,6 +125,10 @@ function setup() {
   // fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
   // fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
   // fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
+
+  pseudoFirefly.x = sketchWidth / 2;
+  pseudoFirefly.maxY = sketchHeight / 2;
+  pseudoFirefly.maxX = sketchWidth / 2;
 }
 
 class Firefly {
@@ -230,13 +234,13 @@ class Firefly {
 }
 
 let pseudoFirefly = {
-  x: sketchWidth / 2,
+  x: 0,
   y: 0,
-  isVisible: true,
+  isVisible: false,
   speed: 4, // Geschwindigkeit auf der x-Achse
   initialSpeed: 4, // Anfangsgeschwindigkeit
-  maxX: sketchHeight / 2,
-  maxY: sketchWidth / 2,
+  maxX: 0,
+  maxY: 0,
 
   update() {
     if (this.isVisible)
@@ -257,6 +261,7 @@ let pseudoFirefly = {
           let f = new Firefly(this.x, this.y, mode);
           fireflies.push(f);
           this.isVisible = false;
+          socket.emit('end', 'end');
         }
       }
   },
@@ -560,7 +565,20 @@ socket.on('init', (data) => {
 });
 
 socket.on('end', (data) => {
-  setting === 'end';
+  setting = 'idle';
+  newDataReceivedDuringCountdown = false;
+  if (data === 'init') {
+    pseudoFirefly.x = sketchWidth / 2;
+    pseudoFirefly.y = 0;
+    pseudoFirefly.speed = pseudoFirefly.initialSpeed;
+    pseudoFirefly.isVisible = true;
+  }
+  if (data === 'end') {
+    newMode = { area: [], speed: 0.2 };
+    fireflies.forEach((firefly) => {
+      firefly.updateMode(newMode);
+    });
+  }
 });
 
 //UpdatePixels

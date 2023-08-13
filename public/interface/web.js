@@ -106,14 +106,14 @@ function btnReleased() {
 
 function checkTouchCount() {
   if (btn1Clicked && btn2Clicked) {
-    thirdFunction();
+    startInit();
     btn1.style.opacity = '1'; // Set opacity to 100% when touched
     btn2.style.opacity = '1'; // Set opacity to 100% when touched
     setting = 'active';
   }
 }
 
-function thirdFunction() {
+function startInit() {
   console.log(
     'Both buttons are touched simultaneously! Third function executed.'
   );
@@ -143,7 +143,7 @@ function allowEnd() {
     config.endInitialized === false
   ) {
     config.endInitialized = true;
-    socket.emit('end');
+    socket.emit('end', 'init');
     console.log('end everything');
     speed = 0.01;
     let endInterval = setInterval(() => {
@@ -213,4 +213,24 @@ socket.on('reset', (data) => {
   posY = 0;
   config.endInitialized = false;
   config.allowEnd = false;
+});
+
+socket.on('end', (data) => {
+  if (data === 'end') {
+    btn1.style.left = `600px`;
+    btn2.style.left = `-600px`;
+    btn1.style.opacity = `0.1`;
+    btn2.style.opacity = `0.1`;
+    setting = 'idle';
+    config.startActive = false;
+    config.scale = 0;
+    config.interruptScale = 1;
+    btn1Clicked = false;
+    btn2Clicked = false;
+    speed = 0.01;
+    posX = 0;
+    posY = 0;
+    config.endInitialized = false;
+    config.allowEnd = false;
+  }
 });
