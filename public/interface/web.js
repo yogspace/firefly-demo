@@ -27,6 +27,7 @@ function setup() {
     scale: 0,
     interruptScale: 1,
     startActive: false,
+    allowEnd: false,
   };
 
   btn1 = document.getElementById('btn1');
@@ -53,6 +54,7 @@ function draw() {
     speed
   );
   startActive();
+  allowEnd();
 }
 
 function btn1Touched() {
@@ -125,11 +127,19 @@ function startActive() {
       btn2.style.left = `${-600 + 600 * config.scale}px`;
       btn1.style.opacity = `${1 - config.scale}`;
       btn2.style.opacity = `${1 - config.scale}`;
-      // btn1.style.opacity = '0.1'; // Set opacity to 100% when touched
-      // btn2.style.opacity = '0.1'; // Set opacity to 100% when touched
+    } else {
+      config.allowEnd = true;
     }
   }
 }
+
+function allowEnd() {
+  if (config.allowEnd === true) {
+    console.log('ende');
+    console.log(touches.length);
+  }
+}
+
 socket.on('interrupt', (data) => {
   console.log(data);
   switch (data) {
@@ -142,7 +152,6 @@ socket.on('interrupt', (data) => {
           clearInterval(increaseInterruptSpeed);
         }
       }, 20);
-      // config.interruptScale = 0.5;
       break;
     case 'end':
       speed = 0.01;
@@ -184,4 +193,3 @@ socket.on('reset', (data) => {
   btn2Clicked = false;
   speed = 0.01;
 });
-
