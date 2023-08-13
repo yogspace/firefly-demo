@@ -243,25 +243,26 @@ let pseudoFirefly = {
   maxY: 0,
 
   update() {
-    if (this.y < this.maxY) {
-      this.x += this.speed;
-      if (this.x > width) {
-        this.x = 0;
-        this.y++;
-        this.speed = map(this.y, 0, this.maxY, this.initialSpeed, 1); // Geschwindigkeit anpassen
-      }
-    } else {
-      if (this.x < this.maxX) {
+    if (this.isVisible)
+      if (this.y < this.maxY) {
         this.x += this.speed;
+        if (this.x > width) {
+          this.x = 0;
+          this.y++;
+          this.speed = map(this.y, 0, this.maxY, this.initialSpeed, 1); // Geschwindigkeit anpassen
+        }
       } else {
-        this.y = this.maxY;
-        this.x = this.maxX;
-        this.speed = 0;
-        let f = new Firefly(this.x, this.y, mode);
-        fireflies.push(f);
-        this.isVisible = false;
+        if (this.x < this.maxX) {
+          this.x += this.speed;
+        } else {
+          this.y = this.maxY;
+          this.x = this.maxX;
+          this.speed = 0;
+          let f = new Firefly(this.x, this.y, mode);
+          fireflies.push(f);
+          this.isVisible = false;
+        }
       }
-    }
   },
 
   display() {
