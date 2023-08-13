@@ -109,7 +109,7 @@ function setup() {
     bgColorInterrupt: color(18, 8, 7),
     bgColorStillInterrupt: color(1, 1, 1),
     // fireflyColor: color(210, 180, 200, 40),
-    fireflyColor: color(240, 200, 210, 40),
+    fireflyColor: color(240, 200, 210, 100),
     fireflyColorHighlight: color(255, 255, 255, 255),
   };
   bgColor = config.bgColorIdle;
@@ -176,7 +176,7 @@ class Firefly {
     this.setTargetPosition();
   }
 
-  display() {
+  display(fireflyColor) {
     fill(fireflyColor);
     drawingContext.shadowBlur = 15;
     drawingContext.shadowColor = color(255, 255, 255, 40);
@@ -347,7 +347,7 @@ function createPixelMatrix() {
 
 function drawFireflies() {
   for (let i = 0; i < fireflies.length; i++) {
-    fireflies[i].display();
+    fireflies[i].display(fireflyColor);
     fireflies[i].move();
   }
 }
