@@ -126,8 +126,8 @@ function setup() {
   fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
   fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
 
-  pseudoFirefly = new PseudoFirefly();
   pseudoFirefly.x = width / 2;
+  pseudoFirefly.maxY = height / 2;
 }
 
 class Firefly {
@@ -232,111 +232,35 @@ class Firefly {
   }
 }
 
-class PseudoFirefly {
-  constructor() {
-    this.x = 0;
-    this.y = 0;
-    this.isVisible = true;
-    this.easingValue = 0;
-    this.targetY = 0;
-    this.easingIncrement = 0.005;
-    this.diameter = 2; // Hier den gewünschten Durchmesser einstellen
-  }
+let pseudoFirefly = {
+  x: 0,
+  y: 0,
+  isVisible: true,
+  speed: 2, // Geschwindigkeit auf der x-Achse
+  maxY: 0,
+  direction: 1,
 
-  move() {
-    this.x = map(this.easingValue, 0, 1, width / 2, width);
-    this.y = map(this.easingValue, 0, 1, 0, this.targetY);
-
-    this.easingValue += this.easingIncrement;
-    this.easingValue = constrain(this.easingValue, 0, 1);
-    if (this.easingValue === 1) {
-      this.targetY += 1;
-      if (this.targetY > height / 2) {
-        this.targetY = height / 2;
-        this.isVisible = false;
+  update() {
+    if (this.y < this.maxY) {
+      this.x += this.speed * this.direction;
+      if (this.x > width || this.x < 0) {
+        this.y++;
+        this.direction *= -1;
       }
-      this.easingValue = 0;
     }
-  }
+    if (this.y >= this.maxY) {
+      this.isVisible = false;
+    }
+  },
 
   display() {
     if (this.isVisible) {
       fill(255);
       noStroke();
-      circle(this.x, this.y, this.diameter);
+      circle(this.x, this.y, 10); // Hier den gewünschten Durchmesser einstellen
     }
-  }
-}
-
-let lastPixelMatrix = null;
-function getPixels() {
-  let pixels = [];
-
-  for (let posY = 0; posY < 16; posY++) {
-    for (let posX = 0; posX < 32; posX++) {
-      let r = get(posX, posY)[0];
-      let g = get(posX, posY)[1];
-      let b = get(posX, posY)[2];
-
-      let id = pixelMatrixTranslation[posY][posX];
-
-      if (lastPixelMatrix && hasColorChanged(posX, posY, r, g, b)) {
-        let pixel = {
-          id: id,
-          color: {
-            r: r,
-            g: g,
-            b: b,
-          },
-        };
-        pixels.push(pixel);
-      }
-    }
-  }
-
-  socket.emit('updatePixels', pixels);
-  lastPixelMatrix = createPixelMatrix(); // Aktualisiere das letzte Pixel-Array
-}
-
-function hasColorChanged(x, y, r, g, b) {
-  if (!lastPixelMatrix) {
-    return true;
-  }
-
-  const lastPixel = lastPixelMatrix[y][x];
-  return (
-    lastPixel.color.r !== r ||
-    lastPixel.color.g !== g ||
-    lastPixel.color.b !== b
-  );
-}
-
-function createPixelMatrix() {
-  let matrix = [];
-  for (let posY = 0; posY < 16; posY++) {
-    let row = [];
-    for (let posX = 0; posX < 32; posX++) {
-      let r = get(posX, posY)[0];
-      let g = get(posX, posY)[1];
-      let b = get(posX, posY)[2];
-
-      let id = pixelMatrixTranslation[posY][posX];
-
-      let pixel = {
-        id: id,
-        color: {
-          r: r,
-          g: g,
-          b: b,
-        },
-      };
-
-      row.push(pixel);
-    }
-    matrix.push(row);
-  }
-  return matrix;
-}
+  },
+};
 
 function drawFireflies() {
   for (let i = 0; i < fireflies.length; i++) {
@@ -349,7 +273,7 @@ function draw() {
   clear();
   background(bgColor);
   drawFireflies();
-  pseudoFirefly.move();
+  pseudoFirefly.update();
   pseudoFirefly.display();
 }
 
@@ -562,4 +486,3 @@ socket.on('end', (data) => {
 });
 
 //UpdatePixels
-const updatePixels = setInterval(getPixels, 10);
