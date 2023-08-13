@@ -517,5 +517,9 @@ socket.on('init', (data) => {
   }
 });
 
+socket.on('end', (data) => {
+  setting === 'end';
+});
+
 //UpdatePixels
 const updatePixels = setInterval(getPixels, 10);

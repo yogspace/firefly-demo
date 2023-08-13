@@ -130,6 +130,11 @@ ioExpress.on('connection', (socket) => {
     ioExpress.emit('init', data);
   });
 
+  socket.on('end', (data) => {
+    // console.log('got end data: ', data);
+    ioExpress.emit('end', data);
+  });
+
   socket.on('reset', (data) => {
     console.log('reset in 25s');
     let t = 0;

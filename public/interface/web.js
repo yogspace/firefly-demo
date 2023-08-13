@@ -10,6 +10,8 @@ let setting = 'idle';
 //wabern
 let phase = 1;
 let speed = 0.01;
+let posX = 0;
+let posY = 0;
 
 //speed = 0.01 = fast
 
@@ -45,8 +47,8 @@ function draw() {
   clear();
   background(config.bgColor);
   polygons(
-    0,
-    0,
+    posX,
+    posY,
     (config.interruptScale * config.scale * sketchHeight) / 250,
     color(255, 180, 30),
     color(255, 255, 255),
@@ -134,9 +136,17 @@ function startActive() {
 }
 
 function allowEnd() {
-  if (config.allowEnd === true) {
-    console.log('ende');
-    console.log(touches.length);
+  if (config.allowEnd === true && touches.length === 4) {
+    socket.emit('end');
+    speed = 0.01;
+    let endInterval = setInterval(() => {
+      if (config.interruptScale > 0.5) {
+        config.interruptScale = config.interruptScale - 0.01;
+        posY = posY + 1;
+      } else {
+        clearInterval(endInterval);
+      }
+    });
   }
 }
 
@@ -192,4 +202,6 @@ socket.on('reset', (data) => {
   btn1Clicked = false;
   btn2Clicked = false;
   speed = 0.01;
+  posX = 0;
+  posY = 0;
 });
