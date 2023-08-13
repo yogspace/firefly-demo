@@ -237,8 +237,8 @@ let pseudoFirefly = {
   x: 0,
   y: 0,
   isVisible: false,
-  speed: 4, // Geschwindigkeit auf der x-Achse
-  initialSpeed: 4, // Anfangsgeschwindigkeit
+  speed: 3, // Geschwindigkeit auf der x-Achse
+  initialSpeed: 3, // Anfangsgeschwindigkeit
   maxX: 0,
   maxY: 0,
 
