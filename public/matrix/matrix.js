@@ -243,16 +243,17 @@ let pseudoFirefly = {
 
   update() {
     if (this.y < this.maxY) {
-      if (this.x < width) {
-        this.x += this.speed;
-      } else if (this.x >= width) {
+      this.x += this.speed;
+      if (this.x > width) {
         this.x = 0;
         this.y++;
+        // this.speed = map(this.y, 0, this.maxY, this.initialSpeed, 1); // Geschwindigkeit anpassen
       }
     }
-    if (this.y >= this.maxY) {
-      this.x = min(this.x, this.maxX); // Punkt bei maxX stoppen
-      // this.isVisible = false;
+    if (this.y > this.maxY) {
+      this.y = this.maxY;
+      this.x = this.maxX;
+      // this.x = min(this.x, this.maxX); // Punkt bei maxX stoppen
     }
   },
 
@@ -260,7 +261,7 @@ let pseudoFirefly = {
     if (this.isVisible) {
       fill(255);
       noStroke();
-      circle(this.x, this.y, 5); // Hier den gewünschten Durchmesser einstellen
+      circle(this.x, this.y, 1); // Hier den gewünschten Durchmesser einstellen
     }
   },
 };
