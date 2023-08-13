@@ -22,8 +22,8 @@ body {
 button {
   position: absolute;
   background-color: #fff;
-  width: 700px;
-  height: 700px;
+  width: 720px;
+  height: 720px;
   border-radius: 100%;
   z-index: 10;
   top: 0px;
@@ -32,8 +32,8 @@ button {
   /* top: 360px; */
 }
 #btn1 {
-  left: 600px;
+  left: 700px;
 }
 #btn2 {
-  left: -600px;
+  left: -700px;
 }
