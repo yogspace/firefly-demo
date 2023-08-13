@@ -241,22 +241,33 @@ let pseudoFirefly = {
   initialSpeed: 5, // Anfangsgeschwindigkeit
   maxX: 0,
   maxY: 0,
+  hasReachedMaxY: false,
 
   update() {
-    if (this.y < this.maxY) {
-      if (this.x < this.maxX) {
-        this.x += this.speed;
-      } else if (this.x > this.maxX) {
-        this.x -= this.speed;
+    if (!this.hasReachedMaxY) {
+      if (this.y < this.maxY) {
+        if (this.x < this.maxX) {
+          this.x += this.speed;
+        } else if (this.x > this.maxX) {
+          this.x -= this.speed;
+        }
+
+        if (this.x === this.maxX) {
+          this.y++;
+          this.speed = map(this.y, 0, this.maxY, this.initialSpeed, 0.2); // Geschwindigkeit anpassen
+        }
       }
 
-      if (this.x === this.maxX) {
-        this.y++;
-        this.speed = map(this.y, 0, this.maxY, this.initialSpeed, 0.2); // Geschwindigkeit anpassen
+      if (this.y >= this.maxY) {
+        this.hasReachedMaxY = true;
       }
     }
 
-    if (this.y >= this.maxY) {
+    if (this.hasReachedMaxY && this.x < this.maxX) {
+      this.x += this.speed;
+    }
+
+    if (this.y >= this.maxY && this.x >= this.maxX) {
       this.isVisible = false;
     }
   },
