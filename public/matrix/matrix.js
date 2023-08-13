@@ -86,40 +86,6 @@ const num_pixels_y = 16;
 const scale = sketchWidth / num_pixels_x;
 // let speed = 1;
 
-let pseudoFirefly = {
-  x: 0,
-  y: 0,
-  isVisible: true,
-  easingValue: 0,
-  targetY: 0,
-  easingIncrement: 0.005,
-  diameter: 10, // Hier den gewünschten Durchmesser einstellen
-
-  move() {
-    this.x = map(this.easingValue, 0, 1, width / 2, width);
-    this.y = map(this.easingValue, 0, 1, 0, this.targetY);
-
-    this.easingValue += this.easingIncrement;
-    this.easingValue = constrain(this.easingValue, 0, 1);
-    if (this.easingValue === 1) {
-      this.targetY += 1;
-      if (this.targetY > height / 2) {
-        this.targetY = height / 2;
-        this.isVisible = false;
-      }
-      this.easingValue = 0;
-    }
-  },
-
-  display() {
-    if (this.isVisible) {
-      fill(255);
-      noStroke();
-      circle(this.x, this.y, this.diameter);
-    }
-  },
-};
-
 let mode = {
   area: [],
   speed: 0.2,
@@ -146,7 +112,6 @@ function setup() {
     fireflyColor: color(240, 200, 210, 40),
     fireflyColorHighlight: color(255, 255, 255, 255),
   };
-  pseudoFirefly.x = width / 2;
   bgColor = config.bgColorIdle;
   fireflyColor = config.fireflyColor;
 
@@ -160,6 +125,9 @@ function setup() {
   fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
   fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
   fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
+
+  pseudoFirefly = new PseudoFirefly();
+  pseudoFirefly.x = width / 2;
 }
 
 class Firefly {
@@ -260,6 +228,42 @@ class Firefly {
       this.x = -this.radius;
     } else if (this.x + this.radius < 0) {
       this.x = width + this.radius;
+    }
+  }
+}
+
+class PseudoFirefly {
+  constructor() {
+    this.x = 0;
+    this.y = 0;
+    this.isVisible = true;
+    this.easingValue = 0;
+    this.targetY = 0;
+    this.easingIncrement = 0.005;
+    this.diameter = 10; // Hier den gewünschten Durchmesser einstellen
+  }
+
+  move() {
+    this.x = map(this.easingValue, 0, 1, width / 2, width);
+    this.y = map(this.easingValue, 0, 1, 0, this.targetY);
+
+    this.easingValue += this.easingIncrement;
+    this.easingValue = constrain(this.easingValue, 0, 1);
+    if (this.easingValue === 1) {
+      this.targetY += 1;
+      if (this.targetY > height / 2) {
+        this.targetY = height / 2;
+        this.isVisible = false;
+      }
+      this.easingValue = 0;
+    }
+  }
+
+  display() {
+    if (this.isVisible) {
+      fill(255);
+      noStroke();
+      circle(this.x, this.y, this.diameter);
     }
   }
 }
