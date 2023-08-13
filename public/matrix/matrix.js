@@ -128,7 +128,7 @@ function setup() {
 
   pseudoFirefly.x = sketchWidth / 2;
   pseudoFirefly.maxY = sketchHeight / 3;
-  pseudoFirefly.maxX = width;
+  pseudoFirefly.maxX = width / 2;
 }
 
 class Firefly {
@@ -237,18 +237,18 @@ let pseudoFirefly = {
   x: 0,
   y: 0,
   isVisible: true,
-  speed: 5, // Geschwindigkeit auf der x-Achse
-  initialSpeed: 5, // Anfangsgeschwindigkeit
+  speed: 1, // Geschwindigkeit auf der x-Achse
+  initialSpeed: 1, // Anfangsgeschwindigkeit
   maxX: 0,
   maxY: 0,
 
   update() {
     if (this.y < this.maxY) {
-      this.x += this.speed;
-      if (this.x > width) {
+      if (this.x < width) {
+        this.x += this.speed;
+      } else if (this.x >= width) {
         this.x = 0;
         this.y++;
-        this.speed = map(this.y, 0, this.maxY, this.initialSpeed, 1); // Geschwindigkeit anpassen
       }
     }
     if (this.y >= this.maxY) {
@@ -260,7 +260,7 @@ let pseudoFirefly = {
     if (this.isVisible) {
       fill(255);
       noStroke();
-      circle(this.x, this.y, 4); // Hier den gewünschten Durchmesser einstellen
+      circle(this.x, this.y, 1); // Hier den gewünschten Durchmesser einstellen
     }
   },
 };
