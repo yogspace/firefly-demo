@@ -128,7 +128,7 @@ function setup() {
 
   pseudoFirefly.x = sketchWidth / 2;
   pseudoFirefly.maxY = sketchHeight / 3;
-  pseudoFirefly.maxX = width;
+  pseudoFirefly.maxX = sketchWidth / 2;
 }
 
 class Firefly {
@@ -237,7 +237,7 @@ let pseudoFirefly = {
   x: 0,
   y: 0,
   isVisible: true,
-  speed: 4, // Geschwindigkeit auf der x-Achse
+  speed: 5, // Geschwindigkeit auf der x-Achse
   maxX: 0,
   maxY: 0,
 
