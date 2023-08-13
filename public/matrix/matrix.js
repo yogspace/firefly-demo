@@ -115,16 +115,16 @@ function setup() {
   bgColor = config.bgColorIdle;
   fireflyColor = config.fireflyColor;
 
-  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
-  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
-  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
-  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
-  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
-  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
-  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
-  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
-  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
-  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
+  // fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
+  // fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
+  // fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
+  // fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
+  // fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
+  // fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
+  // fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
+  // fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
+  // fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
+  // fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
 
   pseudoFirefly.x = sketchWidth / 2;
   pseudoFirefly.maxY = sketchHeight / 2;
@@ -257,6 +257,9 @@ let pseudoFirefly = {
         this.y = this.maxY;
         this.x = this.maxX;
         this.speed = 0;
+        let f = new Firefly(this.x, this.y, mode);
+        fireflies.push(f);
+        this.isVisible = false;
       }
     }
   },
@@ -265,7 +268,7 @@ let pseudoFirefly = {
     if (this.isVisible) {
       fill(255);
       noStroke();
-      circle(this.x, this.y, 3); // Hier den gewünschten Durchmesser einstellen
+      circle(this.x, this.y, 2); // Hier den gewünschten Durchmesser einstellen
     }
   },
 };
