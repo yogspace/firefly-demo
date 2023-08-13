@@ -10,7 +10,7 @@
    (the server and everything will start automatically)
 
 5. start chromium in kiosk by type the following (without doubble quotes) in a new terminal:
-   "/usr/bin/chromium-browser --disable-session-crashed-bubble --disable-infobars --kiosk --no-first-run --incognito --disable-pinch --overcroll-history-navigation=0 --force-device-scale-factor=2.0 'https://localhost:3001/interface'"
+   "/usr/bin/chromium-browser --disable-session-crashed-bubble --disable-infobars --kiosk --no-first-run --incognito --disable-pinch --overcroll-history-navigation=0 'https://localhost:3001/interface'"
 
    you can leave this kiosk by clicking strg and f4.
 
