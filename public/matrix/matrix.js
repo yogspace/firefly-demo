@@ -240,7 +240,7 @@ class PseudoFirefly {
     this.easingValue = 0;
     this.targetY = 0;
     this.easingIncrement = 0.005;
-    this.diameter = 10; // Hier den gewünschten Durchmesser einstellen
+    this.diameter = 2; // Hier den gewünschten Durchmesser einstellen
   }
 
   move() {
