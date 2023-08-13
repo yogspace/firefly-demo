@@ -237,6 +237,7 @@ let pseudoFirefly = {
   y: 0,
   isVisible: true,
   speed: 5, // Geschwindigkeit auf der x-Achse
+  initialSpeed: 5, // Anfangsgeschwindigkeit
   maxY: 0,
 
   update() {
@@ -245,10 +246,11 @@ let pseudoFirefly = {
       if (this.x > width) {
         this.x = 0;
         this.y++;
+        this.speed = map(this.y, 0, this.maxY, this.initialSpeed, 0.2); // Geschwindigkeit anpassen
       }
     }
     if (this.y >= this.maxY) {
-      this.isVisible = false;
+      // this.isVisible = false;
     }
   },
 
