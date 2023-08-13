@@ -264,8 +264,8 @@ let pseudoFirefly = {
 
 function drawFireflies() {
   for (let i = 0; i < fireflies.length; i++) {
-    fireflies[i].display();
-    fireflies[i].move();
+    pseudoFirefly.update();
+    pseudoFirefly.display();
   }
 }
 
