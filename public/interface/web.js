@@ -30,6 +30,7 @@ function setup() {
     interruptScale: 1,
     startActive: false,
     allowEnd: false,
+    endInitialized: false,
   };
 
   btn1 = document.getElementById('btn1');
@@ -136,13 +137,19 @@ function startActive() {
 }
 
 function allowEnd() {
-  if (config.allowEnd === true && touches.length === 4) {
+  if (
+    config.allowEnd === true &&
+    touches.length === 4 &&
+    config.endInitialized === false
+  ) {
+    config.endInitialized = true;
     socket.emit('end');
+    console.log('end everything');
     speed = 0.01;
     let endInterval = setInterval(() => {
       if (config.interruptScale > 0.5) {
         config.interruptScale = config.interruptScale - 0.01;
-        posY = posY + 1;
+        posY = posY + 10;
       } else {
         clearInterval(endInterval);
       }
