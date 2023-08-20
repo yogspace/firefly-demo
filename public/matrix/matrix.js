@@ -115,11 +115,11 @@ function setup() {
   bgColor = config.bgColorIdle;
   fireflyColor = config.fireflyColor;
 
-  // fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
-  // fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
-  // fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
-  // fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
-  // fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
+  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
+  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
+  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
+  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
+  fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
   // fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
   // fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
   // fireflies.push(new Firefly(sketchWidth / 2, sketchHeight / 2, mode));
