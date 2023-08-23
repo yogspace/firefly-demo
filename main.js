@@ -150,7 +150,7 @@ ioExpress.on('connection', (socket) => {
   });
 
   socket.on('interrupt', (data) => {
-    console.log('got interrupt data: ', data);
+    // console.log('got interrupt data: ', data);
     ioExpress.emit('interrupt', data);
   });
 });
