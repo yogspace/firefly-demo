@@ -180,7 +180,8 @@ socket.on('interrupt', (data) => {
         if (config.interruptScale > 0) {
           config.interruptScale = config.interruptScale - 0.01;
         } else {
-          waitForIdleOrReset();
+          socket.emit('reset', '');
+          config.isInterrupting = false;
           clearInterval(endInterruptionSpeed);
         }
       }, 20);
@@ -201,32 +202,13 @@ socket.on('interrupt', (data) => {
   }
 });
 
-function waitForIdleOrReset() {
-  config.isInterrupting = false;
-
+socket.on('reset', (data) => {
+  console.log('resetted all');
   btn1.style.left = `600px`;
   btn2.style.left = `-600px`;
   btn1.style.opacity = `0.1`;
   btn2.style.opacity = `0.1`;
   setting = 'idle';
-
-  let timer = 0;
-  const waitIdleInterval = setInterval(() => {
-    console.log(timer);
-    if (timer > 30) {
-      clearInterval(waitIdleInterval);
-      socket.emit('reset', '');
-    } else {
-      if (timer > 5 && setting === 'active') {
-        clearInterval(waitIdleInterval);
-        socket.emit('reset', '');
-      }
-    }
-    timer++;
-  }, 1000);
-}
-
-socket.on('reset', (data) => {
   config.startActive = false;
   config.scale = 0;
   config.interruptScale = 1;
@@ -237,22 +219,6 @@ socket.on('reset', (data) => {
   posY = 0;
   config.endInitialized = false;
   config.allowEnd = false;
-  // console.log('resetted all');
-  // btn1.style.left = `600px`;
-  // btn2.style.left = `-600px`;
-  // btn1.style.opacity = `0.1`;
-  // btn2.style.opacity = `0.1`;
-  // setting = 'idle';
-  // config.startActive = false;
-  // config.scale = 0;
-  // config.interruptScale = 1;
-  // btn1Clicked = false;
-  // btn2Clicked = false;
-  // speed = 0.01;
-  // posX = 0;
-  // posY = 0;
-  // config.endInitialized = false;
-  // config.allowEnd = false;
 });
 
 socket.on('end', (data) => {

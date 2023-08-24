@@ -136,18 +136,17 @@ ioExpress.on('connection', (socket) => {
   });
 
   socket.on('reset', (data) => {
-    // console.log('reset in 25s');
-    console.log('reset now');
-    // let t = 0;
-    // let resetInterval = setInterval(() => {
-    //   console.log(t);
-    //   if (t === 25) {
-    // clearInterval(resetInterval);
-    // console.log('reset now');
-    ioExpress.emit('reset', data);
-    // }
-    // t++;
-    // }, 1000);
+    console.log('reset in 25s');
+    let t = 0;
+    let resetInterval = setInterval(() => {
+      console.log(t);
+      if (t === 25) {
+        clearInterval(resetInterval);
+        console.log('reset now');
+        ioExpress.emit('reset', data);
+      }
+      t++;
+    }, 1000);
   });
 
   socket.on('interrupt', (data) => {
