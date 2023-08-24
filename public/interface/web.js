@@ -214,11 +214,11 @@ function waitForIdleOrReset() {
   const waitIdleInterval = setInterval(() => {
     console.log(timer);
     if (timer > 30) {
-      clearInterval(waitForIdleOrReset);
+      clearInterval(waitIdleInterval);
       socket.emit('reset', '');
     } else {
       if (timer > 5 && setting === 'active') {
-        clearInterval(waitForIdleOrReset);
+        clearInterval(waitIdleInterval);
         socket.emit('reset', '');
       }
     }
