@@ -180,9 +180,7 @@ socket.on('interrupt', (data) => {
         if (config.interruptScale > 0) {
           config.interruptScale = config.interruptScale - 0.01;
         } else {
-          socket.emit('reset', '');
-          config.isInterrupting = false;
-          clearInterval(endInterruptionSpeed);
+          waitForIdleOrReset();
         }
       }, 20);
       break;
@@ -202,8 +200,10 @@ socket.on('interrupt', (data) => {
   }
 });
 
-socket.on('reset', (data) => {
-  console.log('resetted all');
+function waitForIdleOrReset() {
+  config.isInterrupting = false;
+  clearInterval(endInterruptionSpeed);
+
   btn1.style.left = `600px`;
   btn2.style.left = `-600px`;
   btn1.style.opacity = `0.1`;
@@ -219,6 +219,39 @@ socket.on('reset', (data) => {
   posY = 0;
   config.endInitialized = false;
   config.allowEnd = false;
+
+  let timer = 0;
+  const waitIdleInterval = setInterval(() => {
+    if (timer > 30) {
+      clearInterval(waitForIdleOrReset);
+      socket.emit('reset', '');
+    } else {
+      if (setting === 'active') {
+        clearInterval(waitForIdleOrReset);
+        socket.emit('reset', '');
+      }
+    }
+    timer++;
+  }, 1000);
+}
+
+socket.on('reset', (data) => {
+  // console.log('resetted all');
+  // btn1.style.left = `600px`;
+  // btn2.style.left = `-600px`;
+  // btn1.style.opacity = `0.1`;
+  // btn2.style.opacity = `0.1`;
+  // setting = 'idle';
+  // config.startActive = false;
+  // config.scale = 0;
+  // config.interruptScale = 1;
+  // btn1Clicked = false;
+  // btn2Clicked = false;
+  // speed = 0.01;
+  // posX = 0;
+  // posY = 0;
+  // config.endInitialized = false;
+  // config.allowEnd = false;
 });
 
 socket.on('end', (data) => {
