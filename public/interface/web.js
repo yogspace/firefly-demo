@@ -180,9 +180,9 @@ socket.on('interrupt', (data) => {
         if (config.interruptScale > 0) {
           config.interruptScale = config.interruptScale - 0.01;
         } else {
-          checkOutIfReactivate();
-          // config.isInterrupting = false;
-          // clearInterval(endInterruptionSpeed);
+          socket.emit('reset', '');
+          config.isInterrupting = false;
+          clearInterval(endInterruptionSpeed);
         }
       }, 20);
       break;
@@ -201,41 +201,6 @@ socket.on('interrupt', (data) => {
       break;
   }
 });
-
-function checkOutIfReactivate() {
-  config.isInterrupting = false;
-  clearInterval(endInterruptionSpeed);
-
-  btn1.style.left = `600px`;
-  btn2.style.left = `-600px`;
-  btn1.style.opacity = `0.1`;
-  btn2.style.opacity = `0.1`;
-  setting = 'idle';
-  config.startActive = false;
-  config.scale = 0;
-  config.interruptScale = 1;
-  btn1Clicked = false;
-  btn2Clicked = false;
-  speed = 0.01;
-  posX = 0;
-  posY = 0;
-  config.endInitialized = false;
-  config.allowEnd = false;
-
-  let t = 0;
-  let resetInterval = setInterval(() => {
-    if (t === 25) {
-      clearInterval(resetInterval);
-      socket.emit('reset', '');
-    } else {
-      if (setting === 'active') {
-        clearInterval(resetInterval);
-        socket.emit('reset', '');
-      }
-    }
-    t++;
-  }, 1000);
-}
 
 socket.on('reset', (data) => {
   console.log('resetted all');
