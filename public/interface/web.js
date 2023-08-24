@@ -209,6 +209,24 @@ function waitForIdleOrReset() {
   btn1.style.opacity = `0.1`;
   btn2.style.opacity = `0.1`;
   setting = 'idle';
+
+  let timer = 0;
+  const waitIdleInterval = setInterval(() => {
+    console.log(timer);
+    if (timer > 30) {
+      clearInterval(waitForIdleOrReset);
+      socket.emit('reset', '');
+    } else {
+      if (timer > 5 && setting === 'active') {
+        clearInterval(waitForIdleOrReset);
+        socket.emit('reset', '');
+      }
+    }
+    timer++;
+  }, 1000);
+}
+
+socket.on('reset', (data) => {
   config.startActive = false;
   config.scale = 0;
   config.interruptScale = 1;
@@ -219,23 +237,6 @@ function waitForIdleOrReset() {
   posY = 0;
   config.endInitialized = false;
   config.allowEnd = false;
-
-  let timer = 0;
-  const waitIdleInterval = setInterval(() => {
-    if (timer > 30) {
-      clearInterval(waitForIdleOrReset);
-      socket.emit('reset', '');
-    } else {
-      if (setting === 'active') {
-        clearInterval(waitForIdleOrReset);
-        socket.emit('reset', '');
-      }
-    }
-    timer++;
-  }, 1000);
-}
-
-socket.on('reset', (data) => {
   // console.log('resetted all');
   // btn1.style.left = `600px`;
   // btn2.style.left = `-600px`;
