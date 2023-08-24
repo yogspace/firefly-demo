@@ -142,7 +142,7 @@ ioExpress.on('connection', (socket) => {
     // let resetInterval = setInterval(() => {
     //   console.log(t);
     //   if (t === 25) {
-    clearInterval(resetInterval);
+    // clearInterval(resetInterval);
     // console.log('reset now');
     ioExpress.emit('reset', data);
     // }
