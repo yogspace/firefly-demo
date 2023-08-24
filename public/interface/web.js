@@ -181,6 +181,7 @@ socket.on('interrupt', (data) => {
           config.interruptScale = config.interruptScale - 0.01;
         } else {
           waitForIdleOrReset();
+          clearInterval(endInterruptionSpeed);
         }
       }, 20);
       break;
@@ -202,7 +203,6 @@ socket.on('interrupt', (data) => {
 
 function waitForIdleOrReset() {
   config.isInterrupting = false;
-  clearInterval(endInterruptionSpeed);
 
   btn1.style.left = `600px`;
   btn2.style.left = `-600px`;
